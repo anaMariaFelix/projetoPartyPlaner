@@ -63,8 +63,6 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 		return lbTitulo;
 	}
 
-
-
 	public JButton getBotaoSalvar() {
 		return botaoSalvar;
 	}
