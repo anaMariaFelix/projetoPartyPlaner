@@ -4,7 +4,6 @@ public class Administrador extends Pessoa{
 	
 	private String senha;
 
-	
 	public Administrador(String nome,String sobrenome,String email, String senha) {
 		super(nome, sobrenome,null,email);
 		this.senha = senha;
