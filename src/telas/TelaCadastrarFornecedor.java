@@ -14,6 +14,7 @@ import com.itextpdf.text.Font;
 import baseDedados.CentralDeInformacoes;
 import controller.ClienteController;
 import controller.FornecedorController;
+import controller.ServicoController;
 import model.ClienteFisico;
 import model.ClienteJuridico;
 import model.FornecedorFisico;
@@ -160,7 +161,7 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == botaoServicos) {
-				Object[] servicos = CentralDeInformacoes.getInstance().getTodosServicos().toArray();
+				Object[] servicos = ServicoController.getInstance().pegaServicos().toArray();
 				String servicoEscolhido = (String) JOptionPane.showInputDialog(janela, "Escolha um servico por vez",
 						"Servicos", JOptionPane.QUESTION_MESSAGE, null, servicos, servicos[0]);
 				if(servicoEscolhido != null) {

@@ -120,7 +120,7 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 
 	}
 	
-	private class ouvinteBotaoVoltar implements ActionListener{
+	private class OuvinteBotaoVoltar implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -220,7 +220,7 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 	private void adicionarJButton() {
 
 		
-		ouvinteBotaoVoltar ouvinteVoltar = new ouvinteBotaoVoltar();
+		OuvinteBotaoVoltar ouvinteVoltar = new OuvinteBotaoVoltar();
 		botaoVoltar = ComponentesDeJFrame.criarBotao("Voltar",280, 500, 100, 30);
 		botaoVoltar.addActionListener(ouvinteVoltar);
 		add(botaoVoltar);
