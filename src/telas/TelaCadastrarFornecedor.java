@@ -105,7 +105,7 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 						fornecedor = new FornecedorFisico(nome, null, telefone, cpf, email,
 								janela.getListaDeServicos());
 						listaDeServicos = new ArrayList<String>();
-						if (FornecedorController.adicionarFornecedor(fornecedor)) {
+						if (FornecedorController.getInstance().adicionarFornecedor(fornecedor)) {
 							JOptionPane.showMessageDialog(janela, "Fornecedor cadastrado com sucesso!");
 							janela.dispose();
 							TelaMenu telaMenu = new TelaMenu("Tela de Menu");
@@ -135,7 +135,7 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 						fornecedor = new FornecedorJuridico(nome, null, telefone, cnpj, email,janela.getListaDeServicos());
 						listaDeServicos = new ArrayList<String>();
 						
-						if (FornecedorController.adicionarFornecedor(fornecedor)) {
+						if (FornecedorController.getInstance().adicionarFornecedor(fornecedor)) {
 							JOptionPane.showMessageDialog(janela, "Fornecedor cadastrado com sucesso!");
 							janela.dispose();
 							TelaMenu telaMenu = new TelaMenu("Tela de Menu");

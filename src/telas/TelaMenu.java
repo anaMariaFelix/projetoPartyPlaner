@@ -120,7 +120,7 @@ public class TelaMenu extends JanelaPadrao{
 		
 			}else if(e.getSource() == botaoCadastrarFornecedor) {
 				dispose();
-				new TelaCadastrarFornecedor("Cadastar Fornecedor");
+				new TelaCadastrarFornecedor("Cadastrar Fornecedor");
 				
 			}else if(e.getSource() == botaoServicos) {
 				dispose();

@@ -1,35 +1,42 @@
 package telas;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import baseDedados.CentralDeInformacoes;
 import controller.FornecedorController;
-import controller.ServicoController;
 import model.FornecedorFisico;
 import model.FornecedorJuridico;
+import model.Pessoa;
 import util.ComponentesDeJFrame;
 
 public class TelaListaFornecedor extends JanelaPadrao {
 
 	private JTable tabela;
 	private JButton voltar;
-	private JButton filtrar;
-	private JButton detalhar;
-
+	private JButton novo;
+	private DefaultTableModel modelo;
+	private JRadioButton jrFisico;
+	private JRadioButton jrJuridico;
+	private JRadioButton jrTodos;
 
 	public TelaListaFornecedor(String titulo) {
 		super(titulo);
 		adicionaTituloJlabel();
 		adicionarTabelaFornecedores();
 		adicionarJButon();
+		adicionarRadioButton();
 		setVisible(true);
 
 	}
@@ -40,12 +47,9 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		return voltar;
 	}
 
-	public JButton getFiltrar() {
-		return filtrar;
-	}
 
 	public JButton getDetalhar() {
-		return detalhar;
+		return novo;
 	}
 
 	public JTable getTabela() {
@@ -58,60 +62,105 @@ public class TelaListaFornecedor extends JanelaPadrao {
 	}
 
 	private void adicionarTabelaFornecedores() {
-		DefaultTableModel modelo = new DefaultTableModel();
+		modelo = new DefaultTableModel();
 		modelo.addColumn("Nome");// adiciona colunas
-		modelo.addColumn("Fisico/Juritico");
+		modelo.addColumn("Fisico/Juridico");
 		modelo.addColumn("Quantidade de contratos");
-		
-		
-		Object[] todosOsFornecedores =  CentralDeInformacoes.getInstance().getTodosOsFornecedores().toArray();
+		modelo.addColumn("Opções");
 
-		for (Object t : todosOsFornecedores) {
-			Object[] linha = new Object[3];
-			
-			if(t instanceof FornecedorFisico) {
-				FornecedorFisico ff = (FornecedorFisico) t;
-				linha[0] = ff.getNome();
-				linha[1] = "Fisico";
-				linha[2] = ff.getQuantContratosFisico();
-			}else {
-				FornecedorJuridico fj = (FornecedorJuridico) t;
-				linha[0] = fj.getNome();
-				linha[1] = "Jurico";
-				linha[2] = fj.getQuantContratosJuridico();
-			}
-			
-			modelo.addRow(linha);// adiciona alinha
+		Object[] todosOsFornecedores = FornecedorController.getInstance().obterTodosOsFornecedores().toArray();
 
-		}
 		tabela = new JTable(modelo);
 		JScrollPane painelTabela = new JScrollPane(tabela);// esse JScrollPane serve para criar uma barra de rolagem na
 															// tabela, mas se n quiser so n usar ele e no lugar que tem
 															// a sua variavel de controle coloca a da tabela
-		painelTabela.setBounds(30, 90, 730, 350);
+		painelTabela.setBounds(30, 135, 730, 350);
 		add(painelTabela);
+		preencherTabela(todosOsFornecedores);
 	}
+
+	public void preencherTabela(Object[] fornecedores) {
+		limparTabela();
+		for (Object t : fornecedores) {
+			Object[] linha = new Object[4];
+
+			if (t instanceof FornecedorFisico) {
+				FornecedorFisico ff = (FornecedorFisico) t;
+				linha[0] = ff.getNome();
+				linha[1] = "Fisico";
+				linha[2] = ff.getQuantContratosFisico();
 	
+			} else {
+				FornecedorJuridico fj = (FornecedorJuridico) t;
+				linha[0] = fj.getNome();
+				linha[1] = "Juridico";
+				linha[2] = fj.getQuantContratosJuridico();
+			}
+			linha[3] = new JButton("Editar");
+
+			modelo.addRow(linha);// adiciona alinha
+
+		}
+
+	}
+
+	public void limparTabela() {
+		int cont = modelo.getRowCount();
+		for (int i = 0; i < cont; i++) {
+			modelo.removeRow(0);
+		}
+		tabela.repaint();
+	}
+
+	private void adicionarRadioButton() {
+
+		OuvinteRadioButton ouvinteRadioButton = new OuvinteRadioButton(this);
+		jrFisico = ComponentesDeJFrame.criarRadioButtons("Fisico", false, 30, 105, 80, 30, 15);
+		jrFisico.setFont(new Font("Arial", Font.ITALIC, 15));
+		jrFisico.addActionListener(ouvinteRadioButton);
+		add(jrFisico);
+
+		jrJuridico = ComponentesDeJFrame.criarRadioButtons("Juridico", false, 135, 105, 80, 30, 15);
+		jrJuridico.setFont(new Font("Arial", Font.ITALIC, 15));
+		jrJuridico.addActionListener(ouvinteRadioButton);
+		add(jrJuridico);
+
+		jrTodos = ComponentesDeJFrame.criarRadioButtons("Todos", true, 245, 105, 80, 30, 15);
+		jrTodos.setFont(new Font("Arial", Font.ITALIC, 15));
+		jrTodos.addActionListener(ouvinteRadioButton);
+		add(jrTodos);
+
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(jrTodos);
+		bg.add(jrJuridico);
+		bg.add(jrFisico);
+
+	}
+
 	public void adicionarJButon() {
 		OuvinteBotaoVoltar ouvinteBotaoVoltar = new OuvinteBotaoVoltar();
-		voltar = ComponentesDeJFrame.criarBotao("Voltar", 180, 460, 125, 50);
+		voltar = ComponentesDeJFrame.criarBotao("Voltar", 636, 490, 125, 35);
 		voltar.addActionListener(ouvinteBotaoVoltar);
 		add(voltar);
 
 		
-		OuvinteBotaoFiltrar ouvinteBotaoFiltrar = new OuvinteBotaoFiltrar(this);
-		filtrar = ComponentesDeJFrame.criarBotao("Filtrar", 330, 460, 125, 50);
-		filtrar.addActionListener(ouvinteBotaoFiltrar);
-		add(filtrar);
+		novo = ComponentesDeJFrame.criarBotao("Novo", 636, 94, 125, 35);
+		
+		novo.addActionListener(new ActionListener() {
+			
+			
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new TelaCadastrarFornecedor("Cadastrar Fornecedor");
+			}
+		});
+		add(novo);
 		
 		
-		//OuvinteBotaoJbRemove ouvinteBotaoJbRemove = new OuvinteBotaoJbRemove(this);
-		detalhar = ComponentesDeJFrame.criarBotao("Detalhar", 480, 460, 125, 50);
-		//detalhar.addActionListener(ouvinteBotaoJbRemove);
-		add(detalhar);
 		
+
 	}
-	
+
 	private class OuvinteBotaoVoltar implements ActionListener {
 
 		@Override
@@ -123,49 +172,28 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		}
 
 	}
-	
-	private class OuvinteBotaoFiltrar implements ActionListener{
+
+	private class OuvinteRadioButton implements ActionListener {
 		private TelaListaFornecedor janela;
-		private JScrollPane tabela;
-		
-		public OuvinteBotaoFiltrar(TelaListaFornecedor janela) {
+		private JScrollPane tabelaFiltrada;
+
+		public OuvinteRadioButton(TelaListaFornecedor janela) {
 			this.janela = janela;
 		}
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			String tipoEscolhido = JOptionPane.showInputDialog(janela ,"Informe o tipo de fornecedor\n-Fisico   -Juridico");
-			
-			if(tipoEscolhido != null) {
-				if(tipoEscolhido.equalsIgnoreCase("Fisico") || tipoEscolhido.equalsIgnoreCase("Juridico")) {
-					tabela = FornecedorController.getInstance().filtrarFornecedores(tipoEscolhido);
-					tabela.setBounds(30, 90, 730, 350);
-					add(tabela);
-					janela.repaint();
-				}
+
+			if (jrTodos.isSelected()) {
+				preencherTabela(FornecedorController.getInstance().obterTodosOsFornecedores().toArray());
+			}else if(jrFisico.isSelected()) {
+				preencherTabela(FornecedorController.getInstance().filtrarPorTipo("Fisico").toArray());
+			}else {
+				preencherTabela(FornecedorController.getInstance().filtrarPorTipo("Juridico").toArray());
 			}
-		
-			
+
 		}
-		
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }
