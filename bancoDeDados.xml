@@ -21,12 +21,22 @@
       </servicos>
       <quantContratosJuridico>0</quantContratosJuridico>
     </model.FornecedorJuridico>
+    <model.FornecedorFisico>
+      <nome>Ana Maria Da Silva  ribeiro</nome>
+      <telefone>99999999999</telefone>
+      <email>2@1235</email>
+      <cpf>71308976437</cpf>
+      <servicos>
+        <string>Andrsy</string>
+      </servicos>
+      <quantContratosFisico>0</quantContratosFisico>
+    </model.FornecedorFisico>
   </todosOsFornecedores>
   <todosEvento/>
   <todosServicos>
     <string>Ornamentação</string>
-    <string>Recepção</string>
-    <string>Segurança</string>
+    <string>Andrsy</string>
+    <string>Seguranca</string>
     <string>Buffet</string>
     <string>musica</string>
     <string>Serviço gerais</string>

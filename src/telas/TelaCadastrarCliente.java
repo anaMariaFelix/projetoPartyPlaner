@@ -45,6 +45,7 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 	private JRadioButton pessoaJuridica;
 	private JButton botaoSalvar;
 	private JButton botaoVoltar;
+	private JLabel cpfCnpj;
 	protected OuvinteBotaoSalvar ouvinteSalvar;
 	
 
@@ -57,8 +58,15 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 		adicionarJButton();
 		setVisible(true);
 	}
-
 	
+	
+	
+	public JLabel getCpfCnpj() {
+		return cpfCnpj;
+	}
+
+
+
 	public JLabel getLbTitulo() {
 		return lbTitulo;
 	}
@@ -117,6 +125,11 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 
 		JLabel jlEmail = ComponentesDeJFrame.criaJLabel("Email",280, 320, 130, 30,20);
 		add(jlEmail);
+		
+		
+		cpfCnpj = ComponentesDeJFrame.criaJLabel("CPF/CNPJ", 280, 415, 225, 30, 15);
+		cpfCnpj.setFont(new Font("Arial", Font.ITALIC, 15));
+		add(cpfCnpj);
 
 	}
 	
@@ -235,31 +248,23 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 
 	private class OuvinteDoNome implements KeyListener {
 
-		// esse metodo é chamado quando componente que o objeto tiver ouvindo dentro
-		// dele o botao dentro do campo
-		@Override
 		public void keyPressed(KeyEvent e) {
 			char c = e.getKeyChar();
 			if (!Character.isLetter(c) && c != ' ') {
-				// e.consume();//ignora a letra digitada
+				
 			}
 		}
 
-		// é chamado quando o botao que esta sento apertado for soltado
 		public void keyReleased(KeyEvent e) {
 
 		}
 
-		// chamado quando o botao ja foi apertado e soltado, quando as coisas sao
-		// digitadas
+		
 		public void keyTyped(KeyEvent e) {
-			char c = e.getKeyChar(); // retorna o caracter da tecla que foi precionada
+			char c = e.getKeyChar();
 
-			if (!Character.isLetter(c) && c != ' ') {// Character.isLetter verifica se oq foi digitado é uma letra
-				e.consume();// ignora a letra digitada
-				// esse if é para que so seja posivel digitar letras dentro do campo
-				// se o usuario digitar qualquer coisa que n seja letra ele n é aceito e nem
-				// visivel no campo
+			if (!Character.isLetter(c) && c != ' ') {
+				e.consume();
 			}
 		}
 	}
@@ -274,10 +279,10 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 			MaskFormatter mascaraDeData = new MaskFormatter("(##)#####-####");
 			campoTelefone = new JFormattedTextField(mascaraDeData);
 			campoTelefone.setBounds(280, 280, 225, 30);
-			// campoTelefone.addKeyListener(ouvinte);
+			
 			add(campoTelefone);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
@@ -297,11 +302,11 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 		add(pessoaFisica);
 		add(pessoaJuridica);
 
-		ButtonGroup bg = new ButtonGroup();// nao deixa marca os dois raidios button ao msm tempo apenas um deles
+		ButtonGroup bg = new ButtonGroup();
 		bg.add(pessoaFisica);
 		bg.add(pessoaJuridica);
 
-		pessoaFisica.doClick();// o focu começa no fisico e esse doclick ja deixa o campo visivel
+		pessoaFisica.doClick();
 	}
 
 	private class ouvinteRadioButton implements ActionListener {
@@ -311,10 +316,6 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 			MaskFormatter mascaraDeCPF;
 			MaskFormatter mascaraDeCNPJ;
 
-			JLabel cpf = new JLabel("CPF/CNPJ");
-			cpf.setBounds(280, 415, 225, 30);
-			cpf.setFont(new Font("Arial", Font.ITALIC, 15));
-			add(cpf);
 			try {
 				if (pessoaFisica.isSelected()) {
 					if (campoCNPJ != null) {

@@ -30,6 +30,7 @@ public class TelaListaFornecedor extends JanelaPadrao {
 	private JRadioButton jrFisico;
 	private JRadioButton jrJuridico;
 	private JRadioButton jrTodos;
+	private JButton editar;
 
 	public TelaListaFornecedor(String titulo) {
 		super(titulo);
@@ -142,7 +143,13 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		voltar = ComponentesDeJFrame.criarBotao("Voltar", 636, 490, 125, 35);
 		voltar.addActionListener(ouvinteBotaoVoltar);
 		add(voltar);
-
+		
+		OuvinteButtonEditar ouvinteButtonEditar = new OuvinteButtonEditar(this);
+		editar = ComponentesDeJFrame.criarBotao("Editar", 300, 490, 125, 35);
+		editar.addActionListener(ouvinteButtonEditar);
+		add(editar);
+		
+		
 		
 		novo = ComponentesDeJFrame.criarBotao("Novo", 636, 94, 125, 35);
 		
@@ -195,5 +202,47 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		}
 
 	}
+	private class OuvinteButtonEditar implements ActionListener{
+		private TelaListaFornecedor janela;
+		
+		public OuvinteButtonEditar(TelaListaFornecedor janela) {
+			this.janela = janela;
+		}
+
+
+
+		public void actionPerformed(ActionEvent e) {
+			int linhaSelecionada = janela.getTabela().getSelectedRow();
+			if(linhaSelecionada == -1) {
+				JOptionPane.showMessageDialog(janela, "Selecione uma linha");
+			}else {
+				TelaCadastrarFornecedor editar = new TelaCadastrarFornecedor("Dados do fornecedor");
+				Pessoa pessoa = FornecedorController.getInstance().obterTodosOsFornecedores().get(linhaSelecionada);
+				editar.getCampoNomeCompleto().setText(pessoa.getNome());
+				editar.getCampoEmail().setText(pessoa.getEmail());
+				editar.getCampoTelefone().setText(pessoa.getTelefone());
+				
+				if(pessoa instanceof FornecedorFisico) {
+					FornecedorFisico fisico = (FornecedorFisico) pessoa;
+					editar.getCampoCPF().setText(fisico.getCpf());
+					
+				}else {
+					FornecedorJuridico juridico = (FornecedorJuridico) pessoa;
+					editar.getPessoaJuridica().doClick();
+					editar.getCampoCNPJ().setText(juridico.getCnpj());
+					editar.getPessoaJuridica().setBounds(280, 380, 200, 30);
+					editar.getCpfCnpj().setText("CNPJ");
+					editar.getPessoaFisica().setVisible(false);
+
+				}
+				
+				
+			}
+			
+			
+		}
+		
+	}
+	
 
 }
