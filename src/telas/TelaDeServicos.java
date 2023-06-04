@@ -19,6 +19,7 @@ public class TelaDeServicos extends JanelaPadrao {
 	private JButton jbEditar;
 	private JButton jbRemover;
 	private JButton jbNovo;
+	private DefaultTableModel modelo;
 
 
 	public TelaDeServicos(String titulo) {
@@ -29,6 +30,14 @@ public class TelaDeServicos extends JanelaPadrao {
 		setVisible(true);
 
 	}
+	
+	
+
+	public DefaultTableModel getModelo() {
+		return modelo;
+	}
+
+
 
 	public JTable getTabela() {
 		return tabela;
@@ -83,7 +92,7 @@ public class TelaDeServicos extends JanelaPadrao {
 
 	private void adicionarTabela() {
 		// definir as linhas
-		DefaultTableModel modelo = new DefaultTableModel();
+		modelo = new DefaultTableModel();
 		modelo.addColumn("Serviços");// adiciona colunas
 
 		Object[] todosOsServicos = ServicoController.getInstance().pegaServicos().toArray();
@@ -133,7 +142,7 @@ public class TelaDeServicos extends JanelaPadrao {
 					JOptionPane.showMessageDialog(janela, "Serviço editado");
 					getTabela().repaint();
 					dispose();
-					new TelaDeServicos("Serviços");
+					new TelaDeServicos("Serviços"); 
 				}
 		
 			}
@@ -156,13 +165,9 @@ public class TelaDeServicos extends JanelaPadrao {
 				JOptionPane.showMessageDialog(janela, "Selecione uma linha");// se n tiver exibe essa mensagem
 			}else {
 				ServicoController.getInstance().removerServico(linhaSelecionada);
-				janela.getTabela().removeRowSelectionInterval(linhaSelecionada, linhaSelecionada);
+				janela.getModelo().removeRow(linhaSelecionada);
 				janela.getTabela().repaint();
 				JOptionPane.showMessageDialog(janela, "Removido");
-				
-				
-				//dispose();
-				//new TelaDeServicos("Serviços");
 			}
 		
 			
@@ -177,15 +182,15 @@ public class TelaDeServicos extends JanelaPadrao {
 			this.janela = janela;
 		}
 		
-		@Override
+		
 		public void actionPerformed(ActionEvent e) {
 			String novoServico = JOptionPane.showInputDialog(janela, "Informe o novo Serviço");
+			Object[] novoServico2 = {novoServico};
 			if(novoServico != null) {
 				ServicoController.getInstance().adicionarServico(novoServico);
 				JOptionPane.showMessageDialog(janela, "Adicionado");
-				getTabela().repaint();
-				dispose();
-				new TelaDeServicos("Serviços");
+				janela.getModelo().addRow(novoServico2);
+				janela.getTabela().repaint();
 			}
 			
 		}
