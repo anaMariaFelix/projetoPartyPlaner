@@ -162,9 +162,6 @@ public class TelaListaFornecedor extends JanelaPadrao {
 			}
 		});
 		add(novo);
-		
-		
-		
 
 	}
 

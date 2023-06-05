@@ -1,45 +1,29 @@
 <baseDedados.CentralDeInformacoes>
-  <todosOsClientes>
-    <model.ClienteJuridico>
-      <nome>andrey</nome>
-      <telefone>77777777777</telefone>
-      <email>andrey123@asd</email>
-      <CNPJ>84259202000142</CNPJ>
-    </model.ClienteJuridico>
-  </todosOsClientes>
+  <todosOsClientes/>
   <todosOsFornecedores>
     <model.FornecedorFisico>
-      <nome>ana</nome>
-      <telefone>44444444444</telefone>
-      <email>ana@123</email>
-      <cpf>11993299408</cpf>
+      <nome>ismale</nome>
+      <telefone>55555555555</telefone>
+      <email>12@12</email>
+      <cpf>71308976437</cpf>
       <servicos>
         <string>Buffet</string>
+        <string>Musica</string>
+        <string>Segurança</string>
       </servicos>
       <quantContratosFisico>0</quantContratosFisico>
     </model.FornecedorFisico>
     <model.FornecedorJuridico>
-      <nome>ismael</nome>
+      <nome>andrey</nome>
       <telefone>55555555555</telefone>
-      <email>ismael233@123</email>
-      <cnpj>84259202000142</cnpj>
+      <email>123@123</email>
+      <cnpj>90712062000119</cnpj>
       <servicos>
+        <string>Segurança</string>
         <string>Buffet</string>
       </servicos>
       <quantContratosJuridico>0</quantContratosJuridico>
     </model.FornecedorJuridico>
-    <model.FornecedorFisico>
-      <nome>teste</nome>
-      <telefone>88888888888</telefone>
-      <email>alkdj@kdkf</email>
-      <cpf>11993299408</cpf>
-      <servicos>
-        <string>Buffet</string>
-        <string>Buffet</string>
-        <string>Buffet</string>
-      </servicos>
-      <quantContratosFisico>0</quantContratosFisico>
-    </model.FornecedorFisico>
   </todosOsFornecedores>
   <todosEvento/>
   <todosServicos>
@@ -52,4 +36,10 @@
     <string>Agente de publicidade</string>
     <string>Recepção</string>
   </todosServicos>
+  <administrador>
+    <nome>ismael</nome>
+    <sobrenome>Ribeiro</sobrenome>
+    <email>1@1</email>
+    <senha>12345678</senha>
+  </administrador>
 </baseDedados.CentralDeInformacoes>

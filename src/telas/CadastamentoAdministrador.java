@@ -62,7 +62,7 @@ public class CadastamentoAdministrador extends JanelaPadrao {
 
 	private void adicionarTitulo() {
 
-		JLabel lbTitulo = ComponentesDeJFrame.criaJLabel("Cadastro do Administrador",215, 50, 380, 50,30);
+		JLabel lbTitulo = ComponentesDeJFrame.criaJLabel("Cadastro do Administrador",190, 50, 450, 50,30);
 		lbTitulo.setHorizontalAlignment(JLabel.CENTER); // alinha o texto no centro
 		lbTitulo.setForeground(Color.BLACK); // cor do texto
 		add(lbTitulo);

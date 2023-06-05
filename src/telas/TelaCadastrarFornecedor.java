@@ -164,7 +164,12 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 				String servicoEscolhido = (String) JOptionPane.showInputDialog(janela, "Escolha um servico por vez",
 						"Servicos", JOptionPane.QUESTION_MESSAGE, null, servicos, servicos[0]);
 				if(servicoEscolhido != null) {
-					janela.getListaDeServicos().add(servicoEscolhido);
+					if(!getListaDeServicos().contains(servicoEscolhido)) {
+						janela.getListaDeServicos().add(servicoEscolhido);
+						JOptionPane.showMessageDialog(janela, "Serviço adicionando com sucesso");
+					}else {
+						JOptionPane.showMessageDialog(janela, "Serviço já existente");
+					}
 				}
 				
 			}
@@ -172,5 +177,7 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 		}
 
 	}
+	
+	
 
 }
