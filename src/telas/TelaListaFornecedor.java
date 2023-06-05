@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -22,6 +23,9 @@ import model.Pessoa;
 import util.ButtonEditor;
 import util.ButtonRenderer;
 import util.ComponentesDeJFrame;
+import util.ValidaEmail;
+import util.ValidadorCPF;
+import util.ValidarCNPJ;
 
 public class TelaListaFornecedor extends JanelaPadrao {
 
@@ -33,6 +37,7 @@ public class TelaListaFornecedor extends JanelaPadrao {
 	private JRadioButton jrJuridico;
 	private JRadioButton jrTodos;
 	private JButton editar;
+	private TelaCadastrarFornecedor editarDados;
 
 	public TelaListaFornecedor(String titulo) {
 		super(titulo);
@@ -43,6 +48,12 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		setVisible(true);
 
 	}
+	
+
+	public TelaCadastrarFornecedor getEditarDados() {
+		return editarDados;
+	}
+
 
 	public JButton getVoltar() {
 		return voltar;
@@ -99,13 +110,13 @@ public class TelaListaFornecedor extends JanelaPadrao {
 				linha[0] = ff.getNome();
 				linha[1] = "Fisico";
 				linha[2] = ff.getQuantContratosFisico();
-				bt.addActionListener(new OuvinteButtonEditar(ff.getCpf()));
+				bt.addActionListener(new OuvinteButtonEditar(this ,ff.getCpf()));
 			} else {
 				FornecedorJuridico fj = (FornecedorJuridico) t;
 				linha[0] = fj.getNome();
 				linha[1] = "Juridico";
 				linha[2] = fj.getQuantContratosJuridico();
-				bt.addActionListener(new OuvinteButtonEditar(fj.getCnpj()));
+				bt.addActionListener(new OuvinteButtonEditar(this, fj.getCnpj()));
 			}
 
 			linha[4] = new JButton("Detalhar");
@@ -211,39 +222,123 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		private TelaListaFornecedor janela;
 		private String cpfCnpj;
 
-		public OuvinteButtonEditar(String cpfCnpj) {
+		public OuvinteButtonEditar() {
+		}
+
+		public OuvinteButtonEditar(TelaListaFornecedor janela,String cpfCnpj) {
+			this.janela = janela;
 			this.cpfCnpj = cpfCnpj;
 		}
 
-		public OuvinteButtonEditar(TelaListaFornecedor janela) {
-			this.janela = janela;
-		}
-
 		public void actionPerformed(ActionEvent e) {
-			TelaCadastrarFornecedor editar = new TelaCadastrarFornecedor("Dados do fornecedor");
+			editarDados = new TelaCadastrarFornecedor("Dados do fornecedor");
+			editarDados.getBotaoSalvar().removeActionListener(editarDados.getOuvinteSalvarFornecedor());
 			
-			Pessoa pessoa = FornecedorController.getInstance().recuperarFornecedorPorEmail(cpfCnpj);
+			OuvinteBotaoSalvarFornecedorEditado ouvinteBotaoSalvarFornecedorEditado = new OuvinteBotaoSalvarFornecedorEditado(janela);
+			editarDados.getBotaoSalvar().addActionListener(ouvinteBotaoSalvarFornecedorEditado);
 			
-			editar.getCampoNomeCompleto().setText(pessoa.getNome());
-			editar.getCampoEmail().setText(pessoa.getEmail());
-			editar.getCampoTelefone().setText(pessoa.getTelefone());
+			Pessoa pessoa = FornecedorController.getInstance().recuperarFornecedorPorCpfOuCnpj(cpfCnpj);
+			
+			editarDados.getCampoNomeCompleto().setText(pessoa.getNome());
+			editarDados.getCampoEmail().setText(pessoa.getEmail());
+			editarDados.getCampoTelefone().setText(pessoa.getTelefone());
 
 			if (pessoa instanceof FornecedorFisico) {
 				FornecedorFisico fisico = (FornecedorFisico) pessoa;
-				editar.getCampoCPF().setText(fisico.getCpf());
+				editarDados.getCampoCPF().setText(fisico.getCpf());
+				editarDados.setListaDeServicos(fisico.getServicos());
+				editarDados.getCampoCPF().setEnabled(false);
 
 			} else {
 				FornecedorJuridico juridico = (FornecedorJuridico) pessoa;
-				editar.getPessoaJuridica().doClick();
-				editar.getCampoCNPJ().setText(juridico.getCnpj());
-				editar.getPessoaJuridica().setBounds(280, 380, 200, 30);
-				editar.getCpfCnpj().setText("CNPJ");
-				editar.getPessoaFisica().setVisible(false);
+				editarDados.getPessoaJuridica().doClick();
+				editarDados.getCampoCNPJ().setText(juridico.getCnpj());
+				editarDados.getPessoaJuridica().setBounds(280, 380, 200, 30);
+				editarDados.setListaDeServicos(juridico.getServicos());
+				editarDados.getCpfCnpj().setText("CNPJ");
+				editarDados.getPessoaFisica().setVisible(false);
+				editarDados.getCampoCNPJ().setEnabled(false);
 
 			}
 
 		}
+		
+	}
+	private class OuvinteBotaoSalvarFornecedorEditado implements ActionListener {
+		private TelaListaFornecedor janela;
+		
+		public OuvinteBotaoSalvarFornecedorEditado(TelaListaFornecedor janela) {
+			this.janela = janela;
+		}
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			String nome = editarDados.getCampoNomeCompleto().getText();
+			String telefone = editarDados.getCampoTelefone().getText().replace("(", "").replace(")", "").replace("-", "")
+					.trim();
+			String email = editarDados.getCampoEmail().getText();
+			Pessoa fornecedor = null;
+
+			if (e.getSource() == editarDados.getBotaoSalvar()) {
+				
+				if (editarDados.getPessoaFisica().isSelected()) {
+					String cpf = editarDados.removerMacaraCampoCPF(editarDados.getCampoCPF());
+					FornecedorController.getInstance().removerFornecedor(FornecedorController.getInstance().pegarIndeciDoFornecedor(cpf));
+
+					if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty() || cpf.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos");
+
+					}else if (!ValidaEmail.emailValidator(email)) {
+						JOptionPane.showMessageDialog(janela, "Email inválido, informe novamente");
+
+					} else if (!ValidadorCPF.isCPF(cpf)) {
+						JOptionPane.showMessageDialog(janela, "O CPF não é válido, informe novamente");
+
+					//} else if (editarDados.getListaDeServicos().isEmpty()) {
+						//JOptionPane.showMessageDialog(janela, "Você deve fornecer ao menos um serviço");
+					}else {
+						fornecedor = new FornecedorFisico(nome, null, telefone, cpf, email,editarDados.getListaDeServicos());
+						//editarDados.setListaDeServicos()  = new ArrayList<String>();
+						if (FornecedorController.getInstance().adicionarFornecedor(fornecedor)) {
+							JOptionPane.showMessageDialog(janela, "Fornecedor cadastrado com sucesso!");
+							janela.dispose();
+							new TelaListaFornecedor("Lista de Fornecedores");
+						}
+					}
+
+				} else if (editarDados.getPessoaJuridica().isSelected()) {
+					String cnpj = editarDados.removerMascaraCampoCNPJ(editarDados.getCampoCNPJ());
+					FornecedorController.getInstance().removerFornecedor(FornecedorController.getInstance().pegarIndeciDoFornecedor(cnpj));
+
+
+					if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty() || cnpj.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos");
+
+					}else if (!ValidaEmail.emailValidator(email)) {
+						JOptionPane.showMessageDialog(janela, "Email inválido, informe novamente");
+
+					} else if (!ValidarCNPJ.isCNPJ(cnpj)) {
+						JOptionPane.showMessageDialog(janela, "O CNPJ não é válido, informe novamente");
+
+					//} else if (editarDados.getListaDeServicos().isEmpty()) {
+						//JOptionPane.showMessageDialog(janela, "Você deve fornecer ao menos um serviço");
+						
+					} else {
+						fornecedor = new FornecedorJuridico(nome, null, telefone, email, cnpj,editarDados.getListaDeServicos());
+						//listaDeServicos = new ArrayList<String>();
+						
+						if (FornecedorController.getInstance().adicionarFornecedor(fornecedor)) {
+							JOptionPane.showMessageDialog(janela, "Fornecedor cadastrado com sucesso!");
+							janela.dispose();
+							new TelaListaFornecedor("Lista de Fornecedores");
+
+						}
+					}
+				}
+			}
+
+		}
 	}
 
 }

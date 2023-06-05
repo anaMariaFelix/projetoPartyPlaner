@@ -30,6 +30,7 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 	private JButton botaoServicos;
 	private JLabel jlServicos;
 	private ArrayList<String> listaDeServicos = new ArrayList();
+	private OuvinteBotaoSalvarFornecedor ouvinteSalvarFornecedor;
 
 	public TelaCadastrarFornecedor(String titulo) {
 		super(titulo);
@@ -38,8 +39,16 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 		getBotaoSalvar().removeActionListener(ouvinteSalvar);
 	}
 
+	public OuvinteBotaoSalvarFornecedor getOuvinteSalvarFornecedor() {
+		return ouvinteSalvarFornecedor;
+	}
+
 	public ArrayList<String> getListaDeServicos() {
 		return listaDeServicos;
+	}
+	
+	public void setListaDeServicos(ArrayList<String> listaDeServicos) {
+		this.listaDeServicos = listaDeServicos;
 	}
 
 	public JButton getBotaoServicos() {
@@ -51,11 +60,11 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 	}
 
 	private void adicionarJButton() {
-		OuvinteBotaoSalvarFornecedor ouvinteSalvar = new OuvinteBotaoSalvarFornecedor(this);
+		OuvinteBotaoSalvarFornecedor ouvinteSalvarFornecedor = new OuvinteBotaoSalvarFornecedor(this);
 
 		getBotaoVoltar().setBounds(280, 550, 100, 30);
 
-		getBotaoSalvar().addActionListener(ouvinteSalvar);
+		getBotaoSalvar().addActionListener(ouvinteSalvarFornecedor);
 		getBotaoSalvar().setBounds(405, 550, 100, 30);
 
 		OuvinteBotaoServicos ouvinteServico = new OuvinteBotaoServicos(this);
@@ -109,7 +118,7 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 							janela.dispose();
 							TelaMenu telaMenu = new TelaMenu("Tela de Menu");
 
-						} else {
+						}else {
 							JOptionPane.showMessageDialog(janela,
 									"Já existe fornecedor com esse email, informe novamente");
 						}

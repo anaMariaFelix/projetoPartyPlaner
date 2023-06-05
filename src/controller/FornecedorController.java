@@ -34,10 +34,17 @@ public class FornecedorController {
 		return false;
 	}
 	
-	public  Pessoa recuperarFornecedorPorEmail(String email) {
+	public  Pessoa recuperarFornecedorPorCpfOuCnpj(String cpfCnpj) {
 		for(Pessoa fornecedor: CentralDeInformacoes.getInstance().getTodosOsFornecedores()) { 
-			if(fornecedor.getEmail().equals(email)){
-				return fornecedor;
+			if(fornecedor instanceof FornecedorFisico){
+				FornecedorFisico fisico = (FornecedorFisico) fornecedor;
+				if(fisico.getCpf().equals(cpfCnpj))
+					return fisico;
+			}else {
+				FornecedorJuridico juridico = (FornecedorJuridico) fornecedor;
+				if(juridico.getCnpj().equals(cpfCnpj)) {
+					return juridico;
+				}
 			}
 		}
 		return null;
@@ -75,6 +82,31 @@ public class FornecedorController {
 		return CentralDeInformacoes.getInstance().getTodosOsFornecedores();
 	
 	}
+	public int pegarIndeciDoFornecedor(String cpfCnpj) {
+		int i = 0;
+		for(Pessoa fornecedor: obterTodosOsFornecedores()) {
+			if(fornecedor instanceof FornecedorFisico){
+				FornecedorFisico fisico = (FornecedorFisico) fornecedor;
+				if(fisico.getCpf().equals(cpfCnpj))
+					return i;
+			}else {
+				FornecedorJuridico juridico = (FornecedorJuridico) fornecedor;
+				if(juridico.getCnpj().equals(cpfCnpj)) {
+					return i;
+				}
+			}
+			i++;
+		}
+		
+		return i;
+		
+	}
+	
+	public void removerFornecedor(int indice) {
+		CentralDeInformacoes.getInstance().getTodosOsFornecedores().remove(indice);
+		Persistencia.getInstance().salvarCentral(CentralDeInformacoes.getInstance(), Constantes.NOME_ARQUIVO);
+	}
+	
 
 	
 }

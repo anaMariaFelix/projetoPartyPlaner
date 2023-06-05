@@ -1,29 +1,28 @@
 <baseDedados.CentralDeInformacoes>
   <todosOsClientes/>
   <todosOsFornecedores>
-    <model.FornecedorFisico>
-      <nome>ismale</nome>
-      <telefone>55555555555</telefone>
-      <email>12@12</email>
-      <cpf>71308976437</cpf>
-      <servicos>
-        <string>Buffet</string>
-        <string>Musica</string>
-        <string>Segurança</string>
-      </servicos>
-      <quantContratosFisico>0</quantContratosFisico>
-    </model.FornecedorFisico>
     <model.FornecedorJuridico>
-      <nome>andrey</nome>
+      <nome>ana maria felix</nome>
       <telefone>55555555555</telefone>
-      <email>123@123</email>
-      <cnpj>90712062000119</cnpj>
+      <email>12@1</email>
+      <cnpj>41463063000161</cnpj>
       <servicos>
-        <string>Segurança</string>
         <string>Buffet</string>
+        <string>Recepção</string>
       </servicos>
       <quantContratosJuridico>0</quantContratosJuridico>
     </model.FornecedorJuridico>
+    <model.FornecedorFisico>
+      <nome>Ismael Morais ribeiro</nome>
+      <telefone>55555555555</telefone>
+      <email>1@1</email>
+      <cpf>71308976437</cpf>
+      <servicos>
+        <string>Musica</string>
+        <string>Local</string>
+      </servicos>
+      <quantContratosFisico>0</quantContratosFisico>
+    </model.FornecedorFisico>
   </todosOsFornecedores>
   <todosEvento/>
   <todosServicos>
@@ -36,10 +35,4 @@
     <string>Agente de publicidade</string>
     <string>Recepção</string>
   </todosServicos>
-  <administrador>
-    <nome>ismael</nome>
-    <sobrenome>Ribeiro</sobrenome>
-    <email>1@1</email>
-    <senha>12345678</senha>
-  </administrador>
 </baseDedados.CentralDeInformacoes>
