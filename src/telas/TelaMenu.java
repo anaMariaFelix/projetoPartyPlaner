@@ -1,17 +1,13 @@
 package telas;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import baseDedados.CentralDeInformacoes;
-import ouvintes.OuvinteBotaoSalvar;
 import util.ComponentesDeJFrame;
 
 public class TelaMenu extends JanelaPadrao{
@@ -124,13 +120,15 @@ public class TelaMenu extends JanelaPadrao{
 		
 			}else if(e.getSource() == botaoCadastrarFornecedor) {
 				dispose();
-				new TelaCadastrarFornecedor("Cadastar Fornecedor");
+				new TelaCadastrarFornecedor("Cadastrar Fornecedor");
 				
 			}else if(e.getSource() == botaoServicos) {
-				JOptionPane.showMessageDialog(null, "dentro do botao serviço");
+				dispose();
+				new TelaDeServicos("Serviços");
 				
 			}else if(e.getSource() == botaoListarFornecedores) {
-				JOptionPane.showMessageDialog(null, "dentro do Listar Fornecedores");
+				dispose();
+				new TelaListaFornecedor("Fornecedores");
 				
 			}else if(e.getSource() == botaoCadastrarPacotesDeFornecedores) {
 				JOptionPane.showMessageDialog(null, "dentro do botao Cadastrar Pacotes De Fornecedores");

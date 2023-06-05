@@ -1,7 +1,11 @@
 package controller;
 
+import java.util.ArrayList;
+
 import baseDedados.CentralDeInformacoes;
 import baseDedados.Persistencia;
+import model.FornecedorFisico;
+import model.FornecedorJuridico;
 import model.Pessoa;
 import util.Constantes;
 
@@ -21,7 +25,7 @@ public class FornecedorController {
 		return instance;
 	}
 	
-	public static boolean adicionarFornecedor(Pessoa pessoa) {
+	public  boolean adicionarFornecedor(Pessoa pessoa) {
 		if(!existeFornecedor(pessoa.getEmail())) {
 			CentralDeInformacoes.getInstance().getTodosOsFornecedores().add(pessoa);
 			Persistencia.getInstance().salvarCentral(CentralDeInformacoes.getInstance(), Constantes.NOME_ARQUIVO);
@@ -30,7 +34,7 @@ public class FornecedorController {
 		return false;
 	}
 	
-	public static Pessoa recuperarFornecedorPorEmail(String email) {
+	public  Pessoa recuperarFornecedorPorEmail(String email) {
 		for(Pessoa fornecedor: CentralDeInformacoes.getInstance().getTodosOsFornecedores()) { 
 			if(fornecedor.getEmail().equals(email)){
 				return fornecedor;
@@ -39,7 +43,7 @@ public class FornecedorController {
 		return null;
 	}
 	
-	public static boolean existeFornecedor(String email) { 
+	public  boolean existeFornecedor(String email) { 
 		for(Pessoa c: CentralDeInformacoes.getInstance().getTodosOsFornecedores()) {
 			if(c.getEmail().equals(email)){
 				return true;
@@ -47,5 +51,30 @@ public class FornecedorController {
 		}
 		return false;
 	}
+	
+	public ArrayList<Pessoa> filtrarPorTipo(String tipo){
+		ArrayList<Pessoa> TodosFornecedores = obterTodosOsFornecedores();
+		ArrayList<Pessoa> filtrar = new ArrayList();
+		for(Pessoa p: TodosFornecedores) {
+			if (tipo.equalsIgnoreCase("Fisico")) {
+
+				if (p instanceof FornecedorFisico) {
+					filtrar.add(p);
+				}
+			} else {
+				if (p instanceof FornecedorJuridico) {
+					filtrar.add(p);
+				}
+			}
+		}
+		return filtrar;
+		
+	}
+	
+	public ArrayList<Pessoa> obterTodosOsFornecedores(){
+		return CentralDeInformacoes.getInstance().getTodosOsFornecedores();
+	
+	}
+
 	
 }

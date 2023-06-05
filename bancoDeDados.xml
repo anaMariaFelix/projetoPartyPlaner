@@ -1,138 +1,44 @@
 <baseDedados.CentralDeInformacoes>
   <todosOsClientes>
-    <model.FornecedorFisico>
-      <nome>FF</nome>
-      <telefone>11111111111</telefone>
-      <email>70401600483</email>
-      <cpf>12@12</cpf>
-      <servicos>
-        <null/>
-      </servicos>
-    </model.FornecedorFisico>
-    <model.ClienteFisico>
-      <nome>FF</nome>
-      <telefone>11111111111</telefone>
-      <email>12@12</email>
-      <CPF>70401600483</CPF>
-    </model.ClienteFisico>
-    <model.ClienteFisico>
-      <nome>FF</nome>
-      <telefone>11111111111</telefone>
-      <email>1@12</email>
-      <CPF>70401600483</CPF>
-    </model.ClienteFisico>
-    <model.ClienteFisico>
-      <nome>ff</nome>
-      <telefone>44444444444</telefone>
-      <email>asdfh@jnjhegd</email>
-      <CPF>11993299408</CPF>
-    </model.ClienteFisico>
-    <model.ClienteFisico>
-      <nome>gygyjg</nome>
+    <model.ClienteJuridico>
+      <nome>andrey</nome>
       <telefone>77777777777</telefone>
-      <email>jghdfs@sdgf</email>
-      <CPF>11993299408</CPF>
-    </model.ClienteFisico>
-    <model.ClienteFisico>
-      <nome>dfgdfd</nome>
-      <telefone>88888888888</telefone>
-      <email>gf@hiji</email>
-      <CPF>11993299408</CPF>
-    </model.ClienteFisico>
-    <model.ClienteFisico>
-      <nome>FF</nome>
-      <telefone>77777777777</telefone>
-      <email>212@21</email>
-      <CPF>70401600483</CPF>
-    </model.ClienteFisico>
-    <model.ClienteFisico>
-      <nome>FHHHHH</nome>
-      <telefone>44444444444</telefone>
-      <email>DFDT@ggug</email>
-      <CPF>11993299408</CPF>
-    </model.ClienteFisico>
-    <model.ClienteFisico>
-      <nome>thfdd</nome>
-      <telefone>77777777777</telefone>
-      <email>ilhgf@ui</email>
-      <CPF>11993299408</CPF>
-    </model.ClienteFisico>
-    <model.ClienteFisico>
-      <nome>dghsdhgsh</nome>
-      <telefone>77777777777</telefone>
-      <email>nbv@dsafjh</email>
-      <CPF>11993299408</CPF>
-    </model.ClienteFisico>
+      <email>andrey123@asd</email>
+      <CNPJ>84259202000142</CNPJ>
+    </model.ClienteJuridico>
   </todosOsClientes>
   <todosOsFornecedores>
     <model.FornecedorFisico>
-      <nome>FF</nome>
-      <telefone>11111111111</telefone>
-      <email>70401600483</email>
-      <cpf>1@12</cpf>
-      <servicos/>
-    </model.FornecedorFisico>
-    <model.FornecedorFisico>
-      <nome>ff</nome>
+      <nome>ana</nome>
       <telefone>44444444444</telefone>
-      <email>11993299408</email>
-      <cpf>asdfh@jnjhegd</cpf>
-      <servicos/>
-    </model.FornecedorFisico>
-    <model.FornecedorFisico>
-      <nome>ana teste f</nome>
-      <telefone>88888888888</telefone>
-      <email>adf@2FRGR</email>
+      <email>ana@123</email>
       <cpf>11993299408</cpf>
       <servicos>
         <string>Buffet</string>
       </servicos>
-    </model.FornecedorFisico>
-    <model.FornecedorFisico>
-      <nome>andrey</nome>
-      <telefone>55555555555</telefone>
-      <email>aka@ççl</email>
-      <cpf>11993299408</cpf>
-      <servicos>
-        <string>Buffet</string>
-        <string>Segurança</string>
-      </servicos>
+      <quantContratosFisico>0</quantContratosFisico>
     </model.FornecedorFisico>
     <model.FornecedorJuridico>
-      <nome>ismaesl</nome>
-      <telefone>44444444444</telefone>
-      <email>84034634000155</email>
-      <cnpj>lhjg@crf</cnpj>
+      <nome>ismael</nome>
+      <telefone>55555555555</telefone>
+      <email>ismael233@123</email>
+      <cnpj>84259202000142</cnpj>
       <servicos>
         <string>Buffet</string>
       </servicos>
+      <quantContratosJuridico>0</quantContratosJuridico>
     </model.FornecedorJuridico>
     <model.FornecedorFisico>
-      <nome>adgdh</nome>
-      <telefone>77777777777</telefone>
-      <email>sahfjg@kdfhh</email>
+      <nome>teste</nome>
+      <telefone>88888888888</telefone>
+      <email>alkdj@kdkf</email>
       <cpf>11993299408</cpf>
       <servicos>
-        <string>Ornamentação</string>
+        <string>Buffet</string>
+        <string>Buffet</string>
+        <string>Buffet</string>
       </servicos>
-    </model.FornecedorFisico>
-    <model.FornecedorFisico>
-      <nome>dfshjg</nome>
-      <telefone>44444444444</telefone>
-      <email>asjh@dhfh</email>
-      <cpf>11993299408</cpf>
-      <servicos>
-        <null/>
-      </servicos>
-    </model.FornecedorFisico>
-    <model.FornecedorFisico>
-      <nome>wdjhf</nome>
-      <telefone>44444444444</telefone>
-      <email>anahdgd@akad</email>
-      <cpf>11993299408</cpf>
-      <servicos>
-        <string>Serviços Gerais</string>
-      </servicos>
+      <quantContratosFisico>0</quantContratosFisico>
     </model.FornecedorFisico>
   </todosOsFornecedores>
   <todosEvento/>
@@ -146,10 +52,4 @@
     <string>Agente de publicidade</string>
     <string>Recepção</string>
   </todosServicos>
-  <administrador>
-    <nome>ana</nome>
-    <sobrenome>maria</sobrenome>
-    <email>1@1</email>
-    <senha>12345678</senha>
-  </administrador>
 </baseDedados.CentralDeInformacoes>

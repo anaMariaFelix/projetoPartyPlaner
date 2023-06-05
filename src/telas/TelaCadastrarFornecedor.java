@@ -14,6 +14,7 @@ import com.itextpdf.text.Font;
 import baseDedados.CentralDeInformacoes;
 import controller.ClienteController;
 import controller.FornecedorController;
+import controller.ServicoController;
 import model.ClienteFisico;
 import model.ClienteJuridico;
 import model.FornecedorFisico;
@@ -101,10 +102,9 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 					} else if (janela.getListaDeServicos().isEmpty()) {
 						JOptionPane.showMessageDialog(janela, "Você deve fornecer ao menos um serviço");
 					} else {
-						fornecedor = new FornecedorFisico(nome, null, telefone, cpf, email,
-								janela.getListaDeServicos());
+						fornecedor = new FornecedorFisico(nome, null, telefone, cpf, email,janela.getListaDeServicos());
 						listaDeServicos = new ArrayList<String>();
-						if (FornecedorController.adicionarFornecedor(fornecedor)) {
+						if (FornecedorController.getInstance().adicionarFornecedor(fornecedor)) {
 							JOptionPane.showMessageDialog(janela, "Fornecedor cadastrado com sucesso!");
 							janela.dispose();
 							TelaMenu telaMenu = new TelaMenu("Tela de Menu");
@@ -131,10 +131,10 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 						JOptionPane.showMessageDialog(janela, "Você deve fornecer ao menos um serviço");
 						
 					} else {
-						fornecedor = new FornecedorJuridico(nome, null, telefone, cnpj, email,janela.getListaDeServicos());
+						fornecedor = new FornecedorJuridico(nome, null, telefone, email, cnpj,janela.getListaDeServicos());
 						listaDeServicos = new ArrayList<String>();
 						
-						if (FornecedorController.adicionarFornecedor(fornecedor)) {
+						if (FornecedorController.getInstance().adicionarFornecedor(fornecedor)) {
 							JOptionPane.showMessageDialog(janela, "Fornecedor cadastrado com sucesso!");
 							janela.dispose();
 							TelaMenu telaMenu = new TelaMenu("Tela de Menu");
@@ -160,7 +160,7 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == botaoServicos) {
-				Object[] servicos = CentralDeInformacoes.getInstance().getTodosServicos().toArray();
+				Object[] servicos = ServicoController.getInstance().pegaServicos().toArray();
 				String servicoEscolhido = (String) JOptionPane.showInputDialog(janela, "Escolha um servico por vez",
 						"Servicos", JOptionPane.QUESTION_MESSAGE, null, servicos, servicos[0]);
 				if(servicoEscolhido != null) {

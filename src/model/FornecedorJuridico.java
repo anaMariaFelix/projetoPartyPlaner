@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class FornecedorJuridico extends Pessoa{
 	private String cnpj;
 	private ArrayList<String> servicos = new ArrayList();
+	private int quantContratosJuridico = 0;
 	
 	
 	public FornecedorJuridico(String nome, String sobrenome, String telefone, String email,String cnpj,ArrayList<String> servicos) {
@@ -13,6 +14,20 @@ public class FornecedorJuridico extends Pessoa{
 		adicionaServicosNaLista(servicos);
 	}
 	
+
+	public int getQuantContratosJuridico() {
+		return quantContratosJuridico;
+	}
+
+	public void setQuantContratosJuridico(int quantContratosJuridico) {
+		this.quantContratosJuridico = quantContratosJuridico;
+	}
+
+
+
+
+
+
 	public String getCnpj() {
 		return cnpj;
 	}
