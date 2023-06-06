@@ -1,38 +1,79 @@
 <baseDedados.CentralDeInformacoes>
-  <todosOsClientes/>
+  <todosOsClientes>
+    <model.ClienteFisico>
+      <nome>ana</nome>
+      <telefone>77777777777</telefone>
+      <email>sdgsaygfysg@fghfg</email>
+      <CPF>11993299408</CPF>
+    </model.ClienteFisico>
+  </todosOsClientes>
   <todosOsFornecedores>
     <model.FornecedorJuridico>
-      <nome>ana maria felix</nome>
-      <telefone>55555555555</telefone>
-      <email>12@1</email>
-      <cnpj>41463063000161</cnpj>
+      <nome>ana felix</nome>
+      <telefone>44444444444</telefone>
+      <email>akdlk@kfawken</email>
+      <cnpj>26297926000184</cnpj>
       <servicos>
         <string>Buffet</string>
-        <string>Recepção</string>
       </servicos>
       <quantContratosJuridico>0</quantContratosJuridico>
     </model.FornecedorJuridico>
-    <model.FornecedorFisico>
-      <nome>Ismael Morais ribeiro</nome>
-      <telefone>55555555555</telefone>
-      <email>1@1</email>
-      <cpf>71308976437</cpf>
+    <model.FornecedorJuridico>
+      <nome>andrey fausto</nome>
+      <telefone>44444444444</telefone>
+      <email>f4@jhgjrh</email>
+      <cnpj>35119216000155</cnpj>
       <servicos>
         <string>Musica</string>
-        <string>Local</string>
       </servicos>
-      <quantContratosFisico>0</quantContratosFisico>
-    </model.FornecedorFisico>
+      <quantContratosJuridico>0</quantContratosJuridico>
+    </model.FornecedorJuridico>
+    <model.FornecedorJuridico>
+      <nome>Andrey emerson</nome>
+      <telefone>83988555555</telefone>
+      <email>ara@ffst</email>
+      <cnpj>47589464000149</cnpj>
+      <servicos>
+        <string>Musica</string>
+      </servicos>
+      <quantContratosJuridico>0</quantContratosJuridico>
+    </model.FornecedorJuridico>
+    <model.FornecedorJuridico>
+      <nome>Ana maria</nome>
+      <telefone>55555555555</telefone>
+      <email>!@1</email>
+      <cnpj>20095257000181</cnpj>
+      <servicos>
+        <string>Buffet</string>
+      </servicos>
+      <quantContratosJuridico>0</quantContratosJuridico>
+    </model.FornecedorJuridico>
+    <model.FornecedorJuridico>
+      <nome>ismael</nome>
+      <telefone>45451215545</telefone>
+      <email>ahs@hbduah</email>
+      <cnpj>56884523000100</cnpj>
+      <servicos>
+        <string>Buffet</string>
+      </servicos>
+      <quantContratosJuridico>0</quantContratosJuridico>
+    </model.FornecedorJuridico>
   </todosOsFornecedores>
   <todosEvento/>
   <todosServicos>
     <string>Buffet</string>
     <string>Musica</string>
     <string>Ornamentação</string>
-    <string>Local</string>
     <string>Segurança</string>
     <string>Serviços Gerais</string>
     <string>Agente de publicidade</string>
     <string>Recepção</string>
+    <string>Local</string>
   </todosServicos>
+  <administrador>
+    <nome>ana</nome>
+    <sobrenome>maria</sobrenome>
+    <email>1@1</email>
+    <senha>12345678</senha>
+  </administrador>
 </baseDedados.CentralDeInformacoes>

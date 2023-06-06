@@ -37,14 +37,14 @@ public class Programa {
 		}
 
 
-		//CentralDeInformacoes centralDeInformacoes = Persistencia.getInstance().recupearCentral("bancoDeDados");
+		CentralDeInformacoes centralDeInformacoes = Persistencia.getInstance().recupearCentral("bancoDeDados");
 		
-		//if (CentralDeInformacoes.getInstance().getAdministrador() != null) {
-			//TelaLogin telaLogin = new TelaLogin("Tela de Login");
-			
-		//}else {
-			//JanelaPadrao janela = new CadastamentoAdministrador();
-		//}
+//		if (CentralDeInformacoes.getInstance().getAdministrador() != null) {
+//			TelaLogin telaLogin = new TelaLogin("Tela de Login");
+//			
+//		}else {
+//			JanelaPadrao janela = new CadastamentoAdministrador();
+//		}
 		
 		TelaMenu telaMenu = new TelaMenu("Menu");
 		

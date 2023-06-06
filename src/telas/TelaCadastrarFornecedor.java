@@ -60,7 +60,7 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 	}
 
 	private void adicionarJButton() {
-		OuvinteBotaoSalvarFornecedor ouvinteSalvarFornecedor = new OuvinteBotaoSalvarFornecedor(this);
+		ouvinteSalvarFornecedor = new OuvinteBotaoSalvarFornecedor(this);
 
 		getBotaoVoltar().setBounds(280, 550, 100, 30);
 

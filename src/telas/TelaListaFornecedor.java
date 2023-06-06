@@ -48,12 +48,10 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		setVisible(true);
 
 	}
-	
 
 	public TelaCadastrarFornecedor getEditarDados() {
 		return editarDados;
 	}
-
 
 	public JButton getVoltar() {
 		return voltar;
@@ -110,7 +108,7 @@ public class TelaListaFornecedor extends JanelaPadrao {
 				linha[0] = ff.getNome();
 				linha[1] = "Fisico";
 				linha[2] = ff.getQuantContratosFisico();
-				bt.addActionListener(new OuvinteButtonEditar(this ,ff.getCpf()));
+				bt.addActionListener(new OuvinteButtonEditar(this, ff.getCpfCnpj()));
 			} else {
 				FornecedorJuridico fj = (FornecedorJuridico) t;
 				linha[0] = fj.getNome();
@@ -165,10 +163,6 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		voltar.addActionListener(ouvinteBotaoVoltar);
 		add(voltar);
 
-//		OuvinteButtonEditar ouvinteButtonEditar = new OuvinteButtonEditar(this);
-		editar = ComponentesDeJFrame.criarBotao("Editar", 300, 490, 125, 35);
-//		editar.addActionListener(ouvinteButtonEditar);
-		add(editar);
 
 		novo = ComponentesDeJFrame.criarBotao("Novo", 636, 94, 125, 35);
 
@@ -225,27 +219,32 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		public OuvinteButtonEditar() {
 		}
 
-		public OuvinteButtonEditar(TelaListaFornecedor janela,String cpfCnpj) {
+		public OuvinteButtonEditar(TelaListaFornecedor janela, String cpfCnpj) {
 			this.janela = janela;
 			this.cpfCnpj = cpfCnpj;
 		}
 
 		public void actionPerformed(ActionEvent e) {
+			janela.dispose();
 			editarDados = new TelaCadastrarFornecedor("Dados do fornecedor");
 			editarDados.getBotaoSalvar().removeActionListener(editarDados.getOuvinteSalvarFornecedor());
-			
-			OuvinteBotaoSalvarFornecedorEditado ouvinteBotaoSalvarFornecedorEditado = new OuvinteBotaoSalvarFornecedorEditado(janela);
+			editarDados.getBotaoVoltar().removeActionListener(editarDados.ouvinteVoltar);
+
+			OuvinteBotaoVoltarTelaDeListar ouvinteBotaoVoltarTelaDeListar = new OuvinteBotaoVoltarTelaDeListar();
+			editarDados.getBotaoVoltar().addActionListener(ouvinteBotaoVoltarTelaDeListar);
+			OuvinteBotaoSalvarFornecedorEditado ouvinteBotaoSalvarFornecedorEditado = new OuvinteBotaoSalvarFornecedorEditado(
+					editarDados);
 			editarDados.getBotaoSalvar().addActionListener(ouvinteBotaoSalvarFornecedorEditado);
-			
+
 			Pessoa pessoa = FornecedorController.getInstance().recuperarFornecedorPorCpfOuCnpj(cpfCnpj);
-			
+
 			editarDados.getCampoNomeCompleto().setText(pessoa.getNome());
 			editarDados.getCampoEmail().setText(pessoa.getEmail());
 			editarDados.getCampoTelefone().setText(pessoa.getTelefone());
 
 			if (pessoa instanceof FornecedorFisico) {
 				FornecedorFisico fisico = (FornecedorFisico) pessoa;
-				editarDados.getCampoCPF().setText(fisico.getCpf());
+				editarDados.getCampoCPF().setText(fisico.getCpfCnpj());
 				editarDados.setListaDeServicos(fisico.getServicos());
 				editarDados.getCampoCPF().setEnabled(false);
 
@@ -262,46 +261,49 @@ public class TelaListaFornecedor extends JanelaPadrao {
 			}
 
 		}
-		
+
 	}
+
 	private class OuvinteBotaoSalvarFornecedorEditado implements ActionListener {
-		private TelaListaFornecedor janela;
-		
-		public OuvinteBotaoSalvarFornecedorEditado(TelaListaFornecedor janela) {
+		private TelaCadastrarFornecedor janela;
+
+		public OuvinteBotaoSalvarFornecedorEditado(TelaCadastrarFornecedor janela) {
 			this.janela = janela;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			String nome = editarDados.getCampoNomeCompleto().getText();
-			String telefone = editarDados.getCampoTelefone().getText().replace("(", "").replace(")", "").replace("-", "")
-					.trim();
+			String telefone = editarDados.getCampoTelefone().getText().replace("(", "").replace(")", "").replace("-", "").trim();
 			String email = editarDados.getCampoEmail().getText();
 			Pessoa fornecedor = null;
+			String cpf = editarDados.removerMacaraCampoCPF(editarDados.getCampoCPF());
 
 			if (e.getSource() == editarDados.getBotaoSalvar()) {
-				
-				if (editarDados.getPessoaFisica().isSelected()) {
-					String cpf = editarDados.removerMacaraCampoCPF(editarDados.getCampoCPF());
-					FornecedorController.getInstance().removerFornecedor(FornecedorController.getInstance().pegarIndeciDoFornecedor(cpf));
 
-					if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty() || cpf.isEmpty()) {
+				if (editarDados.getPessoaFisica().isSelected()) {
+					FornecedorController.getInstance()
+							.removerFornecedor(FornecedorController.getInstance().pegarIndeciDoFornecedor(cpf));
+
+					if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos");
 
-					}else if (!ValidaEmail.emailValidator(email)) {
+					} else if (!ValidaEmail.emailValidator(email)) {
 						JOptionPane.showMessageDialog(janela, "Email inválido, informe novamente");
 
 					} else if (!ValidadorCPF.isCPF(cpf)) {
 						JOptionPane.showMessageDialog(janela, "O CPF não é válido, informe novamente");
 
-					//} else if (editarDados.getListaDeServicos().isEmpty()) {
-						//JOptionPane.showMessageDialog(janela, "Você deve fornecer ao menos um serviço");
-					}else {
-						fornecedor = new FornecedorFisico(nome, null, telefone, cpf, email,editarDados.getListaDeServicos());
-						//editarDados.setListaDeServicos()  = new ArrayList<String>();
+					} else if (editarDados.getListaDeServicos().isEmpty()) {
+						// JOptionPane.showMessageDialog(janela, "Você deve fornecer ao menos um
+						// serviço");
+					} else {
+						fornecedor = new FornecedorFisico(nome, null, telefone, cpf, email,
+								editarDados.getListaDeServicos());
+						// editarDados.setListaDeServicos() = new ArrayList<String>();
 						if (FornecedorController.getInstance().adicionarFornecedor(fornecedor)) {
-							JOptionPane.showMessageDialog(janela, "Fornecedor cadastrado com sucesso!");
+							JOptionPane.showMessageDialog(janela, "Fornecedor editado com sucesso!");
 							janela.dispose();
 							new TelaListaFornecedor("Lista de Fornecedores");
 						}
@@ -309,36 +311,52 @@ public class TelaListaFornecedor extends JanelaPadrao {
 
 				} else if (editarDados.getPessoaJuridica().isSelected()) {
 					String cnpj = editarDados.removerMascaraCampoCNPJ(editarDados.getCampoCNPJ());
-					FornecedorController.getInstance().removerFornecedor(FornecedorController.getInstance().pegarIndeciDoFornecedor(cnpj));
-
+					String cnpjNovo = cnpj;
+					if (!cnpj.isEmpty() && !cpf.isEmpty()) {
+						FornecedorController.getInstance()
+								.removerFornecedor(FornecedorController.getInstance().pegarIndeciDoFornecedor(cpf));
+					} else {
+						FornecedorController.getInstance()
+								.removerFornecedor(FornecedorController.getInstance().pegarIndeciDoFornecedor(cnpj));
+					}
 
 					if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty() || cnpj.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos");
 
-					}else if (!ValidaEmail.emailValidator(email)) {
+					} else if (!ValidaEmail.emailValidator(email)) {
 						JOptionPane.showMessageDialog(janela, "Email inválido, informe novamente");
 
 					} else if (!ValidarCNPJ.isCNPJ(cnpj)) {
 						JOptionPane.showMessageDialog(janela, "O CNPJ não é válido, informe novamente");
 
-					//} else if (editarDados.getListaDeServicos().isEmpty()) {
-						//JOptionPane.showMessageDialog(janela, "Você deve fornecer ao menos um serviço");
-						
 					} else {
-						fornecedor = new FornecedorJuridico(nome, null, telefone, email, cnpj,editarDados.getListaDeServicos());
-						//listaDeServicos = new ArrayList<String>();
-						
+						fornecedor = new FornecedorJuridico(nome, null, telefone, email, cnpjNovo,
+								editarDados.getListaDeServicos());
+						// listaDeServicos = new ArrayList<String>();
+
 						if (FornecedorController.getInstance().adicionarFornecedor(fornecedor)) {
-							JOptionPane.showMessageDialog(janela, "Fornecedor cadastrado com sucesso!");
+							JOptionPane.showMessageDialog(janela, "Fornecedor editado com sucesso!");
 							janela.dispose();
 							new TelaListaFornecedor("Lista de Fornecedores");
 
 						}
 					}
 				}
-			}
 
+			}
 		}
+	}
+
+	private class OuvinteBotaoVoltarTelaDeListar implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == editarDados.getBotaoVoltar()) {
+				dispose();
+				new TelaListaFornecedor("Lista de Fornecedores");
+			}
+		}
+
 	}
 
 }

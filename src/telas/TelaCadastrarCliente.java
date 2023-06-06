@@ -47,6 +47,7 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 	private JButton botaoVoltar;
 	private JLabel cpfCnpj;
 	protected OuvinteBotaoSalvar ouvinteSalvar;
+	protected OuvinteBotaoVoltar ouvinteVoltar;
 	
 
 	public TelaCadastrarCliente(String titulo) {
@@ -61,6 +62,12 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 	
 	
 	
+	public OuvinteBotaoVoltar getOuvinteVoltar() {
+		return ouvinteVoltar;
+	}
+
+
+
 	public JLabel getCpfCnpj() {
 		return cpfCnpj;
 	}
@@ -231,7 +238,7 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 	private void adicionarJButton() {
 
 		
-		OuvinteBotaoVoltar ouvinteVoltar = new OuvinteBotaoVoltar();
+		ouvinteVoltar = new OuvinteBotaoVoltar();
 		botaoVoltar = ComponentesDeJFrame.criarBotao("Voltar",280, 500, 100, 30);
 		botaoVoltar.addActionListener(ouvinteVoltar);
 		add(botaoVoltar);

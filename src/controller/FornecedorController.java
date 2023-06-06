@@ -38,7 +38,7 @@ public class FornecedorController {
 		for(Pessoa fornecedor: CentralDeInformacoes.getInstance().getTodosOsFornecedores()) { 
 			if(fornecedor instanceof FornecedorFisico){
 				FornecedorFisico fisico = (FornecedorFisico) fornecedor;
-				if(fisico.getCpf().equals(cpfCnpj))
+				if(fisico.getCpfCnpj().equals(cpfCnpj))
 					return fisico;
 			}else {
 				FornecedorJuridico juridico = (FornecedorJuridico) fornecedor;
@@ -87,7 +87,7 @@ public class FornecedorController {
 		for(Pessoa fornecedor: obterTodosOsFornecedores()) {
 			if(fornecedor instanceof FornecedorFisico){
 				FornecedorFisico fisico = (FornecedorFisico) fornecedor;
-				if(fisico.getCpf().equals(cpfCnpj))
+				if(fisico.getCpfCnpj().equals(cpfCnpj))
 					return i;
 			}else {
 				FornecedorJuridico juridico = (FornecedorJuridico) fornecedor;
