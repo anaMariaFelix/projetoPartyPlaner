@@ -131,7 +131,7 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 
 	private void adicionarJLabel() {
 
-		JLabel lbTitulo = ComponentesDeJFrame.criaJLabel(titulo,0, 70, 800, 50,30);
+		lbTitulo = ComponentesDeJFrame.criaJLabel(titulo,0, 70, 800, 50,30);
 		lbTitulo.setHorizontalAlignment(JLabel.CENTER); // alinha o texto no centro
 		lbTitulo.setForeground(Color.BLACK); // cor do texto
 		lbTitulo.setFont(new Font("Arial", Font.ITALIC, 30));

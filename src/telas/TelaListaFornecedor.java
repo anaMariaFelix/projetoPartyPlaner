@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
@@ -14,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 
 import controller.FornecedorController;
@@ -39,6 +44,9 @@ public class TelaListaFornecedor extends JanelaPadrao {
 	private JRadioButton jrTodos;
 	private JButton editar;
 	private TelaCadastrarFornecedor editarDados;
+	private JRadioButton disponivel;
+	private JRadioButton indisponivel;
+	private String motivoIndisponibilidade;
 
 	public TelaListaFornecedor(String titulo) {
 		super(titulo);
@@ -49,6 +57,25 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		setVisible(true);
 
 	}
+
+	
+	public String getMotivoIndisponibilidade() {
+		return motivoIndisponibilidade;
+	}
+
+
+
+	public JRadioButton getDisponivel() {
+		return disponivel;
+	}
+
+
+
+	public JRadioButton getIndisponivel() {
+		return indisponivel;
+	}
+
+
 
 	public TelaCadastrarFornecedor getEditarDados() {
 		return editarDados;
@@ -82,8 +109,12 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		Object[] todosOsFornecedores = FornecedorController.getInstance().obterTodosOsFornecedores().toArray();
 
 		tabela = new JTable(modelo);
-		tabela.getColumn("Editar").setCellRenderer(new ButtonRenderer()); //Mostra um botao dentro da célula (linha/coluna)  
-		tabela.getColumn("Editar").setCellEditor(new ButtonEditor(new JCheckBox()));//Para quando clica no botão, o sistema entender que ele ta clicando no botão que está na linha
+		tabela.getColumn("Editar").setCellRenderer(new ButtonRenderer()); // Mostra um botao dentro da célula
+																			// (linha/coluna)
+		tabela.getColumn("Editar").setCellEditor(new ButtonEditor(new JCheckBox()));// Para quando clica no botão, o
+																					// sistema entender que ele ta
+																					// clicando no botão que está na
+																					// linha
 		tabela.getColumn("Detalhar").setCellRenderer(new ButtonRenderer());
 		tabela.getColumn("Detalhar").setCellEditor(new ButtonEditor(new JCheckBox()));
 
@@ -101,12 +132,11 @@ public class TelaListaFornecedor extends JanelaPadrao {
 			JButton bt = new JButton("Editar");
 			linha[3] = bt;
 			bt.setBackground(new Color(39, 228, 86));
-			
+
 			JButton btDetalhar = new JButton("Detalhar");
 			linha[4] = btDetalhar;
 			btDetalhar.setBackground(new Color(39, 228, 86));
-			
-			
+
 			if (t instanceof FornecedorFisico) {
 				FornecedorFisico ff = (FornecedorFisico) t;
 				linha[0] = ff.getNome();
@@ -123,7 +153,6 @@ public class TelaListaFornecedor extends JanelaPadrao {
 				btDetalhar.addActionListener(new OuvinteBotaoDetalhar(this, fj.getCnpj()));
 			}
 
-			
 			modelo.addRow(linha);// adiciona alinha
 
 		}
@@ -168,7 +197,6 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		voltar = ComponentesDeJFrame.criarBotao("Voltar", 636, 490, 125, 35);
 		voltar.addActionListener(ouvinteBotaoVoltar);
 		add(voltar);
-
 
 		novo = ComponentesDeJFrame.criarBotao("Novo", 636, 94, 125, 35);
 
@@ -247,6 +275,21 @@ public class TelaListaFornecedor extends JanelaPadrao {
 			editarDados.getCampoNomeCompleto().setText(pessoa.getNome());
 			editarDados.getCampoEmail().setText(pessoa.getEmail());
 			editarDados.getCampoTelefone().setText(pessoa.getTelefone());
+			
+			editarDados.getCampoNomeCompleto().setBounds(280, 190, 225, 30);
+			editarDados.getCampoTelefone().setBounds(280, 260, 225, 30);
+			editarDados.getCampoEmail().setBounds(280, 330, 225, 30);
+		
+			editarDados.getLbTitulo().setBounds(0, 40, 800, 50);
+			editarDados.getJlNomeCompleto().setBounds(280, 160, 200, 30);
+			editarDados.getJlTelefone().setBounds(280, 230, 130, 30);
+			editarDados.getJlEmail().setBounds(280, 300, 130, 30);
+		
+			
+			radioButton(editarDados);
+			
+			
+			
 
 			if (pessoa instanceof FornecedorFisico) {
 				FornecedorFisico fisico = (FornecedorFisico) pessoa;
@@ -265,10 +308,40 @@ public class TelaListaFornecedor extends JanelaPadrao {
 				editarDados.getCampoCNPJ().setEnabled(false);
 
 			}
+			
+			
 
 		}
 
 	}
+	
+	public void radioButton (TelaCadastrarFornecedor editar) {
+		OuvinteBotaoRadioButton ouvinteBotaoRadioButton = new OuvinteBotaoRadioButton();
+		disponivel = ComponentesDeJFrame.criarRadioButtons("Disponivel", true, 280, 110, 100, 30, 14);
+		indisponivel = ComponentesDeJFrame.criarRadioButtons("Indisponivel", false, 385, 110, 150, 30,14);
+		indisponivel.addActionListener(ouvinteBotaoRadioButton);
+		
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(disponivel);
+		bg.add(indisponivel);
+		
+		editar.add(disponivel);
+		editar.add(indisponivel);
+	}
+	
+	private class OuvinteBotaoRadioButton implements ActionListener{
+	
+		
+		public void actionPerformed(ActionEvent e) {
+			if(indisponivel.isSelected()) {
+				motivoIndisponibilidade = JOptionPane.showInputDialog(null, "Informe o motivo");
+			}
+			
+		}
+		
+	}
+	
+	
 
 	private class OuvinteBotaoSalvarFornecedorEditado implements ActionListener {
 		private TelaCadastrarFornecedor janela;
@@ -281,7 +354,8 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		public void actionPerformed(ActionEvent e) {
 
 			String nome = editarDados.getCampoNomeCompleto().getText();
-			String telefone = editarDados.getCampoTelefone().getText().replace("(", "").replace(")", "").replace("-", "").trim();
+			String telefone = editarDados.getCampoTelefone().getText().replace("(", "").replace(")", "")
+					.replace("-", "").trim();
 			String email = editarDados.getCampoEmail().getText();
 			Pessoa fornecedor = null;
 			String cpf = editarDados.removerMacaraCampoCPF(editarDados.getCampoCPF());
@@ -307,7 +381,12 @@ public class TelaListaFornecedor extends JanelaPadrao {
 					} else {
 						fornecedor = new FornecedorFisico(nome, null, telefone, cpf, email,
 								editarDados.getListaDeServicos());
-						// editarDados.setListaDeServicos() = new ArrayList<String>();
+						if(motivoIndisponibilidade != null) {
+							FornecedorFisico fisico = (FornecedorFisico) fornecedor;
+							fisico.setMotivoIndisponibilidade(getMotivoIndisponibilidade());
+							fisico.setDisponibilidade(false);
+						}
+						
 						if (FornecedorController.getInstance().adicionarFornecedor(fornecedor)) {
 							JOptionPane.showMessageDialog(janela, "Fornecedor editado com sucesso!");
 							janela.dispose();
@@ -338,7 +417,11 @@ public class TelaListaFornecedor extends JanelaPadrao {
 					} else {
 						fornecedor = new FornecedorJuridico(nome, null, telefone, email, cnpjNovo,
 								editarDados.getListaDeServicos());
-						// listaDeServicos = new ArrayList<String>();
+						if(motivoIndisponibilidade != null) {
+							FornecedorJuridico juridico = (FornecedorJuridico) fornecedor;
+							juridico.setMotivoIndisponibilidade(getMotivoIndisponibilidade());
+							juridico.setDisponibilidade(false);
+						}
 
 						if (FornecedorController.getInstance().adicionarFornecedor(fornecedor)) {
 							JOptionPane.showMessageDialog(janela, "Fornecedor editado com sucesso!");
@@ -364,55 +447,47 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		}
 
 	}
-	
-	private class OuvinteBotaoDetalhar implements ActionListener{
+
+	private class OuvinteBotaoDetalhar implements ActionListener {
 		private TelaListaFornecedor janela;
 		private String cpfCnpj;
-		
-		
-		public OuvinteBotaoDetalhar(TelaListaFornecedor janela,String cpfCnpj) {
+
+		public OuvinteBotaoDetalhar(TelaListaFornecedor janela, String cpfCnpj) {
 			this.janela = janela;
 			this.cpfCnpj = cpfCnpj;
 		}
-		
+
 		public void actionPerformed(ActionEvent e) {
-			JScrollPane  tabelaServicos;
+			JScrollPane tabelaServicos;
 			dispose();
 			TelaCadastrarFornecedor telaCadastrarFornecedor = new TelaCadastrarFornecedor("Dados Fornecedor");
 			telaCadastrarFornecedor.getJlNomeCompleto().setBounds(100, 180, 150, 30);
 			telaCadastrarFornecedor.getJlTelefone().setBounds(100, 250, 130, 30);
 			telaCadastrarFornecedor.getJlEmail().setBounds(100, 320, 130, 30);
 			telaCadastrarFornecedor.getCpfCnpj().setBounds(100, 415, 225, 30);
-		
-			
-			//Campos TextField
+
+			// Campos TextField
 			telaCadastrarFornecedor.getCampoNomeCompleto().setBounds(100, 210, 225, 30);
 			telaCadastrarFornecedor.getCampoTelefone().setBounds(100, 280, 225, 30);
 			telaCadastrarFornecedor.getCampoEmail().setBounds(100, 350, 225, 30);
-			
-			
-			
+
 			Pessoa pessoa = FornecedorController.getInstance().recuperarFornecedorPorCpfOuCnpj(cpfCnpj);
-			
-			
+
 			telaCadastrarFornecedor.getCampoNomeCompleto().setText(pessoa.getNome());
 			telaCadastrarFornecedor.getCampoNomeCompleto().setEnabled(false);
-			
+
 			telaCadastrarFornecedor.getCampoEmail().setText(pessoa.getEmail());
 			telaCadastrarFornecedor.getCampoEmail().setEnabled(false);
-			
+
 			telaCadastrarFornecedor.getCampoTelefone().setText(pessoa.getTelefone());
 			telaCadastrarFornecedor.getCampoTelefone().setEnabled(false);
-			
-			
+
 			telaCadastrarFornecedor.getBotaoSalvar().setVisible(false);
 			telaCadastrarFornecedor.getBotaoServicos().setVisible(false);
 			telaCadastrarFornecedor.getJlServicos().setVisible(false);
-			
+
 			telaCadastrarFornecedor.getBotaoVoltar().setBounds(100, 500, 100, 30);
-			
-			
-			
+
 			if (pessoa instanceof FornecedorFisico) {
 				FornecedorFisico fisico = (FornecedorFisico) pessoa;
 				telaCadastrarFornecedor.getCampoCPF().setText(fisico.getCpfCnpj());
@@ -422,7 +497,6 @@ public class TelaListaFornecedor extends JanelaPadrao {
 				telaCadastrarFornecedor.getCampoCPF().setEnabled(false);
 				telaCadastrarFornecedor.getPessoaJuridica().setVisible(false);
 				tabelaServicos = tabelaDetalharServicos(fisico);
-		
 
 			} else {
 				FornecedorJuridico juridico = (FornecedorJuridico) pessoa;
@@ -435,47 +509,46 @@ public class TelaListaFornecedor extends JanelaPadrao {
 				telaCadastrarFornecedor.getPessoaFisica().setVisible(false);
 				telaCadastrarFornecedor.getCampoCNPJ().setEnabled(false);
 				tabelaServicos = tabelaDetalharServicos(juridico);
-				
 
 			}
-			
-			tabelaServicos.setBounds(400,184,225,285);
+
+			tabelaServicos.setBounds(400, 184, 225, 285);
 			telaCadastrarFornecedor.add(tabelaServicos);
-			
+
 		}
-		
+
 	}
+
 	public JScrollPane tabelaDetalharServicos(Pessoa pessoa) {
 		modelo = new DefaultTableModel();
 		modelo.addColumn("Serviços Cadastrados");
-		
+
 		Object[] todosOsFornecedores;
 
-		
-		
-		if(pessoa instanceof FornecedorFisico) {
+		if (pessoa instanceof FornecedorFisico) {
 			FornecedorFisico fisico = (FornecedorFisico) pessoa;
 			todosOsFornecedores = fisico.getServicos().toArray();
-		
-		}else {
+
+		} else {
 			FornecedorJuridico juridico = (FornecedorJuridico) pessoa;
 			todosOsFornecedores = juridico.getServicos().toArray();
 		}
-		
-		
-		for(int i = 0; i < todosOsFornecedores.length;i++) {
+
+		for (int i = 0; i < todosOsFornecedores.length; i++) {
 			Object[] linha = new Object[1];
 			linha[i] = todosOsFornecedores[i];
 			modelo.addRow(linha);
 		}
-		
+
 		tabela = new JTable(modelo);
-		
+
 		return new JScrollPane(tabela);
-		
-		
-		
-		
+
 	}
+	
+	
+	
+	
+	
 
 }

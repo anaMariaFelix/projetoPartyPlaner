@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 
 import com.itextpdf.text.Font;
 
@@ -38,6 +39,8 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 		adicionarJLabel();
 		getBotaoSalvar().removeActionListener(ouvinteSalvar);
 	}
+
+
 
 	public OuvinteBotaoSalvarFornecedor getOuvinteSalvarFornecedor() {
 		return ouvinteSalvarFornecedor;
@@ -73,11 +76,16 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 		add(botaoServicos);
 
 	}
-
+	
+	
+	
 	private void adicionarJLabel() {
 		jlServicos = ComponentesDeJFrame.criaJLabel("Adicionar Serviços", 280, 500, 150, 30, 10);
 		add(jlServicos);
 	}
+	
+	
+
 
 	private class OuvinteBotaoSalvarFornecedor implements ActionListener {
 		private TelaCadastrarFornecedor janela;
