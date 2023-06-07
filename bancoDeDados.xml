@@ -1,58 +1,21 @@
 <baseDedados.CentralDeInformacoes>
-  <todosOsClientes>
-    <model.ClienteFisico>
-      <nome>ana</nome>
-      <telefone>77777777777</telefone>
-      <email>sdgsaygfysg@fghfg</email>
-      <CPF>11993299408</CPF>
-    </model.ClienteFisico>
-  </todosOsClientes>
+  <todosOsClientes/>
   <todosOsFornecedores>
-    <model.FornecedorJuridico>
-      <nome>ana felix</nome>
-      <telefone>44444444444</telefone>
-      <email>akdlk@kfawken</email>
-      <cnpj>26297926000184</cnpj>
-      <servicos>
-        <string>Buffet</string>
-      </servicos>
-      <quantContratosJuridico>0</quantContratosJuridico>
-    </model.FornecedorJuridico>
-    <model.FornecedorJuridico>
-      <nome>andrey fausto</nome>
-      <telefone>44444444444</telefone>
-      <email>f4@jhgjrh</email>
-      <cnpj>35119216000155</cnpj>
-      <servicos>
-        <string>Musica</string>
-      </servicos>
-      <quantContratosJuridico>0</quantContratosJuridico>
-    </model.FornecedorJuridico>
-    <model.FornecedorJuridico>
-      <nome>Andrey emerson</nome>
-      <telefone>83988555555</telefone>
-      <email>ara@ffst</email>
-      <cnpj>47589464000149</cnpj>
-      <servicos>
-        <string>Musica</string>
-      </servicos>
-      <quantContratosJuridico>0</quantContratosJuridico>
-    </model.FornecedorJuridico>
-    <model.FornecedorJuridico>
-      <nome>Ana maria</nome>
+    <model.FornecedorFisico>
+      <nome>ana</nome>
       <telefone>55555555555</telefone>
-      <email>!@1</email>
-      <cnpj>20095257000181</cnpj>
+      <email>12@12</email>
+      <cpfCnpj>71308976437</cpfCnpj>
       <servicos>
         <string>Buffet</string>
       </servicos>
-      <quantContratosJuridico>0</quantContratosJuridico>
-    </model.FornecedorJuridico>
+      <quantContratosFisico>0</quantContratosFisico>
+    </model.FornecedorFisico>
     <model.FornecedorJuridico>
-      <nome>ismael</nome>
-      <telefone>45451215545</telefone>
-      <email>ahs@hbduah</email>
-      <cnpj>56884523000100</cnpj>
+      <nome>andrey</nome>
+      <telefone>77777777777</telefone>
+      <email>123@123</email>
+      <cnpj>75708413000124</cnpj>
       <servicos>
         <string>Buffet</string>
       </servicos>
@@ -64,15 +27,26 @@
     <string>Buffet</string>
     <string>Musica</string>
     <string>Ornamentação</string>
+    <string>Local</string>
     <string>Segurança</string>
     <string>Serviços Gerais</string>
     <string>Agente de publicidade</string>
     <string>Recepção</string>
-    <string>Local</string>
   </todosServicos>
+  <todosOsPacotes>
+    <model.Pacote>
+      <nomeDoPacote>casamento</nomeDoPacote>
+      <valorDoPacote>10000</valorDoPacote>
+      <descricao>vamos para o casamento </descricao>
+      <todosFornecedore>
+        <model.FornecedorJuridico reference="../../../../todosOsFornecedores/model.FornecedorJuridico"/>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
+      </todosFornecedore>
+    </model.Pacote>
+  </todosOsPacotes>
   <administrador>
-    <nome>ana</nome>
-    <sobrenome>maria</sobrenome>
+    <nome>ismael</nome>
+    <sobrenome>ribeiro</sobrenome>
     <email>1@1</email>
     <senha>12345678</senha>
   </administrador>

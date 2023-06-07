@@ -24,10 +24,6 @@ public class FornecedorJuridico extends Pessoa{
 	}
 
 
-
-
-
-
 	public String getCnpj() {
 		return cnpj;
 	}
@@ -47,6 +43,10 @@ public class FornecedorJuridico extends Pessoa{
 		for(String servico: servicos) {
 			this.servicos.add(servico);
 		}
+	}
+	
+	public String toString() {
+		return getNome() + " CNPJ " + getCnpj();
 	}
 	
 }

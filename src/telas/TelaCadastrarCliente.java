@@ -48,6 +48,9 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 	private JLabel cpfCnpj;
 	protected OuvinteBotaoSalvar ouvinteSalvar;
 	protected OuvinteBotaoVoltar ouvinteVoltar;
+	private JLabel jlNomeCompleto;
+	private JLabel jlTelefone;
+	private JLabel jlEmail;
 	
 
 	public TelaCadastrarCliente(String titulo) {
@@ -62,6 +65,18 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 	
 	
 	
+	public JLabel getJlNomeCompleto() {
+		return jlNomeCompleto;
+	}
+
+	public JLabel getJlTelefone() {
+		return jlTelefone;
+	}
+
+	public JLabel getJlEmail() {
+		return jlEmail;
+	}
+
 	public OuvinteBotaoVoltar getOuvinteVoltar() {
 		return ouvinteVoltar;
 	}
@@ -122,13 +137,13 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 		lbTitulo.setFont(new Font("Arial", Font.ITALIC, 30));
 		add(lbTitulo);
 
-		JLabel jlNomeCompleto = ComponentesDeJFrame.criaJLabel("Nome Completo",280, 180, 150, 30,20);
+		jlNomeCompleto = ComponentesDeJFrame.criaJLabel("Nome Completo",280, 180, 200, 30,20);
 		add(jlNomeCompleto);
 
-		JLabel jlTelefone = ComponentesDeJFrame.criaJLabel("Telefone",280, 250, 130, 30,20);
+		jlTelefone = ComponentesDeJFrame.criaJLabel("Telefone",280, 250, 130, 30,20);
 		add(jlTelefone);
 
-		JLabel jlEmail = ComponentesDeJFrame.criaJLabel("Email",280, 320, 130, 30,20);
+		jlEmail = ComponentesDeJFrame.criaJLabel("Email",280, 320, 130, 30,20);
 		add(jlEmail);
 		
 		

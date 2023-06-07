@@ -17,8 +17,6 @@ public class Programa {
 
 	public static void main(String[] args) {
 
-		
-		
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
@@ -31,27 +29,22 @@ public class Programa {
 		} catch (ClassNotFoundException e) {
 			// handle exception
 		} catch (InstantiationException e) {
-			// handle exceptionana 
+			// handle exceptionana
 		} catch (IllegalAccessException e) {
 			// handle exception
 		}
 
-
 		CentralDeInformacoes centralDeInformacoes = Persistencia.getInstance().recupearCentral("bancoDeDados");
-		
-//		if (CentralDeInformacoes.getInstance().getAdministrador() != null) {
-//			TelaLogin telaLogin = new TelaLogin("Tela de Login");
-//			
-//		}else {
-//			JanelaPadrao janela = new CadastamentoAdministrador();
-//		}
-		
+
+		//if (CentralDeInformacoes.getInstance().getAdministrador() != null) {
+			//TelaLogin telaLogin = new TelaLogin("Tela de Login");
+
+		//} else {
+		//	JanelaPadrao janela = new CadastamentoAdministrador();
+		//}
+
 		TelaMenu telaMenu = new TelaMenu("Menu");
-		
-		
-		
-		
-		
+
 	}
 
 }

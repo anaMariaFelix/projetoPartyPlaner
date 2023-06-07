@@ -50,4 +50,9 @@ public class FornecedorFisico extends Pessoa{
 		}
 	}
 	
+	public String toString() {
+		return getNome() + " CPF " + getCpfCnpj();
+	}
+	
+	
 }

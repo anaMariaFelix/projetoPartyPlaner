@@ -12,9 +12,9 @@ import util.Constantes;
 import model.Evento;
 import model.FornecedorFisico;
 import model.FornecedorJuridico;
+import model.Pacote;
 
 public class CentralDeInformacoes {
-
 
 	private static CentralDeInformacoes instance;
 
@@ -22,27 +22,34 @@ public class CentralDeInformacoes {
 	private ArrayList<Pessoa> todosOsFornecedores = new ArrayList();
 	private ArrayList<Evento> todosEvento = new ArrayList();
 	private ArrayList<String> todosServicos = new ArrayList();
+	private ArrayList<Pacote> todosOsPacotes = new ArrayList();
 	private Administrador administrador;
 
 	private CentralDeInformacoes() {
-			popularTodosServicos();
-			
-		}
+		popularTodosServicos();
+
+	}
 
 	public static CentralDeInformacoes getInstance() {
-			if(instance == null) {
-				CentralDeInformacoes doArquivo = Persistencia.getInstance().recupearCentral(Constantes.NOME_ARQUIVO);
-				if(doArquivo == null) {
-					instance = new CentralDeInformacoes();
-				}else {
-					instance = doArquivo;
-				}
+		if (instance == null) {
+			CentralDeInformacoes doArquivo = Persistencia.getInstance().recupearCentral(Constantes.NOME_ARQUIVO);
+			if (doArquivo == null) {
+				instance = new CentralDeInformacoes();
+			} else {
+				instance = doArquivo;
 			}
-			return instance;
 		}
+		return instance;
+	}
 
-	
-	
+	public ArrayList<Pacote> getTodosOsPacotes() {
+		return todosOsPacotes;
+	}
+
+	public void setTodosOsPacotes(ArrayList<Pacote> todosOsPacotes) {
+		this.todosOsPacotes = todosOsPacotes;
+	}
+
 	public ArrayList<Pessoa> getTodosOsClientes() {
 		return todosOsClientes;
 	}

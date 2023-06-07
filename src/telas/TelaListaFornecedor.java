@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controller.FornecedorController;
+import controller.ServicoController;
 import model.FornecedorFisico;
 import model.FornecedorJuridico;
 import model.Pessoa;
@@ -81,14 +82,12 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		Object[] todosOsFornecedores = FornecedorController.getInstance().obterTodosOsFornecedores().toArray();
 
 		tabela = new JTable(modelo);
-		tabela.getColumn("Editar").setCellRenderer(new ButtonRenderer());
-		tabela.getColumn("Editar").setCellEditor(new ButtonEditor(new JCheckBox()));
+		tabela.getColumn("Editar").setCellRenderer(new ButtonRenderer()); //Mostra um botao dentro da célula (linha/coluna)  
+		tabela.getColumn("Editar").setCellEditor(new ButtonEditor(new JCheckBox()));//Para quando clica no botão, o sistema entender que ele ta clicando no botão que está na linha
 		tabela.getColumn("Detalhar").setCellRenderer(new ButtonRenderer());
 		tabela.getColumn("Detalhar").setCellEditor(new ButtonEditor(new JCheckBox()));
 
-		JScrollPane painelTabela = new JScrollPane(tabela);// esse JScrollPane serve para criar uma barra de rolagem na
-															// tabela, mas se n quiser so n usar ele e no lugar que tem
-															// a sua variavel de controle coloca a da tabela
+		JScrollPane painelTabela = new JScrollPane(tabela);
 		painelTabela.setBounds(30, 135, 730, 350);
 		add(painelTabela);
 		preencherTabela(todosOsFornecedores);
@@ -102,22 +101,29 @@ public class TelaListaFornecedor extends JanelaPadrao {
 			JButton bt = new JButton("Editar");
 			linha[3] = bt;
 			bt.setBackground(new Color(39, 228, 86));
-
+			
+			JButton btDetalhar = new JButton("Detalhar");
+			linha[4] = btDetalhar;
+			btDetalhar.setBackground(new Color(39, 228, 86));
+			
+			
 			if (t instanceof FornecedorFisico) {
 				FornecedorFisico ff = (FornecedorFisico) t;
 				linha[0] = ff.getNome();
 				linha[1] = "Fisico";
 				linha[2] = ff.getQuantContratosFisico();
 				bt.addActionListener(new OuvinteButtonEditar(this, ff.getCpfCnpj()));
+				btDetalhar.addActionListener(new OuvinteBotaoDetalhar(this, ff.getCpfCnpj()));
 			} else {
 				FornecedorJuridico fj = (FornecedorJuridico) t;
 				linha[0] = fj.getNome();
 				linha[1] = "Juridico";
 				linha[2] = fj.getQuantContratosJuridico();
 				bt.addActionListener(new OuvinteButtonEditar(this, fj.getCnpj()));
+				btDetalhar.addActionListener(new OuvinteBotaoDetalhar(this, fj.getCnpj()));
 			}
 
-			linha[4] = new JButton("Detalhar");
+			
 			modelo.addRow(linha);// adiciona alinha
 
 		}
@@ -357,6 +363,119 @@ public class TelaListaFornecedor extends JanelaPadrao {
 			}
 		}
 
+	}
+	
+	private class OuvinteBotaoDetalhar implements ActionListener{
+		private TelaListaFornecedor janela;
+		private String cpfCnpj;
+		
+		
+		public OuvinteBotaoDetalhar(TelaListaFornecedor janela,String cpfCnpj) {
+			this.janela = janela;
+			this.cpfCnpj = cpfCnpj;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			JScrollPane  tabelaServicos;
+			dispose();
+			TelaCadastrarFornecedor telaCadastrarFornecedor = new TelaCadastrarFornecedor("Dados Fornecedor");
+			telaCadastrarFornecedor.getJlNomeCompleto().setBounds(100, 180, 150, 30);
+			telaCadastrarFornecedor.getJlTelefone().setBounds(100, 250, 130, 30);
+			telaCadastrarFornecedor.getJlEmail().setBounds(100, 320, 130, 30);
+			telaCadastrarFornecedor.getCpfCnpj().setBounds(100, 415, 225, 30);
+		
+			
+			//Campos TextField
+			telaCadastrarFornecedor.getCampoNomeCompleto().setBounds(100, 210, 225, 30);
+			telaCadastrarFornecedor.getCampoTelefone().setBounds(100, 280, 225, 30);
+			telaCadastrarFornecedor.getCampoEmail().setBounds(100, 350, 225, 30);
+			
+			
+			
+			Pessoa pessoa = FornecedorController.getInstance().recuperarFornecedorPorCpfOuCnpj(cpfCnpj);
+			
+			
+			telaCadastrarFornecedor.getCampoNomeCompleto().setText(pessoa.getNome());
+			telaCadastrarFornecedor.getCampoNomeCompleto().setEnabled(false);
+			
+			telaCadastrarFornecedor.getCampoEmail().setText(pessoa.getEmail());
+			telaCadastrarFornecedor.getCampoEmail().setEnabled(false);
+			
+			telaCadastrarFornecedor.getCampoTelefone().setText(pessoa.getTelefone());
+			telaCadastrarFornecedor.getCampoTelefone().setEnabled(false);
+			
+			
+			telaCadastrarFornecedor.getBotaoSalvar().setVisible(false);
+			telaCadastrarFornecedor.getBotaoServicos().setVisible(false);
+			telaCadastrarFornecedor.getJlServicos().setVisible(false);
+			
+			telaCadastrarFornecedor.getBotaoVoltar().setBounds(100, 500, 100, 30);
+			
+			
+			
+			if (pessoa instanceof FornecedorFisico) {
+				FornecedorFisico fisico = (FornecedorFisico) pessoa;
+				telaCadastrarFornecedor.getCampoCPF().setText(fisico.getCpfCnpj());
+				telaCadastrarFornecedor.getCampoCPF().setBounds(100, 440, 225, 30);
+				telaCadastrarFornecedor.getPessoaFisica().setBounds(100, 380, 200, 30);
+				telaCadastrarFornecedor.setListaDeServicos(fisico.getServicos());
+				telaCadastrarFornecedor.getCampoCPF().setEnabled(false);
+				telaCadastrarFornecedor.getPessoaJuridica().setVisible(false);
+				tabelaServicos = tabelaDetalharServicos(fisico);
+		
+
+			} else {
+				FornecedorJuridico juridico = (FornecedorJuridico) pessoa;
+				telaCadastrarFornecedor.getPessoaJuridica().doClick();
+				telaCadastrarFornecedor.getCampoCNPJ().setText(juridico.getCnpj());
+				telaCadastrarFornecedor.getCampoCNPJ().setBounds(100, 440, 225, 30);
+				telaCadastrarFornecedor.getPessoaJuridica().setBounds(100, 380, 200, 30);
+				telaCadastrarFornecedor.setListaDeServicos(juridico.getServicos());
+				telaCadastrarFornecedor.getCpfCnpj().setText("CNPJ");
+				telaCadastrarFornecedor.getPessoaFisica().setVisible(false);
+				telaCadastrarFornecedor.getCampoCNPJ().setEnabled(false);
+				tabelaServicos = tabelaDetalharServicos(juridico);
+				
+
+			}
+			
+			tabelaServicos.setBounds(400,184,225,285);
+			telaCadastrarFornecedor.add(tabelaServicos);
+			
+		}
+		
+	}
+	public JScrollPane tabelaDetalharServicos(Pessoa pessoa) {
+		modelo = new DefaultTableModel();
+		modelo.addColumn("Serviços Cadastrados");
+		
+		Object[] todosOsFornecedores;
+
+		
+		
+		if(pessoa instanceof FornecedorFisico) {
+			FornecedorFisico fisico = (FornecedorFisico) pessoa;
+			todosOsFornecedores = fisico.getServicos().toArray();
+		
+		}else {
+			FornecedorJuridico juridico = (FornecedorJuridico) pessoa;
+			todosOsFornecedores = juridico.getServicos().toArray();
+		}
+		
+		
+		for(int i = 0; i < todosOsFornecedores.length;i++) {
+			Object[] linha = new Object[1];
+			linha[i] = todosOsFornecedores[i];
+			modelo.addRow(linha);
+		}
+		
+		tabela = new JTable(modelo);
+		
+		return new JScrollPane(tabela);
+		
+		
+		
+		
 	}
 
 }

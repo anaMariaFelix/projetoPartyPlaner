@@ -131,10 +131,12 @@ public class TelaMenu extends JanelaPadrao{
 				new TelaListaFornecedor("Fornecedores");
 				
 			}else if(e.getSource() == botaoCadastrarPacotesDeFornecedores) {
-				JOptionPane.showMessageDialog(null, "dentro do botao Cadastrar Pacotes De Fornecedores");
+				dispose();
+				new TelaCadastrarPacotes("Cadastrar Pacotes");
 				
 			}else if(e.getSource() == botaoListarPacotesDeFornecedores) {
-				JOptionPane.showMessageDialog(null, "dentro do botao Listar Pacotes De Fornecedores");
+				dispose();
+				new TelaListarPacotesFornecedores("Lista de Pacotes");
 				
 			}else if(e.getSource() == botaoCadastrarOrcamento) {
 				JOptionPane.showMessageDialog(null, "dentro do botao Cadastrar Orcamento");
