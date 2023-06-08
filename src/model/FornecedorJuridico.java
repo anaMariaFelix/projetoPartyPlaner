@@ -10,10 +10,10 @@ public class FornecedorJuridico extends Pessoa{
 	private String motivoIndisponibilidade;
 	
 	
-	public FornecedorJuridico(String nome, String sobrenome, String telefone, String email,String cnpj,ArrayList<String> servicos) {
+	public FornecedorJuridico(String nome, String sobrenome, String telefone, String email,String cnpj,ArrayList<String> servicos, boolean disponibilidade) {
 		super(nome, null, telefone, email);
 		this.cnpj = cnpj;
-		this.disponibilidade = true;
+		this.disponibilidade = disponibilidade;
 		adicionaServicosNaLista(servicos);
 	}
 

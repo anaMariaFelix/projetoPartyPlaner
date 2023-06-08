@@ -119,7 +119,7 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 					} else if (janela.getListaDeServicos().isEmpty()) {
 						JOptionPane.showMessageDialog(janela, "Você deve fornecer ao menos um serviço");
 					} else {
-						fornecedor = new FornecedorFisico(nome, null, telefone, cpf, email,janela.getListaDeServicos());
+						fornecedor = new FornecedorFisico(nome, null, telefone, cpf, email,janela.getListaDeServicos(),true);
 						listaDeServicos = new ArrayList<String>();
 						if (FornecedorController.getInstance().adicionarFornecedor(fornecedor)) {
 							JOptionPane.showMessageDialog(janela, "Fornecedor cadastrado com sucesso!");
@@ -148,7 +148,7 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 						JOptionPane.showMessageDialog(janela, "Você deve fornecer ao menos um serviço");
 						
 					} else {
-						fornecedor = new FornecedorJuridico(nome, null, telefone, email, cnpj,janela.getListaDeServicos());
+						fornecedor = new FornecedorJuridico(nome, null, telefone, email, cnpj,janela.getListaDeServicos(),true);
 						listaDeServicos = new ArrayList<String>();
 						
 						if (FornecedorController.getInstance().adicionarFornecedor(fornecedor)) {

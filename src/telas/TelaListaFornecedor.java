@@ -4,11 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -18,13 +13,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 
 import controller.FornecedorController;
-import controller.ServicoController;
+import controller.PacotesController;
 import model.FornecedorFisico;
 import model.FornecedorJuridico;
+import model.Pacote;
 import model.Pessoa;
 import util.ButtonEditor;
 import util.ButtonRenderer;
@@ -47,6 +42,7 @@ public class TelaListaFornecedor extends JanelaPadrao {
 	private JRadioButton disponivel;
 	private JRadioButton indisponivel;
 	private String motivoIndisponibilidade;
+	private OuvinteBotaoRadioButton ouvinteBotaoRadioButton;
 
 	public TelaListaFornecedor(String titulo) {
 		super(titulo);
@@ -283,22 +279,29 @@ public class TelaListaFornecedor extends JanelaPadrao {
 			editarDados.getLbTitulo().setBounds(0, 40, 800, 50);
 			editarDados.getJlNomeCompleto().setBounds(280, 160, 200, 30);
 			editarDados.getJlTelefone().setBounds(280, 230, 130, 30);
-			editarDados.getJlEmail().setBounds(280, 300, 130, 30);
-		
+			editarDados.getJlEmail().setBounds(280, 300, 130, 30);		
 			
 			radioButton(editarDados);
-			
-			
-			
 
 			if (pessoa instanceof FornecedorFisico) {
 				FornecedorFisico fisico = (FornecedorFisico) pessoa;
+				if(!fisico.isDisponibilidade()) {
+					indisponivel.removeActionListener(ouvinteBotaoRadioButton);		
+					indisponivel.doClick();
+							
+				}
+				
 				editarDados.getCampoCPF().setText(fisico.getCpfCnpj());
 				editarDados.setListaDeServicos(fisico.getServicos());
 				editarDados.getCampoCPF().setEnabled(false);
 
 			} else {
 				FornecedorJuridico juridico = (FornecedorJuridico) pessoa;
+				if(!juridico.isDisponibilidade()) {
+					indisponivel.removeActionListener(ouvinteBotaoRadioButton);
+					indisponivel.doClick();
+					
+				}
 				editarDados.getPessoaJuridica().doClick();
 				editarDados.getCampoCNPJ().setText(juridico.getCnpj());
 				editarDados.getPessoaJuridica().setBounds(280, 380, 200, 30);
@@ -316,7 +319,7 @@ public class TelaListaFornecedor extends JanelaPadrao {
 	}
 	
 	public void radioButton (TelaCadastrarFornecedor editar) {
-		OuvinteBotaoRadioButton ouvinteBotaoRadioButton = new OuvinteBotaoRadioButton();
+		ouvinteBotaoRadioButton = new OuvinteBotaoRadioButton();
 		disponivel = ComponentesDeJFrame.criarRadioButtons("Disponivel", true, 280, 110, 100, 30, 14);
 		indisponivel = ComponentesDeJFrame.criarRadioButtons("Indisponivel", false, 385, 110, 150, 30,14);
 		indisponivel.addActionListener(ouvinteBotaoRadioButton);
@@ -352,7 +355,9 @@ public class TelaListaFornecedor extends JanelaPadrao {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
+			Pacote pacote = null;
+			int indiceFornecedor;
+			
 			String nome = editarDados.getCampoNomeCompleto().getText();
 			String telefone = editarDados.getCampoTelefone().getText().replace("(", "").replace(")", "")
 					.replace("-", "").trim();
@@ -363,8 +368,13 @@ public class TelaListaFornecedor extends JanelaPadrao {
 			if (e.getSource() == editarDados.getBotaoSalvar()) {
 
 				if (editarDados.getPessoaFisica().isSelected()) {
-					FornecedorController.getInstance()
-							.removerFornecedor(FornecedorController.getInstance().pegarIndeciDoFornecedor(cpf));
+					FornecedorController.getInstance().removerFornecedor(FornecedorController.getInstance().pegarIndeciDoFornecedor(cpf));
+					//pacote = PacotesController.getInstance().recuperarPacoteQueContemFornecedor(cpf);
+					//indiceFornecedor = PacotesController.getInstance().recuperarFornecedorNoPacote(cpf, pacote);
+					//pacote.getTodosFornecedore().remove(indiceFornecedor);
+					//PacotesController.getInstance().removerPacote(pacote);
+					
+					
 
 					if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos");
@@ -379,16 +389,24 @@ public class TelaListaFornecedor extends JanelaPadrao {
 						// JOptionPane.showMessageDialog(janela, "Você deve fornecer ao menos um
 						// serviço");
 					} else {
-						fornecedor = new FornecedorFisico(nome, null, telefone, cpf, email,
-								editarDados.getListaDeServicos());
-						if(motivoIndisponibilidade != null) {
+						fornecedor = new FornecedorFisico(nome, null, telefone, cpf, email,editarDados.getListaDeServicos(),true);
+						
+						
+						if(getIndisponivel().isSelected()) {
 							FornecedorFisico fisico = (FornecedorFisico) fornecedor;
 							fisico.setMotivoIndisponibilidade(getMotivoIndisponibilidade());
 							fisico.setDisponibilidade(false);
+							//pacote.getTodosFornecedore().add(fisico);
+							//PacotesController.getInstance().adicionarPacote(pacote);
+							PacotesController.getInstance().removerEAdicionarPacoteAtualizado(cpf,fisico);
+						}else {
+							PacotesController.getInstance().removerEAdicionarPacoteAtualizado(cpf,fornecedor);
 						}
+						
 						
 						if (FornecedorController.getInstance().adicionarFornecedor(fornecedor)) {
 							JOptionPane.showMessageDialog(janela, "Fornecedor editado com sucesso!");
+							motivoIndisponibilidade = null;
 							janela.dispose();
 							new TelaListaFornecedor("Lista de Fornecedores");
 						}
@@ -401,8 +419,12 @@ public class TelaListaFornecedor extends JanelaPadrao {
 						FornecedorController.getInstance()
 								.removerFornecedor(FornecedorController.getInstance().pegarIndeciDoFornecedor(cpf));
 					} else {
-						FornecedorController.getInstance()
-								.removerFornecedor(FornecedorController.getInstance().pegarIndeciDoFornecedor(cnpj));
+						FornecedorController.getInstance().removerFornecedor(FornecedorController.getInstance().pegarIndeciDoFornecedor(cnpj));
+						//pacote = PacotesController.getInstance().recuperarPacoteQueContemFornecedor(cnpj);
+						//indiceFornecedor = PacotesController.getInstance().recuperarFornecedorNoPacote(cnpj, pacote);
+						//pacote.getTodosFornecedore().remove(indiceFornecedor);
+						
+						//PacotesController.getInstance().removerPacote(pacote);
 					}
 
 					if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty() || cnpj.isEmpty()) {
@@ -415,16 +437,21 @@ public class TelaListaFornecedor extends JanelaPadrao {
 						JOptionPane.showMessageDialog(janela, "O CNPJ não é válido, informe novamente");
 
 					} else {
-						fornecedor = new FornecedorJuridico(nome, null, telefone, email, cnpjNovo,
-								editarDados.getListaDeServicos());
-						if(motivoIndisponibilidade != null) {
+						fornecedor = new FornecedorJuridico(nome, null, telefone, email, cnpjNovo,editarDados.getListaDeServicos(),true);
+						
+						if(getIndisponivel().isSelected()) {
 							FornecedorJuridico juridico = (FornecedorJuridico) fornecedor;
 							juridico.setMotivoIndisponibilidade(getMotivoIndisponibilidade());
 							juridico.setDisponibilidade(false);
+							//pacote.getTodosFornecedore().add(juridico);
+							//PacotesController.getInstance().adicionarPacote(pacote);
+							PacotesController.getInstance().removerEAdicionarPacoteAtualizado(cnpj,juridico);
+							
 						}
 
 						if (FornecedorController.getInstance().adicionarFornecedor(fornecedor)) {
 							JOptionPane.showMessageDialog(janela, "Fornecedor editado com sucesso!");
+							motivoIndisponibilidade = null;
 							janela.dispose();
 							new TelaListaFornecedor("Lista de Fornecedores");
 

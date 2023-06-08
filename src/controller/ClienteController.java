@@ -21,7 +21,7 @@ public class ClienteController {
 		return instance;
 	}
 	
-	public static boolean adicionarCliente(Pessoa pessoa) {
+	public boolean adicionarCliente(Pessoa pessoa) {
 		if(! existeCliente(pessoa.getEmail())) {
 			CentralDeInformacoes.getInstance().getTodosOsClientes().add(pessoa);
 			Persistencia.getInstance().salvarCentral(CentralDeInformacoes.getInstance(), Constantes.NOME_ARQUIVO);
@@ -30,7 +30,7 @@ public class ClienteController {
 		return false;
 	}
 	
-	public static Pessoa recuperarClientePorEmail(String email) {
+	public Pessoa recuperarClientePorEmail(String email) {
 		for(Pessoa cliente: CentralDeInformacoes.getInstance().getTodosOsClientes()) { 
 			if(cliente.getEmail().equals(email)){
 				return cliente;
@@ -39,7 +39,7 @@ public class ClienteController {
 		return null;
 	}
 	
-	public static boolean existeCliente(String email) { 
+	public boolean existeCliente(String email) { 
 		for(Pessoa c: CentralDeInformacoes.getInstance().getTodosOsClientes()) {
 			if(c.getEmail().equals(email)){
 				return true;

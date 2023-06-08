@@ -43,9 +43,9 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 	private void adicinoarTabela() {
 		modelo = new DefaultTableModel();
 		modelo.addColumn("Nome do Pacote");// adiciona colunas
-		modelo.addColumn("Lista de Serviços");
 		modelo.addColumn("Valor Do pacote");
 		modelo.addColumn("Disponibilidade");
+		modelo.addColumn("Lista de Serviços");
 		modelo.addColumn("Detalhar");
 		modelo.addColumn("Excluir");
 
@@ -79,11 +79,13 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 			Object[] linha = new Object[6];
 			
 			linha[0] = pacote.getNomeDoPacote();
-			linha[1] = "tipo de serviços";
-			linha[2] = pacote.getValorDoPacote();
-			linha[3] = "disponivel";
+			linha[1] = pacote.getValorDoPacote();
+			linha[2] = "Disponivel";
+			linha[3] = "Serviços";
 			
-			
+			if(PacotesController.getInstance().verificaSePacoteEstaDisponivel(pacote)) {
+				linha[2] = "Indisponivel";
+			}
 			
 			JButton btDetalhar = new JButton("Detalhar");
 			linha[4] = btDetalhar;

@@ -197,7 +197,7 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 					} else {
 						cliente = new ClienteFisico(nome, null, telefone, email, cpf);
 						
-						if (ClienteController.adicionarCliente(cliente)) {
+						if (ClienteController.getInstance().adicionarCliente(cliente)) {
 							JOptionPane.showMessageDialog(janela, "Cliente cadastrado com sucesso!");
 							janela.dispose();
 							TelaMenu telaMenu = new TelaMenu("Tela de Menu");
@@ -224,7 +224,7 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 					} else {
 						cliente = new ClienteJuridico(nome, null, telefone, email, cnpj);
 						
-						if (ClienteController.adicionarCliente(cliente)) {
+						if (ClienteController.getInstance().adicionarCliente(cliente)) {
 							JOptionPane.showMessageDialog(janela, "Cliente cadastrado com sucesso!");
 
 							janela.dispose();

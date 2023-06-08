@@ -2,29 +2,27 @@
   <todosOsClientes/>
   <todosOsFornecedores>
     <model.FornecedorFisico>
-      <nome>ana</nome>
-      <telefone>55555555555</telefone>
-      <email>12@12</email>
+      <nome>ismael</nome>
+      <telefone>22222222222</telefone>
+      <email>11@123</email>
       <cpfCnpj>71308976437</cpfCnpj>
       <servicos>
         <string>Buffet</string>
       </servicos>
       <quantContratosFisico>0</quantContratosFisico>
-      <disponibilidade>false</disponibilidade>
-      <motivoIndisponibilidade>nao quero</motivoIndisponibilidade>
+      <disponibilidade>true</disponibilidade>
     </model.FornecedorFisico>
-    <model.FornecedorJuridico>
-      <nome>andrey</nome>
-      <telefone>77777777777</telefone>
-      <email>123@123</email>
-      <cnpj>75708413000124</cnpj>
+    <model.FornecedorFisico>
+      <nome>ana</nome>
+      <telefone>11111111111</telefone>
+      <email>12@we</email>
+      <cpfCnpj>11993299408</cpfCnpj>
       <servicos>
         <string>Buffet</string>
       </servicos>
-      <quantContratosJuridico>0</quantContratosJuridico>
-      <disponibilidade>false</disponibilidade>
-      <motivoIndisponibilidade>nao vou</motivoIndisponibilidade>
-    </model.FornecedorJuridico>
+      <quantContratosFisico>0</quantContratosFisico>
+      <disponibilidade>true</disponibilidade>
+    </model.FornecedorFisico>
   </todosOsFornecedores>
   <todosEvento/>
   <todosServicos>
@@ -39,38 +37,18 @@
   </todosServicos>
   <todosOsPacotes>
     <model.Pacote>
-      <nomeDoPacote>casamento</nomeDoPacote>
-      <valorDoPacote>10000</valorDoPacote>
-      <descricao>vamos para o casamento </descricao>
+      <nomeDoPacote>teste</nomeDoPacote>
+      <valorDoPacote>33333333333</valorDoPacote>
+      <descricao>fgfdsadgf</descricao>
       <todosFornecedore>
-        <model.FornecedorJuridico>
-          <nome>andrey</nome>
-          <telefone>77777777777</telefone>
-          <email>123@123</email>
-          <cnpj>75708413000124</cnpj>
-          <servicos>
-            <string>Buffet</string>
-          </servicos>
-          <quantContratosJuridico>0</quantContratosJuridico>
-          <disponibilidade>false</disponibilidade>
-        </model.FornecedorJuridico>
-        <model.FornecedorFisico>
-          <nome>ana</nome>
-          <telefone>55555555555</telefone>
-          <email>12@12</email>
-          <cpfCnpj>71308976437</cpfCnpj>
-          <servicos>
-            <string>Buffet</string>
-          </servicos>
-          <quantContratosFisico>0</quantContratosFisico>
-          <disponibilidade>false</disponibilidade>
-        </model.FornecedorFisico>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[2]"/>
       </todosFornecedore>
     </model.Pacote>
   </todosOsPacotes>
   <administrador>
-    <nome>ismael</nome>
-    <sobrenome>ribeiro</sobrenome>
+    <nome>ana</nome>
+    <sobrenome>anaaa</sobrenome>
     <email>1@1</email>
     <senha>12345678</senha>
   </administrador>
