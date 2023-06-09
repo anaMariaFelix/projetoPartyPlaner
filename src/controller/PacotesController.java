@@ -143,5 +143,61 @@ public class PacotesController {
 		}
 
 	}
+	
+	public ArrayList<String> obterServicosDoPacote(Pacote pacote){
+		ArrayList<String> servicosDoPacote = new ArrayList();
+		ArrayList<Pessoa> arrayFornecedor = pacote.getTodosFornecedore();
+		
+		for(Pessoa p: arrayFornecedor) {
+			if(p instanceof FornecedorFisico) {
+				FornecedorFisico fisico = (FornecedorFisico) p;
+				for(int i = 0; i < fisico.getServicos().size();i++) {
+					if(!servicosDoPacote.contains(fisico.getServicos().get(i))) {
+						servicosDoPacote.add(fisico.getServicos().get(i));
+					}
+				}
+			}else {
+				FornecedorJuridico juridico = (FornecedorJuridico) p;
+				for(int i = 0; i < juridico.getServicos().size();i++) {
+					if(!servicosDoPacote.contains(juridico.getServicos().get(i))) {
+						servicosDoPacote.add(juridico.getServicos().get(i));
+					}
+				}
+			}
+		}
+		return servicosDoPacote;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

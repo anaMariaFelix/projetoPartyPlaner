@@ -13,12 +13,57 @@
       <disponibilidade>true</disponibilidade>
     </model.FornecedorFisico>
     <model.FornecedorFisico>
+      <nome>ddf</nome>
+      <telefone>33333333333</telefone>
+      <email>123@134</email>
+      <cpfCnpj>70401600483</cpfCnpj>
+      <servicos>
+        <string>Buffet</string>
+      </servicos>
+      <quantContratosFisico>0</quantContratosFisico>
+      <disponibilidade>true</disponibilidade>
+    </model.FornecedorFisico>
+    <model.FornecedorFisico>
+      <nome>mateus</nome>
+      <telefone>22222222222</telefone>
+      <email>234@34</email>
+      <cpfCnpj>76532038504</cpfCnpj>
+      <servicos>
+        <string>Buffet</string>
+      </servicos>
+      <quantContratosFisico>0</quantContratosFisico>
+      <disponibilidade>true</disponibilidade>
+    </model.FornecedorFisico>
+    <model.FornecedorFisico>
+      <nome>ana maria</nome>
+      <telefone>22222222222</telefone>
+      <email>wdfd@wef</email>
+      <cpfCnpj>59626730935</cpfCnpj>
+      <servicos>
+        <string>Buffet</string>
+      </servicos>
+      <quantContratosFisico>0</quantContratosFisico>
+      <disponibilidade>true</disponibilidade>
+    </model.FornecedorFisico>
+    <model.FornecedorFisico>
       <nome>ana</nome>
       <telefone>11111111111</telefone>
       <email>12@we</email>
       <cpfCnpj>11993299408</cpfCnpj>
       <servicos>
         <string>Buffet</string>
+      </servicos>
+      <quantContratosFisico>0</quantContratosFisico>
+      <disponibilidade>true</disponibilidade>
+    </model.FornecedorFisico>
+    <model.FornecedorFisico>
+      <nome>eraldo</nome>
+      <telefone>55555555555</telefone>
+      <email>122@12</email>
+      <cpfCnpj>44547935815</cpfCnpj>
+      <servicos>
+        <string>Segurança</string>
+        <string>Recepção</string>
       </servicos>
       <quantContratosFisico>0</quantContratosFisico>
       <disponibilidade>true</disponibilidade>
@@ -42,7 +87,16 @@
       <descricao>fgfdsadgf</descricao>
       <todosFornecedore>
         <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[2]"/>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[5]"/>
+      </todosFornecedore>
+    </model.Pacote>
+    <model.Pacote>
+      <nomeDoPacote>viagem</nomeDoPacote>
+      <valorDoPacote>1234565432</valorDoPacote>
+      <descricao>fdgfhfg</descricao>
+      <todosFornecedore>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[6]"/>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
       </todosFornecedore>
     </model.Pacote>
   </todosOsPacotes>

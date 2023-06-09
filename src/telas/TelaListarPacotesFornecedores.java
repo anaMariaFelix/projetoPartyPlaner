@@ -17,12 +17,13 @@ import model.Pacote;
 import util.ButtonEditor;
 import util.ButtonRenderer;
 import util.ComponentesDeJFrame;
+import util.JLabelRenderer;
 
 public class TelaListarPacotesFornecedores extends JanelaPadrao {
 	private DefaultTableModel modelo;
 	private JTable tabela;
 	private JButton voltar;
-	
+
 	public TelaListarPacotesFornecedores(String titulo) {
 		super(titulo);
 		adicionarJLabel();
@@ -45,19 +46,32 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 		modelo.addColumn("Nome do Pacote");// adiciona colunas
 		modelo.addColumn("Valor Do pacote");
 		modelo.addColumn("Disponibilidade");
-		modelo.addColumn("Lista de Serviços");
+		modelo.addColumn("Serviços");
 		modelo.addColumn("Detalhar");
 		modelo.addColumn("Excluir");
 
 		Object[] todosOsPacotes = PacotesController.getInstance().obterListaDePacote().toArray();
 
+		
+		
+		
 		tabela = new JTable(modelo);
-		tabela.getColumn("Excluir").setCellRenderer(new ButtonRenderer()); // Mostra um botao dentro da célula
-																			// (linha/coluna)
+		
+		tabela.getColumn("Nome do Pacote").setCellRenderer(new JLabelRenderer()); 
+		tabela.getColumn("Valor Do pacote").setCellRenderer(new JLabelRenderer()); 
+		tabela.getColumn("Disponibilidade").setCellRenderer(new JLabelRenderer()); 
+		
+		
+		tabela.getColumn("Excluir").setCellRenderer(new ButtonRenderer()); // Mostra um botao dentro da célula																// (linha/coluna)
 		tabela.getColumn("Excluir").setCellEditor(new ButtonEditor(new JCheckBox()));// Para quando clica no botão, o
-																						// sistema entender que ele ta
-																						// clicando no botão que está na
-																						// linha
+			
+		
+		
+		// sistema entender que ele ta
+		tabela.getColumn("Serviços").setCellRenderer(new ButtonRenderer()); 
+		tabela.getColumn("Serviços").setCellEditor(new ButtonEditor(new JCheckBox())); 
+		
+		
 		tabela.getColumn("Detalhar").setCellRenderer(new ButtonRenderer());
 		tabela.getColumn("Detalhar").setCellEditor(new ButtonEditor(new JCheckBox()));
 
@@ -78,22 +92,42 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 			Pacote pacote = (Pacote) p;
 			Object[] linha = new Object[6];
 			
-			linha[0] = pacote.getNomeDoPacote();
-			linha[1] = pacote.getValorDoPacote();
-			linha[2] = "Disponivel";
-			linha[3] = "Serviços";
 			
-			if(PacotesController.getInstance().verificaSePacoteEstaDisponivel(pacote)) {
-				linha[2] = "Indisponivel";
+			JLabel nomePacote = new JLabel(pacote.getNomeDoPacote());
+			nomePacote.setToolTipText(pacote.getDescricao());
+			linha[0] = nomePacote;
+			
+			JLabel valorPacote = new JLabel(pacote.getValorDoPacote());
+			valorPacote.setToolTipText(pacote.getDescricao());
+			linha[1] = valorPacote;
+			
+			JLabel disponivel = new JLabel("Disponivel");
+			
+			linha[2] = disponivel;
+			
+			if (PacotesController.getInstance().verificaSePacoteEstaDisponivel(pacote)) {
+				disponivel.setText("Indisponivel");
+				linha[2] = disponivel;
 			}
+			disponivel.setToolTipText(pacote.getDescricao());
+			
+		
+			
+			JButton servicos = new JButton("Serviços");
+			servicos.setBackground(new Color(39, 228, 86));
+			linha[3] = servicos;
+			servicos.addActionListener(new OuvinteDeServicos(pacote));
+			
 			
 			JButton btDetalhar = new JButton("Detalhar");
 			linha[4] = btDetalhar;
 			btDetalhar.setBackground(new Color(39, 228, 86));
+			btDetalhar.addActionListener(new OuvinteDetalhar(pacote));
 
+			
 			JButton btExcluir = new JButton("Excluir");
 			linha[5] = btExcluir;
-			btExcluir.setBackground(new Color(191,63,63));
+			btExcluir.setBackground(new Color(191, 63, 63));
 			btExcluir.addActionListener(new OuvinteBotaoExcluir(this, pacote));
 			
 			
@@ -102,14 +136,59 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 		}
 
 	}
-	
+
 	public void adicionarJButon() {
 		OuvinteBotaoVoltar ouvinteBotaoVoltar = new OuvinteBotaoVoltar();
 		voltar = ComponentesDeJFrame.criarBotao("Voltar", 636, 490, 125, 35);
 		voltar.addActionListener(ouvinteBotaoVoltar);
 		add(voltar);
+		
+		JButton novoPacote = ComponentesDeJFrame.criarBotao("Novo", 636, 94, 125, 35);
+		
+		novoPacote.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new TelaCadastrarPacotes("Cadastrar Pacote");
+			}
+		});
+		
+		add(novoPacote);
 
 	}
+	public class OuvinteDetalhar implements ActionListener{
+		private Pacote pacote;
+		
+		public OuvinteDetalhar(Pacote pacote) {
+			this.pacote = pacote;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			AuxDetalharPacote auxDetalharPacote = new AuxDetalharPacote(pacote);
+			auxDetalharPacote.detalharPacote(pacote);
+			
+		}
+		
+	}
+	
+	
+	public class OuvinteDeServicos implements ActionListener{
+		private Pacote pacote;
+		
+		public OuvinteDeServicos(Pacote pacote) {
+			this.pacote = pacote;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			dispose();
+			new TelaListaServicoDoPacote("Serviços Do Pacote",pacote);
+			
+			
+		}
+		
+	}
+	
+
 	private class OuvinteBotaoVoltar implements ActionListener {
 
 		@Override
@@ -121,33 +200,29 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 		}
 
 	}
-	
-	private class OuvinteBotaoExcluir implements ActionListener{
+
+	private class OuvinteBotaoExcluir implements ActionListener {
 		private TelaListarPacotesFornecedores janela;
 		private Pacote pacote;
-		
+
 		public OuvinteBotaoExcluir(TelaListarPacotesFornecedores janela, Pacote pacote) {
 			this.janela = janela;
 			this.pacote = pacote;
-			
+
 		}
-		
+
 		public void actionPerformed(ActionEvent e) {
-			
-			
-			if(PacotesController.getInstance().removerPacote(pacote)) {
+
+			if (PacotesController.getInstance().removerPacote(pacote)) {
 				JOptionPane.showMessageDialog(janela, "Pacote excluido");
 				dispose();
 				new TelaListarPacotesFornecedores("Lista De Pacotes");
-			}else {
+			} else {
 				JOptionPane.showMessageDialog(janela, "Não foi possivel excluir o pacote");
 			}
-			
-			
-		}
-		
-	}
-	
 
+		}
+
+	}
 
 }

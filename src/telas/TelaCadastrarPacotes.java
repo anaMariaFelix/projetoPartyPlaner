@@ -36,6 +36,12 @@ public class TelaCadastrarPacotes extends JanelaPadrao {
 	private JTextField campoNomeDoPacote;
 	private JTextField campoValorPacote;
 	private JTextArea tfDescricao;
+	private JLabel lbTitulo;
+	private JLabel nomeDoPacote;
+	private JLabel escolhaFornecedores;
+	private JLabel valorPacote;
+	private JLabel caracteristicas;
+	private JScrollPane painel;
 
 
 	public TelaCadastrarPacotes(String titulo) {
@@ -46,6 +52,37 @@ public class TelaCadastrarPacotes extends JanelaPadrao {
 		adicionarJButton();
 
 		setVisible(true);
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+	
+	
+
+	public JScrollPane getPainel() {
+		return painel;
+	}
+
+	public JLabel getEscolhaFornecedores() {
+		return escolhaFornecedores;
+	}
+
+	public JLabel getNomeDoPacote() {
+		return nomeDoPacote;
+	}
+
+	public JLabel getValorPacote() {
+		return valorPacote;
+	}
+
+
+	public JLabel getCaracteristicas() {
+		return caracteristicas;
+	}
+
+	public JLabel getLbTitulo() {
+		return lbTitulo;
 	}
 
 	public JTextField getCampoNomeDoPacote() {
@@ -109,7 +146,7 @@ public class TelaCadastrarPacotes extends JanelaPadrao {
 		tfDescricao = new JTextArea();// e um campo que suporta multiplas linhas(testo)
 		tfDescricao.setText("Descrição: ");// palavra que aparece dentro do campo
 
-		JScrollPane painel = new JScrollPane(tfDescricao);// JScrollPane é uma barra de rolagem que aparece quando o
+		painel = new JScrollPane(tfDescricao);// JScrollPane é uma barra de rolagem que aparece quando o
 															// texto n cabe mas no campo
 		painel.setBounds(275, 430, 225, 60);
 
@@ -151,22 +188,22 @@ public class TelaCadastrarPacotes extends JanelaPadrao {
 	}
 
 	private void adicionarJLabel() {
-		JLabel lbTitulo = ComponentesDeJFrame.criaJLabel(titulo, 265, 70, 300, 50, 30);
+		lbTitulo = ComponentesDeJFrame.criaJLabel(titulo, 265, 70, 300, 50, 30);
 		lbTitulo.setForeground(Color.BLACK); // cor do texto
 		lbTitulo.setFont(new Font("Arial", Font.ITALIC, 30));
 		add(lbTitulo);
 
-		JLabel nomeDoPacote = ComponentesDeJFrame.criaJLabel("Nome Do Pacote", 275, 165, 200, 30, 20);
+		nomeDoPacote = ComponentesDeJFrame.criaJLabel("Nome Do Pacote", 275, 165, 200, 30, 20);
 		add(nomeDoPacote);
 
-		JLabel escolhaFornecedores = ComponentesDeJFrame.criaJLabel("Escolha os Fornecedores ", 275, 235, 250, 30, 15);
+		escolhaFornecedores = ComponentesDeJFrame.criaJLabel("Escolha os Fornecedores ", 275, 235, 250, 30, 15);
 		escolhaFornecedores.setFont(new Font("Arial", Font.ITALIC, 15));
 		add(escolhaFornecedores);
 
-		JLabel valorPacote = ComponentesDeJFrame.criaJLabel("Valor do Pacote", 275, 315, 200, 30, 20);
+		valorPacote = ComponentesDeJFrame.criaJLabel("Valor do Pacote", 275, 315, 200, 30, 20);
 		add(valorPacote);
 
-		JLabel caracteristicas = ComponentesDeJFrame.criaJLabel("Descrição do Pacote", 275, 390, 250, 30, 20);
+		caracteristicas = ComponentesDeJFrame.criaJLabel("Descrição do Pacote", 275, 390, 250, 30, 20);
 		add(caracteristicas);
 
 	}

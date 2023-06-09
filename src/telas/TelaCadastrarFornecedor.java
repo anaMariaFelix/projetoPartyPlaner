@@ -112,23 +112,28 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 
 					}else if (!ValidaEmail.emailValidator(email)) {
 						JOptionPane.showMessageDialog(janela, "Email inválido, informe novamente");
+						
 
-					} else if (!ValidadorCPF.isCPF(cpf)) {
+					} else if(FornecedorController.getInstance().existeFornecedorEmail(email)){
+						JOptionPane.showMessageDialog(janela, "Email já existente\nInforme outro Email");
+						
+					}else if (!ValidadorCPF.isCPF(cpf)) {
 						JOptionPane.showMessageDialog(janela, "O CPF não é válido, informe novamente");
 
 					} else if (janela.getListaDeServicos().isEmpty()) {
 						JOptionPane.showMessageDialog(janela, "Você deve fornecer ao menos um serviço");
 					} else {
 						fornecedor = new FornecedorFisico(nome, null, telefone, cpf, email,janela.getListaDeServicos(),true);
-						listaDeServicos = new ArrayList<String>();
+						
 						if (FornecedorController.getInstance().adicionarFornecedor(fornecedor)) {
 							JOptionPane.showMessageDialog(janela, "Fornecedor cadastrado com sucesso!");
+							listaDeServicos = new ArrayList<String>();
 							janela.dispose();
 							TelaMenu telaMenu = new TelaMenu("Tela de Menu");
 
 						}else {
 							JOptionPane.showMessageDialog(janela,
-									"Já existe fornecedor com esse email, informe novamente");
+									"Já existe fornecedor com esse CPF, informe novamente");
 						}
 					}
 
@@ -141,6 +146,9 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 					}else if (!ValidaEmail.emailValidator(email)) {
 						JOptionPane.showMessageDialog(janela, "Email inválido, informe novamente");
 
+					} else if(FornecedorController.getInstance().existeFornecedorEmail(email)){
+						JOptionPane.showMessageDialog(janela, "Email já existente\nInforme outro Email");
+						
 					} else if (!ValidarCNPJ.isCNPJ(cnpj)) {
 						JOptionPane.showMessageDialog(janela, "O CNPJ não é válido, informe novamente");
 
@@ -149,16 +157,17 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 						
 					} else {
 						fornecedor = new FornecedorJuridico(nome, null, telefone, email, cnpj,janela.getListaDeServicos(),true);
-						listaDeServicos = new ArrayList<String>();
+						
 						
 						if (FornecedorController.getInstance().adicionarFornecedor(fornecedor)) {
 							JOptionPane.showMessageDialog(janela, "Fornecedor cadastrado com sucesso!");
+							listaDeServicos = new ArrayList<String>();
 							janela.dispose();
 							TelaMenu telaMenu = new TelaMenu("Tela de Menu");
 
 						} else {
 							JOptionPane.showMessageDialog(janela,
-									"Já existe fornecedor com esse email, informe novamente");
+									"Já existe fornecedor com esse CNPJ, informe novamente");
 						}
 					}
 				}
