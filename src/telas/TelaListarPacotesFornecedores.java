@@ -41,6 +41,13 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 		return tabela;
 	}
 
+
+	private void adicionarJLabel() {
+		JLabel titulo = ComponentesDeJFrame.criaJLabel("Lista de Pacotes", 285, 35, 400, 50, 30);
+		add(titulo);
+
+	}
+	
 	private void adicinoarTabela() {
 		modelo = new DefaultTableModel();
 		modelo.addColumn("Nome do Pacote");// adiciona colunas
@@ -52,9 +59,6 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 
 		Object[] todosOsPacotes = PacotesController.getInstance().obterListaDePacote().toArray();
 
-		
-		
-		
 		tabela = new JTable(modelo);
 		
 		tabela.getColumn("Nome do Pacote").setCellRenderer(new JLabelRenderer()); 
@@ -65,7 +69,6 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 		tabela.getColumn("Excluir").setCellRenderer(new ButtonRenderer()); // Mostra um botao dentro da célula																// (linha/coluna)
 		tabela.getColumn("Excluir").setCellEditor(new ButtonEditor(new JCheckBox()));// Para quando clica no botão, o
 			
-		
 		
 		// sistema entender que ele ta
 		tabela.getColumn("Serviços").setCellRenderer(new ButtonRenderer()); 
@@ -81,11 +84,6 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 		preencherTabela(todosOsPacotes);
 	}
 
-	private void adicionarJLabel() {
-		JLabel titulo = ComponentesDeJFrame.criaJLabel("Lista de Pacotes", 285, 35, 400, 50, 30);
-		add(titulo);
-
-	}
 
 	public void preencherTabela(Object[] pacotes) {
 		for (Object p : pacotes) {
@@ -101,17 +99,18 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 			valorPacote.setToolTipText(pacote.getDescricao());
 			linha[1] = valorPacote;
 			
-			JLabel disponivel = new JLabel("Disponivel");
-			
-			linha[2] = disponivel;
+			JLabel disponivel = new JLabel(pacote.getDisponibilidade());
 			
 			if (PacotesController.getInstance().verificaSePacoteEstaDisponivel(pacote)) {
 				disponivel.setText("Indisponivel");
+				pacote.setDisponibilidade("Indisponivel");
+				linha[2] = disponivel;
+			}else {
+				pacote.setDisponibilidade("Disponivel");
+				disponivel.setText(pacote.getDisponibilidade());
 				linha[2] = disponivel;
 			}
 			disponivel.setToolTipText(pacote.getDescricao());
-			
-		
 			
 			JButton servicos = new JButton("Serviços");
 			servicos.setBackground(new Color(39, 228, 86));

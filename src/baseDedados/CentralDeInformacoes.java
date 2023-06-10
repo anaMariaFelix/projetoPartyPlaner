@@ -3,13 +3,12 @@ package baseDedados;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import model.Administrador;
 import model.ClienteFisico;
 import model.ClienteJuridico;
 import model.Pessoa;
 import util.Constantes;
-import model.Evento;
+import model.OrcamentoOuContrato;
 import model.FornecedorFisico;
 import model.FornecedorJuridico;
 import model.Pacote;
@@ -20,7 +19,7 @@ public class CentralDeInformacoes {
 
 	private ArrayList<Pessoa> todosOsClientes = new ArrayList();
 	private ArrayList<Pessoa> todosOsFornecedores = new ArrayList();
-	private ArrayList<Evento> todosEvento = new ArrayList();
+	private ArrayList<OrcamentoOuContrato> todosEvento = new ArrayList();
 	private ArrayList<String> todosServicos = new ArrayList();
 	private ArrayList<Pacote> todosOsPacotes = new ArrayList();
 	private Administrador administrador;
@@ -66,11 +65,11 @@ public class CentralDeInformacoes {
 		this.todosOsFornecedores = todosOsFornecedores;
 	}
 
-	public ArrayList<Evento> getTodosEvento() {
+	public ArrayList<OrcamentoOuContrato> getTodosEvento() {
 		return todosEvento;
 	}
 
-	public void setTodosEvento(ArrayList<Evento> todosEvento) {
+	public void setTodosEvento(ArrayList<OrcamentoOuContrato> todosEvento) {
 		this.todosEvento = todosEvento;
 	}
 

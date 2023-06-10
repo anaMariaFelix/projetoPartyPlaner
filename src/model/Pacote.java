@@ -6,13 +6,23 @@ public class Pacote {
 	private String nomeDoPacote;
 	private String valorDoPacote;
 	private String descricao;
+	private String disponibilidade;
 	private ArrayList<Pessoa> todosFornecedore = new ArrayList();
 	
 	public Pacote(String nomeDoPacote, String valorDoPacote, String descricao, ArrayList<Pessoa> todosFornecedore) {
 		this.nomeDoPacote = nomeDoPacote;
 		this.valorDoPacote = valorDoPacote;
 		this.descricao = descricao;
+		this.disponibilidade = "Disponivel";
 		this.todosFornecedore = todosFornecedore;
+	}
+
+	public String getDisponibilidade() {
+		return disponibilidade;
+	}
+
+	public void setDisponibilidade(String disponibilidade) {
+		this.disponibilidade = disponibilidade;
 	}
 
 	public String getNomeDoPacote() {

@@ -10,6 +10,7 @@ import baseDedados.Persistencia;
 import telas.CadastamentoAdministrador;
 import telas.JanelaPadrao;
 import telas.TelaCadastrarCliente;
+import telas.TelaCadastrarOrcamento;
 import telas.TelaLogin;
 import telas.TelaMenu;
 
@@ -36,14 +37,16 @@ public class Programa {
 
 		CentralDeInformacoes centralDeInformacoes = Persistencia.getInstance().recupearCentral("bancoDeDados");
 
-		//if (CentralDeInformacoes.getInstance().getAdministrador() != null) {
-		//	TelaLogin telaLogin = new TelaLogin("Tela de Login");
+//		if (CentralDeInformacoes.getInstance().getAdministrador() != null) {
+//			TelaLogin telaLogin = new TelaLogin("Tela de Login");
+//
+//		} else {
+//			JanelaPadrao janela = new CadastamentoAdministrador();
+//		}
 
-		//} else {
-			//JanelaPadrao janela = new CadastamentoAdministrador();
-		//}
-
-		TelaMenu telaMenu = new TelaMenu("Menu");
+		new TelaMenu("Menu");
+		//TelaCadastrarOrcamento telaCadastrarOrcamento = new TelaCadastrarOrcamento("cadastrar");
+		
 
 	}
 

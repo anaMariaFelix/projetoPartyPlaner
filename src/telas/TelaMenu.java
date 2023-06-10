@@ -21,9 +21,6 @@ public class TelaMenu extends JanelaPadrao{
 	private JButton botaoListarOrcamento;
 
 	
-	
-	
-	
 	public TelaMenu(String titulo) {
 		super(titulo);
 	
@@ -139,10 +136,12 @@ public class TelaMenu extends JanelaPadrao{
 				new TelaListarPacotesFornecedores("Lista de Pacotes");
 				
 			}else if(e.getSource() == botaoCadastrarOrcamento) {
-				JOptionPane.showMessageDialog(null, "dentro do botao Cadastrar Orcamento");
+				dispose();
+				new TelaCadastrarOrcamento("Cadastrar Orçamento");
 				
 			}else if(e.getSource() == botaoListarOrcamento) {
-				JOptionPane.showMessageDialog(null, "dentro do botao Listar Orcamento");
+				dispose();
+				new TelaListarOrcamentosContratos("Lista de Oçamentos/Contratos");
 			}
 		}
 		

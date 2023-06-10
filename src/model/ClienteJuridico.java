@@ -10,9 +10,6 @@ public class ClienteJuridico extends Pessoa{
 		this.CNPJ = cnpj;
 	}
 	
-	
-
-
 	public String getCNPJ() {
 		return CNPJ;
 	}

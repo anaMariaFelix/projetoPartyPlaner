@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import baseDedados.CentralDeInformacoes;
 import model.Pessoa;
-import model.Evento;
+import model.OrcamentoOuContrato;
 
 public class MetodosUtilizadosNoPrograma {
 	

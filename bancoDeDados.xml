@@ -1,54 +1,17 @@
 <baseDedados.CentralDeInformacoes>
-  <todosOsClientes/>
+  <todosOsClientes>
+    <model.ClienteFisico>
+      <nome>andrey</nome>
+      <telefone>55555555555</telefone>
+      <email>2@1</email>
+      <CPF>11993299408</CPF>
+    </model.ClienteFisico>
+  </todosOsClientes>
   <todosOsFornecedores>
     <model.FornecedorFisico>
-      <nome>ismael</nome>
-      <telefone>22222222222</telefone>
-      <email>11@123</email>
-      <cpfCnpj>71308976437</cpfCnpj>
-      <servicos>
-        <string>Buffet</string>
-      </servicos>
-      <quantContratosFisico>0</quantContratosFisico>
-      <disponibilidade>true</disponibilidade>
-    </model.FornecedorFisico>
-    <model.FornecedorFisico>
-      <nome>ddf</nome>
-      <telefone>33333333333</telefone>
-      <email>123@134</email>
-      <cpfCnpj>70401600483</cpfCnpj>
-      <servicos>
-        <string>Buffet</string>
-      </servicos>
-      <quantContratosFisico>0</quantContratosFisico>
-      <disponibilidade>true</disponibilidade>
-    </model.FornecedorFisico>
-    <model.FornecedorFisico>
-      <nome>mateus</nome>
-      <telefone>22222222222</telefone>
-      <email>234@34</email>
-      <cpfCnpj>76532038504</cpfCnpj>
-      <servicos>
-        <string>Buffet</string>
-      </servicos>
-      <quantContratosFisico>0</quantContratosFisico>
-      <disponibilidade>true</disponibilidade>
-    </model.FornecedorFisico>
-    <model.FornecedorFisico>
-      <nome>ana maria</nome>
-      <telefone>22222222222</telefone>
-      <email>wdfd@wef</email>
-      <cpfCnpj>59626730935</cpfCnpj>
-      <servicos>
-        <string>Buffet</string>
-      </servicos>
-      <quantContratosFisico>0</quantContratosFisico>
-      <disponibilidade>true</disponibilidade>
-    </model.FornecedorFisico>
-    <model.FornecedorFisico>
       <nome>ana</nome>
-      <telefone>11111111111</telefone>
-      <email>12@we</email>
+      <telefone>44444444444</telefone>
+      <email>dfgh@njhjb</email>
       <cpfCnpj>11993299408</cpfCnpj>
       <servicos>
         <string>Buffet</string>
@@ -57,19 +20,94 @@
       <disponibilidade>true</disponibilidade>
     </model.FornecedorFisico>
     <model.FornecedorFisico>
-      <nome>eraldo</nome>
-      <telefone>55555555555</telefone>
-      <email>122@12</email>
-      <cpfCnpj>44547935815</cpfCnpj>
+      <nome>andrey</nome>
+      <telefone>77777777777</telefone>
+      <email>nyhy@ghgh</email>
+      <cpfCnpj>70401600483</cpfCnpj>
       <servicos>
-        <string>Segurança</string>
-        <string>Recepção</string>
+        <string>Ornamentação</string>
       </servicos>
       <quantContratosFisico>0</quantContratosFisico>
       <disponibilidade>true</disponibilidade>
     </model.FornecedorFisico>
+    <model.FornecedorJuridico>
+      <nome>ismael</nome>
+      <telefone>11111111111</telefone>
+      <email>jkm@nj</email>
+      <cnpj>75708413000124</cnpj>
+      <servicos>
+        <string>Musica</string>
+      </servicos>
+      <quantContratosJuridico>0</quantContratosJuridico>
+      <disponibilidade>true</disponibilidade>
+    </model.FornecedorJuridico>
   </todosOsFornecedores>
-  <todosEvento/>
+  <todosEvento>
+    <model.OrcamentoOuContrato>
+      <nomeDoEvento>pacote</nomeDoEvento>
+      <dataEHoraDoEvento>2023-07-07T22:22:00</dataEHoraDoEvento>
+      <localDoEvento>igreja</localDoEvento>
+      <tamanho>1</tamanho>
+      <foiContradoOuNao>false</foiContradoOuNao>
+      <fornecedores/>
+      <pacotesDeFornecedores/>
+    </model.OrcamentoOuContrato>
+    <model.OrcamentoOuContrato>
+      <nomeDoEvento>teste2</nomeDoEvento>
+      <dataEHoraDoEvento>2023-07-07T22:22:00</dataEHoraDoEvento>
+      <localDoEvento>çl</localDoEvento>
+      <tamanho>1</tamanho>
+      <foiContradoOuNao>false</foiContradoOuNao>
+      <fornecedores>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[2]"/>
+      </fornecedores>
+      <pacotesDeFornecedores/>
+    </model.OrcamentoOuContrato>
+    <model.OrcamentoOuContrato>
+      <nomeDoEvento>a</nomeDoEvento>
+      <dataEHoraDoEvento>2023-07-07T22:22:00</dataEHoraDoEvento>
+      <localDoEvento>a</localDoEvento>
+      <tamanho>1</tamanho>
+      <foiContradoOuNao>false</foiContradoOuNao>
+      <fornecedores>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
+      </fornecedores>
+      <pacotesDeFornecedores/>
+    </model.OrcamentoOuContrato>
+    <model.OrcamentoOuContrato>
+      <nomeDoEvento>ç</nomeDoEvento>
+      <dataEHoraDoEvento>2023-07-07T23:00:00</dataEHoraDoEvento>
+      <localDoEvento>a</localDoEvento>
+      <tamanho>1</tamanho>
+      <foiContradoOuNao>false</foiContradoOuNao>
+      <fornecedores>
+        <model.FornecedorJuridico reference="../../../../todosOsFornecedores/model.FornecedorJuridico"/>
+      </fornecedores>
+      <pacotesDeFornecedores/>
+    </model.OrcamentoOuContrato>
+    <model.OrcamentoOuContrato>
+      <clienteAssociado class="model.ClienteFisico" reference="../../../todosOsClientes/model.ClienteFisico"/>
+      <nomeDoEvento>casamento de andrey</nomeDoEvento>
+      <dataEHoraDoEvento>2024-02-02T20:22:00</dataEHoraDoEvento>
+      <localDoEvento>no bar</localDoEvento>
+      <tamanho>1</tamanho>
+      <foiContradoOuNao>false</foiContradoOuNao>
+      <fornecedores/>
+      <pacotesDeFornecedores>
+        <model.Pacote>
+          <nomeDoPacote>teste</nomeDoPacote>
+          <valorDoPacote>123456</valorDoPacote>
+          <descricao>teste 123</descricao>
+          <disponibilidade>Disponivel</disponibilidade>
+          <todosFornecedore>
+            <model.FornecedorFisico reference="../../../../../../todosOsFornecedores/model.FornecedorFisico"/>
+            <model.FornecedorFisico reference="../../../../../../todosOsFornecedores/model.FornecedorFisico[2]"/>
+          </todosFornecedore>
+        </model.Pacote>
+      </pacotesDeFornecedores>
+    </model.OrcamentoOuContrato>
+  </todosEvento>
   <todosServicos>
     <string>Buffet</string>
     <string>Musica</string>
@@ -81,28 +119,21 @@
     <string>Recepção</string>
   </todosServicos>
   <todosOsPacotes>
+    <model.Pacote reference="../../todosEvento/model.OrcamentoOuContrato[5]/pacotesDeFornecedores/model.Pacote"/>
     <model.Pacote>
-      <nomeDoPacote>teste</nomeDoPacote>
-      <valorDoPacote>33333333333</valorDoPacote>
-      <descricao>fgfdsadgf</descricao>
+      <nomeDoPacote>teste2</nomeDoPacote>
+      <valorDoPacote>4444</valorDoPacote>
+      <descricao>teste 1234</descricao>
+      <disponibilidade>Disponivel</disponibilidade>
       <todosFornecedore>
         <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[5]"/>
-      </todosFornecedore>
-    </model.Pacote>
-    <model.Pacote>
-      <nomeDoPacote>viagem</nomeDoPacote>
-      <valorDoPacote>1234565432</valorDoPacote>
-      <descricao>fdgfhfg</descricao>
-      <todosFornecedore>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[6]"/>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
+        <model.FornecedorJuridico reference="../../../../todosOsFornecedores/model.FornecedorJuridico"/>
       </todosFornecedore>
     </model.Pacote>
   </todosOsPacotes>
   <administrador>
     <nome>ana</nome>
-    <sobrenome>anaaa</sobrenome>
+    <sobrenome>maria</sobrenome>
     <email>1@1</email>
     <senha>12345678</senha>
   </administrador>

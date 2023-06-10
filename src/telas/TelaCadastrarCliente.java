@@ -51,7 +51,6 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 	private JLabel jlNomeCompleto;
 	private JLabel jlTelefone;
 	private JLabel jlEmail;
-	
 
 	public TelaCadastrarCliente(String titulo) {
 		super(titulo);
@@ -62,9 +61,7 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 		adicionarJButton();
 		setVisible(true);
 	}
-	
-	
-	
+
 	public JLabel getJlNomeCompleto() {
 		return jlNomeCompleto;
 	}
@@ -81,13 +78,9 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 		return ouvinteVoltar;
 	}
 
-
-
 	public JLabel getCpfCnpj() {
 		return cpfCnpj;
 	}
-
-
 
 	public JLabel getLbTitulo() {
 		return lbTitulo;
@@ -131,38 +124,35 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 
 	private void adicionarJLabel() {
 
-		lbTitulo = ComponentesDeJFrame.criaJLabel(titulo,0, 70, 800, 50,30);
+		lbTitulo = ComponentesDeJFrame.criaJLabel(titulo, 0, 70, 800, 50, 30);
 		lbTitulo.setHorizontalAlignment(JLabel.CENTER); // alinha o texto no centro
 		lbTitulo.setForeground(Color.BLACK); // cor do texto
 		lbTitulo.setFont(new Font("Arial", Font.ITALIC, 30));
 		add(lbTitulo);
 
-		jlNomeCompleto = ComponentesDeJFrame.criaJLabel("Nome Completo",280, 180, 200, 30,20);
+		jlNomeCompleto = ComponentesDeJFrame.criaJLabel("Nome Completo", 280, 180, 200, 30, 20);
 		add(jlNomeCompleto);
 
-		jlTelefone = ComponentesDeJFrame.criaJLabel("Telefone",280, 250, 130, 30,20);
+		jlTelefone = ComponentesDeJFrame.criaJLabel("Telefone", 280, 250, 130, 30, 20);
 		add(jlTelefone);
 
-		jlEmail = ComponentesDeJFrame.criaJLabel("Email",280, 320, 130, 30,20);
+		jlEmail = ComponentesDeJFrame.criaJLabel("Email", 280, 320, 130, 30, 20);
 		add(jlEmail);
-		
-		
+
 		cpfCnpj = ComponentesDeJFrame.criaJLabel("CPF/CNPJ", 280, 415, 225, 30, 15);
 		cpfCnpj.setFont(new Font("Arial", Font.ITALIC, 15));
 		add(cpfCnpj);
 
 	}
-	
-	private class OuvinteBotaoVoltar implements ActionListener{
 
-		@Override
+	private class OuvinteBotaoVoltar implements ActionListener {
+
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == botaoVoltar) {
-				dispose();
-				TelaMenu telaMenu = new TelaMenu("Tela Menu");
-			}
+			dispose();
+			new TelaMenu("Tela Menu");
+
 		}
-		
+
 	}
 
 	protected class OuvinteBotaoSalvar implements ActionListener {
@@ -176,66 +166,64 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 		public void actionPerformed(ActionEvent e) {
 
 			String nome = janela.getCampoNomeCompleto().getText();
-			String telefone = janela.getCampoTelefone().getText().replace("(", "").replace(")", "").replace("-", "").trim();
+			String telefone = janela.getCampoTelefone().getText().replace("(", "").replace(")", "").replace("-", "")
+					.trim();
 			String email = janela.getCampoEmail().getText();
 			Pessoa cliente = null;
 
-	
-		
-				if (pessoaFisica.isSelected()) {
-					String cpf = removerMacaraCampoCPF(janela.getCampoCPF());
-					
-					if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty() || cpf.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos");
-						
-					}else if (!ValidaEmail.emailValidator(email)) {
-						JOptionPane.showMessageDialog(janela, "Email inválido, informe novamente"); 
-						
-					}else if (!ValidadorCPF.isCPF(cpf)) {
-						JOptionPane.showMessageDialog(janela, "O CPF não é válido, informe novamente");
-						
-					} else {
-						cliente = new ClienteFisico(nome, null, telefone, email, cpf);
-						
-						if (ClienteController.getInstance().adicionarCliente(cliente)) {
-							JOptionPane.showMessageDialog(janela, "Cliente cadastrado com sucesso!");
-							janela.dispose();
-							TelaMenu telaMenu = new TelaMenu("Tela de Menu");
-							
-						} else {
-							JOptionPane.showMessageDialog(janela,
-									"Já existe cliente com esse email, informe novamente");
-						}
+			if (pessoaFisica.isSelected()) {
+				String cpf = removerMacaraCampoCPF(janela.getCampoCPF());
 
+				if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty() || cpf.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos");
+
+				} else if (!ValidaEmail.emailValidator(email)) {
+					JOptionPane.showMessageDialog(janela, "Email inválido, informe novamente");
+
+				} else if (!ValidadorCPF.isCPF(cpf)) {
+					JOptionPane.showMessageDialog(janela, "O CPF não é válido, informe novamente");
+
+				} else {
+					cliente = new ClienteFisico(nome, null, telefone, email, cpf);
+
+					if (ClienteController.getInstance().adicionarCliente(cliente)) {
+						JOptionPane.showMessageDialog(janela, "Cliente cadastrado com sucesso!");
+						janela.dispose();
+						TelaMenu telaMenu = new TelaMenu("Tela de Menu");
+
+					} else {
+						JOptionPane.showMessageDialog(janela, "Já existe cliente com esse email, informe novamente");
 					}
 
-				} else if (pessoaJuridica.isSelected()) {
-					String cnpj = removerMascaraCampoCNPJ(janela.getCampoCNPJ());
-					
-					if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty() || cnpj.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos");
-						
-					}else if (!ValidaEmail.emailValidator(email)) {
-						JOptionPane.showMessageDialog(janela, "Email inválido, informe novamente"); 
-						
-					} else if (!ValidarCNPJ.isCNPJ(cnpj)) {
-						JOptionPane.showMessageDialog(janela, "O CNPJ não é válido, informe novamente");
-						
-					} else {
-						cliente = new ClienteJuridico(nome, null, telefone, email, cnpj);
-						
-						if (ClienteController.getInstance().adicionarCliente(cliente)) {
-							JOptionPane.showMessageDialog(janela, "Cliente cadastrado com sucesso!");
+				}
 
-							janela.dispose();
-							TelaMenu telaMenu = new TelaMenu("Tela de Menu");
-							
-						} else {
-							JOptionPane.showMessageDialog(janela,"Já existe cliente com esse email, informe novamente");
-						}
+			} else if (pessoaJuridica.isSelected()) {
+				String cnpj = removerMascaraCampoCNPJ(janela.getCampoCNPJ());
+
+				if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty() || cnpj.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos");
+
+				} else if (!ValidaEmail.emailValidator(email)) {
+					JOptionPane.showMessageDialog(janela, "Email inválido, informe novamente");
+
+				} else if (!ValidarCNPJ.isCNPJ(cnpj)) {
+					JOptionPane.showMessageDialog(janela, "O CNPJ não é válido, informe novamente");
+
+				} else {
+					cliente = new ClienteJuridico(nome, null, telefone, email, cnpj);
+
+					if (ClienteController.getInstance().adicionarCliente(cliente)) {
+						JOptionPane.showMessageDialog(janela, "Cliente cadastrado com sucesso!");
+
+						janela.dispose();
+						TelaMenu telaMenu = new TelaMenu("Tela de Menu");
+
+					} else {
+						JOptionPane.showMessageDialog(janela, "Já existe cliente com esse email, informe novamente");
 					}
 				}
-			
+			}
+
 		}
 
 	}
@@ -248,19 +236,16 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 
 		return cnpj.getText().replace(".", "").replace("-", "").replace("/", "").trim();
 	}
-	
-		
+
 	private void adicionarJButton() {
 
-		
 		ouvinteVoltar = new OuvinteBotaoVoltar();
-		botaoVoltar = ComponentesDeJFrame.criarBotao("Voltar",280, 500, 100, 30);
+		botaoVoltar = ComponentesDeJFrame.criarBotao("Voltar", 280, 500, 100, 30);
 		botaoVoltar.addActionListener(ouvinteVoltar);
 		add(botaoVoltar);
 
-		
 		ouvinteSalvar = new OuvinteBotaoSalvar(this);
-		botaoSalvar = ComponentesDeJFrame.criarBotao("Salvar",405, 500, 100, 30);
+		botaoSalvar = ComponentesDeJFrame.criarBotao("Salvar", 405, 500, 100, 30);
 		botaoSalvar.addActionListener(ouvinteSalvar);
 		add(botaoSalvar);
 
@@ -271,7 +256,7 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 		public void keyPressed(KeyEvent e) {
 			char c = e.getKeyChar();
 			if (!Character.isLetter(c) && c != ' ') {
-				
+
 			}
 		}
 
@@ -279,7 +264,6 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 
 		}
 
-		
 		public void keyTyped(KeyEvent e) {
 			char c = e.getKeyChar();
 
@@ -299,10 +283,10 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 			MaskFormatter mascaraDeData = new MaskFormatter("(##)#####-####");
 			campoTelefone = new JFormattedTextField(mascaraDeData);
 			campoTelefone.setBounds(280, 280, 225, 30);
-			
+
 			add(campoTelefone);
 		} catch (ParseException e) {
-			
+
 			e.printStackTrace();
 		}
 
@@ -314,10 +298,10 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 	public void adicionarRadioButtons() {
 		ouvinteRadioButton ouvinte = new ouvinteRadioButton();
 
-		pessoaFisica = ComponentesDeJFrame.criarRadioButtons("Fisico", true,280, 380, 70, 30,15);
+		pessoaFisica = ComponentesDeJFrame.criarRadioButtons("Fisico", true, 280, 380, 70, 30, 15);
 		pessoaFisica.addActionListener(ouvinte);
 
-		pessoaJuridica = ComponentesDeJFrame.criarRadioButtons("Juridico", false,360, 380, 120, 30,15);
+		pessoaJuridica = ComponentesDeJFrame.criarRadioButtons("Juridico", false, 360, 380, 120, 30, 15);
 		pessoaJuridica.addActionListener(ouvinte);
 		add(pessoaFisica);
 		add(pessoaJuridica);
