@@ -8,11 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
-import controller.FornecedorController;
-import model.FornecedorFisico;
-import model.FornecedorJuridico;
-import telas.TelaListaFornecedoresParaOrcamento.OuvinteBotaoAdicionar;
+import controller.OrcamentoController;
+import model.OrcamentoOuContrato;
 import util.ButtonEditor;
 import util.ButtonRenderer;
 import util.ComponentesDeJFrame;
@@ -52,56 +49,54 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 		modelo = new DefaultTableModel();
 		modelo.addColumn("Nome");
 		modelo.addColumn("Valor");
-		modelo.addColumn("Disponibilidade");
+		modelo.addColumn("Status");
 		modelo.addColumn("Cliente Associado");
+		modelo.addColumn("Editar");
+		modelo.addColumn("Detalhar");
 		
-		Object[] todosOsForncedores = FornecedorController.getInstance().obterTodosOsFornecedores().toArray();
+		Object[] todosOsOrcamentosEContratos = OrcamentoController.getInstance().obterTodosOsOrcamentoEContratos().toArray();
 		
 		tabela = new JTable(modelo);
 		
-		tabela.getColumn("Adicionar").setCellRenderer(new ButtonRenderer()); 																// (linha/coluna)
-		tabela.getColumn("Adicionar").setCellEditor(new ButtonEditor(new JCheckBox()));
+		tabela.getColumn("Editar").setCellRenderer(new ButtonRenderer()); 																
+		tabela.getColumn("Editar").setCellEditor(new ButtonEditor(new JCheckBox()));
+		
+		tabela.getColumn("Detalhar").setCellRenderer(new ButtonRenderer()); 																
+		tabela.getColumn("Detalhar").setCellEditor(new ButtonEditor(new JCheckBox()));
 		
 		JScrollPane painelTabela = new JScrollPane(tabela);
 		painelTabela.setBounds(30, 135, 730, 350);
 		add(painelTabela);
 		
-		preencherTabela(todosOsForncedores);
+		preencherTabela(todosOsOrcamentosEContratos);
 		
 	}
 	
-	public void preencherTabela(Object[] fornecedores) {
+	public void preencherTabela(Object[] orcamentosEContratos) {
 		
-		for (Object p : fornecedores) {
-			Object[] linha = new Object[4];
-			
-			JButton adicionar = new JButton("Adicionar");
-			adicionar.setBackground(new Color(39, 228, 86));
-			
-			linha[3] = adicionar;
-			
-			if(p instanceof FornecedorFisico ) {
-				FornecedorFisico fisico = (FornecedorFisico) p;
-				linha[0] = fisico.getNome();
-				linha[1] = fisico.getCpfCnpj();
-				linha[2] = "Indisponivel";
-				//adicionar.addActionListener(new OuvinteBotaoAdicionar(this,fisico));
+		for (Object o : orcamentosEContratos) {
+			OrcamentoOuContrato orcamentoOuContrato = (OrcamentoOuContrato) o;
+			Object[] linha = new Object[6];
+	
+			linha[0] = orcamentoOuContrato.getNomeDoEvento() ;
+			linha[1] = orcamentoOuContrato.getValor();
+			linha[2] = "Orçamento";
+			//adicionar.addActionListener(new OuvinteBotaoAdicionar(this,fisico));
 				
-				if (fisico.isDisponibilidade()) {
-					linha[2] = "Disponivel";
-				}
-			}else {
-				FornecedorJuridico juridico = (FornecedorJuridico)p;
-				linha[0] = juridico.getNome();
-				linha[1] = juridico.getCnpj();
-				linha[2] = "Indisponivel";
-				//adicionar.addActionListener(new OuvinteBotaoAdicionar(this,juridico));
-				
-				if (juridico.isDisponibilidade()) {
-					linha[2] = "Disponivel";
-				}
+			if (orcamentoOuContrato.isFoiContradoOuNao()) {
+				linha[2] = "Contrato";
+			
 			}
-
+			linha[3] = orcamentoOuContrato.getClienteAssociado().getNome();
+			
+			JButton editar = new JButton("Editar");
+			editar.setBackground(new Color(39, 228, 86));
+			linha[4] = editar;
+			
+			JButton detalhar = new JButton("Detalhar");
+			detalhar.setBackground(new Color(39, 228, 86));
+			linha[5] = detalhar;
+			
 			modelo.addRow(linha);// adiciona alinha
 
 		}

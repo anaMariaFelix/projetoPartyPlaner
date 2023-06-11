@@ -17,6 +17,7 @@ import model.FornecedorFisico;
 import model.FornecedorJuridico;
 import model.OrcamentoOuContrato;
 import model.Pessoa;
+import telas.TelaCadastrarOrcamento.OuvinteBotaoSalavar;
 import util.ButtonEditor;
 import util.ButtonRenderer;
 import util.ComponentesDeJFrame;
@@ -27,6 +28,7 @@ public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 	
 	private JLabel titulo;
 	private JButton voltar;
+	private JButton botaoNovo;
 	
 	private ArrayList<Pessoa> fornecedores = new ArrayList<>();
 	
@@ -42,6 +44,9 @@ public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 	}
 	
 
+	public JButton getBotaoNovo() {
+		return botaoNovo;
+	}
 	public ArrayList<Pessoa> getFornecedores() {
 		return fornecedores;
 	}
@@ -50,11 +55,15 @@ public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 		voltar = ComponentesDeJFrame.criarBotao("Voltar", 636, 490, 125, 35);
 		voltar.addActionListener(new OuvinteBotaoVoltar());
 		add(voltar);
+		
+		botaoNovo = ComponentesDeJFrame.criarBotao("Novo",  636, 94, 125, 35);
+		botaoNovo.addActionListener(new OuvinteBotaoNovo());
+		add(botaoNovo);
 	}
 
 
 	protected void adicionarJLabel() {
-		titulo = ComponentesDeJFrame.criaJLabel("Lista de Fornecedores", 0, 70, 800, 50, 30);
+		titulo = ComponentesDeJFrame.criaJLabel("Lista de Fornecedores", 0, 30, 800, 50, 30);
 		titulo.setHorizontalAlignment(JLabel.CENTER);
 		add(titulo);
 		
@@ -151,8 +160,28 @@ public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 		
 	}
 	
+	public class OuvinteBotaoNovo implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			dispose();
+			TelaCadastrarFornecedor telaCadastrarFornecedor	= new TelaCadastrarFornecedor("Cadastro Fornecedor");
+			telaCadastrarFornecedor.getBotaoVoltar().removeActionListener(telaCadastrarFornecedor.ouvinteVoltar);
+			telaCadastrarFornecedor.getBotaoVoltar().addActionListener(new ouvinteBotaoVoltarTelaCadastrarFornecedor(telaCadastrarFornecedor));
+		}
+	}
 	
-	
-	
+	public class ouvinteBotaoVoltarTelaCadastrarFornecedor implements ActionListener{
+		private TelaCadastrarFornecedor telaCadastrarFornecedor;
+		
+		public ouvinteBotaoVoltarTelaCadastrarFornecedor(TelaCadastrarFornecedor telaCadastrarFornecedor) {
+			this.telaCadastrarFornecedor = telaCadastrarFornecedor;
+		}
+		public void actionPerformed(ActionEvent e) {
+			telaCadastrarFornecedor.dispose();
+			new TelaListaFornecedoresParaOrcamento(janela,"Lista De Fornecedores");
+			
+		}
+		
+	}
 	
 }

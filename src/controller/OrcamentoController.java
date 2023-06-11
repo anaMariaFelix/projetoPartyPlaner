@@ -63,6 +63,11 @@ public class OrcamentoController {
 		return false;
 	}
 	
+	public ArrayList<OrcamentoOuContrato> obterTodosOsOrcamentoEContratos(){
+		return CentralDeInformacoes.getInstance().getTodosEvento();//lembrar de mudar o nome desse array na central
+	
+	}
+	
 	public void populaArrayFornecedores(ArrayList<Pessoa> fornecedor) {
 		for(Pessoa p: fornecedor) {
 			fornecedores.add(p);

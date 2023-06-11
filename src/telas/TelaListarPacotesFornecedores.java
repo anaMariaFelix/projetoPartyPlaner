@@ -163,8 +163,9 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 		}
 		
 		public void actionPerformed(ActionEvent e) {
+			dispose();
 			AuxDetalharPacote auxDetalharPacote = new AuxDetalharPacote(pacote);
-			auxDetalharPacote.detalharPacote(pacote);
+			//auxDetalharPacote.detalharPacote(pacote);
 			
 		}
 		

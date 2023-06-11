@@ -55,7 +55,7 @@ public class TelaListarPacotesParaOrcamento extends JanelaPadrao{
 
 
 	protected void adicionarJLabel() {
-		titulo = ComponentesDeJFrame.criaJLabel("Lista de Pacotes", 0, 70, 800, 50, 30);
+		titulo = ComponentesDeJFrame.criaJLabel("Lista de Pacotes", 0, 40, 800, 50, 30);
 		titulo.setHorizontalAlignment(JLabel.CENTER);
 		add(titulo);
 		

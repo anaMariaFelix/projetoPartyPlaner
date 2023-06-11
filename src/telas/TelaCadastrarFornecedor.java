@@ -40,8 +40,6 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 		getBotaoSalvar().removeActionListener(ouvinteSalvar);
 	}
 
-
-
 	public OuvinteBotaoSalvarFornecedor getOuvinteSalvarFornecedor() {
 		return ouvinteSalvarFornecedor;
 	}
@@ -84,8 +82,6 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 		add(jlServicos);
 	}
 	
-	
-
 
 	private class OuvinteBotaoSalvarFornecedor implements ActionListener {
 		private TelaCadastrarFornecedor janela;
@@ -98,8 +94,7 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 		public void actionPerformed(ActionEvent e) {
 
 			String nome = janela.getCampoNomeCompleto().getText();
-			String telefone = janela.getCampoTelefone().getText().replace("(", "").replace(")", "").replace("-", "")
-					.trim();
+			String telefone = janela.getCampoTelefone().getText().replace("(", "").replace(")", "").replace("-", "").trim();
 			String email = janela.getCampoEmail().getText();
 			Pessoa fornecedor = null;
 
@@ -204,6 +199,4 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 
 	}
 	
-	
-
 }

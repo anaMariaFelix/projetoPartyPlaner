@@ -35,19 +35,25 @@ import util.ValidarCNPJ;
 
 public class TelaCadastrarCliente extends JanelaPadrao {
 	private String titulo;
-	private JLabel lbTitulo;
+	
 	private JTextField campoNomeCompleto;
-	private JFormattedTextField campoTelefone;
 	private JTextField campoEmail;
+	
+	private JFormattedTextField campoTelefone;
 	private JFormattedTextField campoCPF;
 	private JFormattedTextField campoCNPJ;
+	
 	private JRadioButton pessoaFisica;
 	private JRadioButton pessoaJuridica;
+	
 	private JButton botaoSalvar;
 	private JButton botaoVoltar;
-	private JLabel cpfCnpj;
+	
 	protected OuvinteBotaoSalvar ouvinteSalvar;
 	protected OuvinteBotaoVoltar ouvinteVoltar;
+	
+	private JLabel lbTitulo;
+	private JLabel cpfCnpj;
 	private JLabel jlNomeCompleto;
 	private JLabel jlTelefone;
 	private JLabel jlEmail;

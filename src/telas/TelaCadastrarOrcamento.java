@@ -31,7 +31,6 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 	private JLabel titulo;
 	private JLabel emailClienteAssociado;
 	private JLabel informacaoCliente;
-
 	private JLabel nomeEvento;
 	private JLabel dataEHoraEvento;
 	private JLabel localEvento;
@@ -311,8 +310,11 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 
 			} else {
 				Pessoa clienteAssocidado = ClienteController.getInstance().recuperarClientePorEmail(email);
+				
 				LocalDateTime dataEHoraDoEvento = quebraDataEConverteEmLocalDateTime(dataEHora);
+				
 				orcamento = new OrcamentoOuContrato(nome, dataEHoraDoEvento, local, tamanho, clienteAssocidado, false);
+				
 				boolean listaCheia = false;
 
 				if (fornecedores.isEmpty() && !pacoteFornecedores.isEmpty()) {
