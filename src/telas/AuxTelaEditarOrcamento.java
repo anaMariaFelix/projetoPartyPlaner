@@ -1,6 +1,7 @@
 package telas;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
@@ -9,11 +10,12 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import controller.ClienteController;
+import controller.OrcamentoController;
 import model.OrcamentoOuContrato;
 import model.Pacote;
 import model.Pessoa;
@@ -32,6 +34,10 @@ public class AuxTelaEditarOrcamento {
 	
 	private Object[] todosOsFornecedoresDoOrçamento = null;
 	private int tamanhoVetor;
+	
+	private JCheckBox contrato;
+	
+	private TelaListaFornecedoresParaOrcamento telaListaFornecedoresParaOrcamento;
 
 	public AuxTelaEditarOrcamento(OrcamentoOuContrato orcamentoContrato, String titulo) {
 		this.orcamentoContrato = orcamentoContrato;
@@ -39,6 +45,15 @@ public class AuxTelaEditarOrcamento {
 		configurarTela();
 		adicionarTabelaFornecedores();
 		adicionarJButton();
+		adicionarJCheckBox();
+	}
+
+	private void adicionarJCheckBox() {
+		
+		contrato = new JCheckBox("Promover para Contrato");
+		contrato.setBounds(380,430,190,100);
+		contrato.setFont(new Font("Arial",Font.BOLD,13));
+		telaCadastrarOrcamento.add(contrato);
 	}
 
 	private void adicionarJButton() {
@@ -96,6 +111,7 @@ public class AuxTelaEditarOrcamento {
 		telaCadastrarOrcamento.getBotaoVoltar().addActionListener(new OuvinteBotaoVoltar(telaCadastrarOrcamento));
 		
 		telaCadastrarOrcamento.getBotaoSalvar().setBounds(220, 535, 110, 30);
+		telaCadastrarOrcamento.getBotaoSalvar().addActionListener(new OuvinteBotaoSalvar(telaCadastrarOrcamento));
 
 	}
 
@@ -209,7 +225,8 @@ public class AuxTelaEditarOrcamento {
 		
 		public void actionPerformed(ActionEvent e) {
 			telaCadastrarOrcamento.dispose();
-			new TelaListaFornecedoresParaOrcamento(telaCadastrarOrcamento,"Lista de Fornecedores");
+			telaListaFornecedoresParaOrcamento = new TelaListaFornecedoresParaOrcamento(telaCadastrarOrcamento,"Lista de Fornecedores");
+			telaListaFornecedoresParaOrcamento.getFornecedores();
 			
 		}
 		
@@ -232,18 +249,54 @@ public class AuxTelaEditarOrcamento {
 			String dataEHora = telaOrcamento.getCampoDataEHoraEvento().getText();
 			String valor = telaOrcamento.getCampoValor().getText();
 			OrcamentoOuContrato orcamento = null;
+			
+			LocalDateTime dataAntiga = orcamentoContrato.getDataEHoraDoEvento();
+			String emailDoAssociado = orcamentoContrato.getClienteAssociado().getEmail();
+			
+			ArrayList<Pacote> pacoteFornecedores = OrcamentoController.getInstance().getPacoteFornecedores();
+			ArrayList<Pessoa> fornecedores = OrcamentoController.getInstance().getFornecedores();
 
 			if (telaOrcamento.validaTodosOsCampos(telaOrcamento, email, nome, local, tamanho, dataEHora, valor)) {
 				Pessoa clienteAssocidado = ClienteController.getInstance().recuperarClientePorEmail(email);
 
 				LocalDateTime dataEHoraDoEvento = telaOrcamento.quebraDataEConverteEmLocalDateTime(dataEHora);
+				
+				boolean foiContratado = false;
+				
+				if (contrato.isSelected()) {
+					foiContratado = true;
+				}
+				orcamento = new OrcamentoOuContrato(nome, dataEHoraDoEvento, local, tamanho, clienteAssocidado, foiContratado,valor);
+				
+				
+				boolean listaCheia = false;
 
-				orcamento = new OrcamentoOuContrato(nome, dataEHoraDoEvento, local, tamanho, clienteAssocidado, false,
-						valor);
+				if (fornecedores.isEmpty() && !pacoteFornecedores.isEmpty()) {
+					orcamento.adicionaPacotesNaLista(pacoteFornecedores);
+					listaCheia = true;
+
+				} else if (pacoteFornecedores.isEmpty() && !fornecedores.isEmpty()) {
+					orcamento.adicionaFornecedoresNaLista(fornecedores);
+					listaCheia = true;
+				}
+				
+				
+				
+				if (OrcamentoController.getInstance().removerOrcamentoOuContrato(dataAntiga, emailDoAssociado)) {
+					
+					if (OrcamentoController.getInstance().adicionarOrcamento(orcamento)) {
+						JOptionPane.showMessageDialog(telaOrcamento, "Orçamento editado com sucesso");
+						telaOrcamento.dispose();
+						new TelaMenu("Menu");
+					}			
+				}else {
+					JOptionPane.showMessageDialog(telaOrcamento, "Orçamento não encontrado");
+				}
 			}
 
 		}
 
 	}
+	
 
 }
