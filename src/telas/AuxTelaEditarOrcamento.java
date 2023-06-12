@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -13,76 +14,207 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controller.ClienteController;
-import controller.OrcamentoController;
 import model.OrcamentoOuContrato;
 import model.Pacote;
 import model.Pessoa;
 import util.ButtonEditor;
 import util.ButtonRenderer;
+import util.ComponentesDeJFrame;
 
 public class AuxTelaEditarOrcamento {
 
 	private OrcamentoOuContrato orcamentoContrato;
-	private TelaCadastrarOrcamento telaOrcamento;
+	private TelaCadastrarOrcamento telaCadastrarOrcamento;
 	private String titulo;
 
 	private DefaultTableModel modelo;
 	private JTable tabela;
+	
+	private Object[] todosOsFornecedoresDoOrçamento = null;
+	private int tamanhoVetor;
 
 	public AuxTelaEditarOrcamento(OrcamentoOuContrato orcamentoContrato, String titulo) {
 		this.orcamentoContrato = orcamentoContrato;
 		this.titulo = titulo;
 		configurarTela();
+		adicionarTabelaFornecedores();
+		adicionarJButton();
+	}
+
+	private void adicionarJButton() {
+		
+		JButton incluirFornecedor = ComponentesDeJFrame.criarBotao("Incluir Fornecedor",574,90,140,30);
+		incluirFornecedor.addActionListener(new OuvinteBotaoIncluirFornecedor());
+		telaCadastrarOrcamento.add(incluirFornecedor);
 	}
 
 	private void configurarTela() {
 
-		TelaCadastrarOrcamento janela = new TelaCadastrarOrcamento(titulo);
-		janela.getTitulo().setText(titulo);
+		telaCadastrarOrcamento = new TelaCadastrarOrcamento(titulo);
+		telaCadastrarOrcamento.getTitulo().setText(titulo);
 
-		janela.getBotaoSalvar().removeActionListener(janela.getSalvar());
+		telaCadastrarOrcamento.getBotaoSalvar().removeActionListener(telaCadastrarOrcamento.getSalvar());
 
-		janela.getEmailClienteAssociado().setBounds(50, 100, 100, 30);
-		janela.getInformacaoCliente().setBounds(115, 100, 225, 30);
-		janela.getCampoEmailCliente().setBounds(50, 130, 280, 30);
+		telaCadastrarOrcamento.getEmailClienteAssociado().setBounds(50, 100, 100, 30);
+		telaCadastrarOrcamento.getInformacaoCliente().setBounds(115, 100, 225, 30);
+		telaCadastrarOrcamento.getCampoEmailCliente().setBounds(50, 130, 280, 30);
 
-		janela.getCampoEmailCliente().setText(orcamentoContrato.getClienteAssociado().getEmail());
-		janela.getCampoEmailCliente().setEnabled(false);
+		telaCadastrarOrcamento.getCampoEmailCliente().setText(orcamentoContrato.getClienteAssociado().getEmail());
+		telaCadastrarOrcamento.getCampoEmailCliente().setEnabled(false);
 
-		janela.getNomeEvento().setBounds(50, 170, 200, 30);
-		janela.getCampoNomeEvento().setText(orcamentoContrato.getNomeDoEvento());
-		janela.getCampoNomeEvento().setBounds(50, 200, 280, 30);
+		telaCadastrarOrcamento.getNomeEvento().setBounds(50, 170, 200, 30);
+		telaCadastrarOrcamento.getCampoNomeEvento().setText(orcamentoContrato.getNomeDoEvento());
+		telaCadastrarOrcamento.getCampoNomeEvento().setBounds(50, 200, 280, 30);
 
-		janela.getDataEHoraEvento().setBounds(50, 240, 130, 30);
-		janela.getCampoDataEHoraEvento()
+		telaCadastrarOrcamento.getDataEHoraEvento().setBounds(50, 240, 130, 30);
+		telaCadastrarOrcamento.getCampoDataEHoraEvento()
 				.setText(mudarDeLocalDateTimeParaString(orcamentoContrato.getDataEHoraDoEvento()));
-		janela.getCampoDataEHoraEvento().setBounds(50, 270, 280, 30);
+		telaCadastrarOrcamento.getCampoDataEHoraEvento().setBounds(50, 270, 280, 30);
 
-		janela.getLocalEvento().setBounds(50, 310, 100, 30);
-		janela.getCampoLocalEvento().setText(orcamentoContrato.getLocalDoEvento());
-		janela.getCampoLocalEvento().setBounds(50, 340, 280, 30);
+		telaCadastrarOrcamento.getLocalEvento().setBounds(50, 310, 100, 30);
+		telaCadastrarOrcamento.getCampoLocalEvento().setText(orcamentoContrato.getLocalDoEvento());
+		telaCadastrarOrcamento.getCampoLocalEvento().setBounds(50, 340, 280, 30);
 
-		janela.getInformacao().setBounds(140, 385, 225, 20);
-		janela.getTamanhoEvento().setBounds(50, 380, 90, 30);
-		janela.getCampoTamanhoEvento().setText(orcamentoContrato.getTamanho());
-		janela.getCampoTamanhoEvento().setBounds(50, 415, 280, 30);
+		telaCadastrarOrcamento.getInformacao().setBounds(140, 385, 225, 20);
+		telaCadastrarOrcamento.getTamanhoEvento().setBounds(50, 380, 90, 30);
+		telaCadastrarOrcamento.getCampoTamanhoEvento().setText(orcamentoContrato.getTamanho());
+		telaCadastrarOrcamento.getCampoTamanhoEvento().setBounds(50, 415, 280, 30);
 
-		janela.getValor().setBounds(50, 450, 330, 35);
-
+		telaCadastrarOrcamento.getValor().setBounds(50, 450, 330, 35);
 		if (!orcamentoContrato.getFornecedores().isEmpty()) {
-			janela.getCampoValor().setEnabled(true);
+			telaCadastrarOrcamento.getCampoValor().setEnabled(true);
 		} else {
-			janela.getCampoValor().setEnabled(false);
+			telaCadastrarOrcamento.getCampoValor().setEnabled(false);
 		}
-		janela.getCampoValor().setText(orcamentoContrato.getValor());
-		janela.getCampoValor().setBounds(50, 490, 280, 30);
+		telaCadastrarOrcamento.getCampoValor().setText(orcamentoContrato.getValor());
+		telaCadastrarOrcamento.getCampoValor().setBounds(50, 490, 280, 30);
 
-		janela.getBotaoAdicionarFornecedores().setVisible(false);
-		janela.getBotaoVoltar().setBounds(50, 535, 110, 30);
-		janela.getBotaoSalvar().setBounds(220, 535, 110, 30);
+		telaCadastrarOrcamento.getBotaoAdicionarFornecedores().setVisible(false);
+		
+		telaCadastrarOrcamento.getBotaoVoltar().removeActionListener(telaCadastrarOrcamento.getOuvinteVoltar());
+		telaCadastrarOrcamento.getBotaoVoltar().setBounds(50, 535, 110, 30);
+		telaCadastrarOrcamento.getBotaoVoltar().addActionListener(new OuvinteBotaoVoltar(telaCadastrarOrcamento));
+		
+		telaCadastrarOrcamento.getBotaoSalvar().setBounds(220, 535, 110, 30);
 
 	}
 
+
+	private void adicionarTabelaFornecedores() {
+		modelo = new DefaultTableModel();
+		modelo.addColumn("Nome");
+		
+		tamanhoVetor = 1;
+
+		tabela = new JTable(modelo);
+		
+		if (!orcamentoContrato.getFornecedores().isEmpty()) {
+			todosOsFornecedoresDoOrçamento = orcamentoContrato.getFornecedores().toArray();
+			modelo.addColumn("Excluir");
+			tabela.getColumn("Excluir").setCellRenderer(new ButtonRenderer());
+			tabela.getColumn("Excluir").setCellEditor(new ButtonEditor(new JCheckBox()));
+			tamanhoVetor++;
+		} else {
+			todosOsFornecedoresDoOrçamento = orcamentoContrato.getPacotesDeFornecedores().toArray();
+		}
+
+		JScrollPane painelTabela = new JScrollPane(tabela);
+		painelTabela.setBounds(380, 128, 335, 318);
+		telaCadastrarOrcamento.add(painelTabela);	
+		preencherTabela(todosOsFornecedoresDoOrçamento,tamanhoVetor);
+	}
+
+	public void preencherTabela(Object[] fornecedoresOrcamento,int tamanho) {
+		int indiceExcluir = 0;
+		for (Object t : fornecedoresOrcamento) {
+			Object[] linha = new Object[tamanho];
+
+			if (t != null) {
+				if (t instanceof Pessoa) {
+				Pessoa fisicoOuJuridico = (Pessoa) t;
+				linha[0] = fisicoOuJuridico.getNome();
+
+				JButton btExcluir = new JButton("Excluir");
+				linha[1] = btExcluir;
+				btExcluir.setBackground(new Color(39, 228, 86));
+				btExcluir.addActionListener(new OuvinteBotaoExcluir(fisicoOuJuridico,indiceExcluir));
+
+			} else {
+				Pacote pacote = (Pacote) t;
+				linha[0] = pacote.getNomeDoPacote();
+			}
+
+			modelo.addRow(linha);
+			indiceExcluir++;
+			}
+			
+
+		}
+
+	}
+
+	public void limparTabela() {
+		int cont = modelo.getRowCount();
+		for (int i = 0; i < cont; i++) {
+			modelo.removeRow(0);
+		}
+		tabela.repaint();
+	}
+
+	public String mudarDeLocalDateTimeParaString(LocalDateTime dataEHora) {
+
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+		String dataFormatada = dataEHora.format(dateTimeFormatter);
+
+		return dataFormatada;
+
+	}
+
+	public class OuvinteBotaoVoltar implements ActionListener{
+		private TelaCadastrarOrcamento janela;
+		
+		public OuvinteBotaoVoltar(TelaCadastrarOrcamento janela) {
+			this.janela = janela;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			janela.dispose();
+			new TelaListarOrcamentosContratos("Lista de Orçamentos/Contratos");
+		}
+		
+		
+	}
+	
+	public class OuvinteBotaoExcluir implements ActionListener{
+
+		private Pessoa fornecedor;
+		private int indiceDoFornecedor;
+		
+		public OuvinteBotaoExcluir(Pessoa fornecedor,int indice) {
+			this.fornecedor = fornecedor;
+			this.indiceDoFornecedor = indice;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			todosOsFornecedoresDoOrçamento[indiceDoFornecedor] = null;
+			limparTabela();
+			preencherTabela(todosOsFornecedoresDoOrçamento,tamanhoVetor);
+		}
+		
+	}
+	
+	public class OuvinteBotaoIncluirFornecedor implements ActionListener{
+
+		
+		public void actionPerformed(ActionEvent e) {
+			telaCadastrarOrcamento.dispose();
+			new TelaListaFornecedoresParaOrcamento(telaCadastrarOrcamento,"Lista de Fornecedores");
+			
+		}
+		
+	}
+	
 	public class OuvinteBotaoSalvar implements ActionListener {
 
 		private TelaCadastrarOrcamento telaOrcamento;
@@ -111,73 +243,6 @@ public class AuxTelaEditarOrcamento {
 			}
 
 		}
-
-	}
-
-	private void adicionarTabelaFornecedores() {
-		modelo = new DefaultTableModel();
-		modelo.addColumn("Nome");
-		modelo.addColumn("Excluir");
-		
-		Object[] todosOsFornecedoresDoOrçamento = null;
-				
-		
-		if (!OrcamentoController.getInstance().getFornecedores().isEmpty()) {
-			todosOsFornecedoresDoOrçamento = OrcamentoController.getInstance().getFornecedores().toArray();
-		}else {
-			todosOsFornecedoresDoOrçamento = OrcamentoController.getInstance().getPacoteFornecedores().toArray();
-		}
-		
-
-		tabela = new JTable(modelo);
-		tabela.getColumn("Excluir").setCellRenderer(new ButtonRenderer());
-		tabela.getColumn("Excluir").setCellEditor(new ButtonEditor(new JCheckBox()));
-
-		JScrollPane painelTabela = new JScrollPane(tabela);
-		painelTabela.setBounds(30, 135, 730, 350);
-		telaOrcamento.add(painelTabela);
-		preencherTabela(todosOsFornecedoresDoOrçamento);
-	}
-
-	public void preencherTabela(Object[] fornecedoresOrcamento) {
-		limparTabela();
-		for (Object t : fornecedoresOrcamento) {
-			Object[] linha = new Object[2];
-			
-			if (t instanceof Pessoa) {
-				Pessoa fisicoOuJuridico = (Pessoa)t;
-				linha[0] = fisicoOuJuridico.getNome();
-			}else {
-				Pacote pacote = (Pacote)t;
-			} 
-
-			JButton btExcluir = new JButton("Excluir");
-			linha[1] = btExcluir;
-			btExcluir.setBackground(new Color(39, 228, 86));
-
-			
-		
-			modelo.addRow(linha);// adiciona alinha
-
-		}
-
-	}
-
-	public void limparTabela() {
-		int cont = modelo.getRowCount();
-		for (int i = 0; i < cont; i++) {
-			modelo.removeRow(0);
-		}
-		tabela.repaint();
-	}
-
-	public String mudarDeLocalDateTimeParaString(LocalDateTime dataEHora) {
-
-		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
-		String dataFormatada = dataEHora.format(dateTimeFormatter);
-
-		return dataFormatada;
 
 	}
 

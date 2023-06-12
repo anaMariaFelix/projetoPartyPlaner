@@ -50,6 +50,7 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 	private JButton botaoAdicionarFornecedores;
 	
 	private OuvinteBotaoSalvar salvar;
+	private OuvinteBotaoVoltar ouvinteVoltar;
 
 	private char[] novaData;
 
@@ -64,6 +65,10 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 		setVisible(true);
 	}
 	
+	public OuvinteBotaoVoltar getOuvinteVoltar() {
+		return ouvinteVoltar;
+	}
+
 	public OuvinteBotaoSalvar getSalvar() {
 		return salvar;
 	}
@@ -212,8 +217,10 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 	}
 
 	private void adicionarJButton() {
+		
+		ouvinteVoltar = new OuvinteBotaoVoltar();
 		botaoVoltar = ComponentesDeJFrame.criarBotao("Voltar", 230, 560, 150, 30);
-		botaoVoltar.addActionListener(new OuvinteBotaoVoltar());
+		botaoVoltar.addActionListener(ouvinteVoltar);
 		add(botaoVoltar);
 
 		salvar = new OuvinteBotaoSalvar(this);

@@ -84,15 +84,6 @@ public class OrcamentoController {
 		}
 		
 	}
-		
-
-//	public boolean jaOcorreu() {
-//		LocalDateTime dataHoraAtual = LocalDateTime.now();
-//		if(dataHoraAtual.isAfter(dataEHoraDoEvento)) {
-//			return true;
-//		}
-//		return false;
-//	}
 
 	public ArrayList<OrcamentoOuContrato> filtrarPorTipo(String tipo){
 		ArrayList<OrcamentoOuContrato> TodosOrcamentos = obterTodosOsOrcamentoEContratos();
@@ -112,5 +103,8 @@ public class OrcamentoController {
 		
 	}
 	
+	public void removerFornecedor(OrcamentoOuContrato orcamentoContrato,Pessoa fornecedor) {
+		orcamentoContrato.getFornecedores().remove(fornecedor);	
+	}
 	
 }
