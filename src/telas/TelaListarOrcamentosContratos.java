@@ -1,13 +1,21 @@
 package telas;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import baseDedados.CentralDeInformacoes;
+import controller.FornecedorController;
 import controller.OrcamentoController;
 import model.OrcamentoOuContrato;
 import util.ButtonEditor;
@@ -17,6 +25,12 @@ import util.ComponentesDeJFrame;
 public class TelaListarOrcamentosContratos extends JanelaPadrao{
 	private JLabel titulo;
 	
+	private JRadioButton jrOrcamento;
+	private JRadioButton jrContrato;
+	private JRadioButton jrTodos;
+	
+	private JButton voltar;
+	
 	private DefaultTableModel modelo;
 	private JTable tabela;
 
@@ -24,10 +38,24 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 		super(titulo);
 		adicionarJLabel();
 		adicionarJTable();
+		adicionarRadioButton();
+		adicionarJButton();
 		setVisible(true);
 		
 	}
 
+
+	public JRadioButton getJrOrcamento() {
+		return jrOrcamento;
+	}
+
+	public JRadioButton getJrContrato() {
+		return jrContrato;
+	}
+
+	public JRadioButton getJrTodos() {
+		return jrTodos;
+	}
 
 	public DefaultTableModel getModelo() {
 		return modelo;
@@ -38,12 +66,18 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 	}
 
 	private void adicionarJLabel() {
-		titulo = ComponentesDeJFrame.criaJLabel("Lista de Orçamentos/Contratos", 0, 70, 800, 50, 30);
+		titulo = ComponentesDeJFrame.criaJLabel("Lista de Orçamentos/Contratos", 0, 40, 800, 50, 30);
 		titulo.setHorizontalAlignment(JLabel.CENTER);
 		add(titulo);
 		
 	}
 
+	public void adicionarJButton() {
+		OuvinteBotaoVoltar ouvinteBotaoVoltar = new OuvinteBotaoVoltar();
+		voltar = ComponentesDeJFrame.criarBotao("Voltar", 636, 490, 125, 35);
+		voltar.addActionListener(ouvinteBotaoVoltar);
+		add(voltar);
+	}
 
 	protected void adicionarJTable() {
 		modelo = new DefaultTableModel();
@@ -73,7 +107,7 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 	}
 	
 	public void preencherTabela(Object[] orcamentosEContratos) {
-		
+		limparTabela();
 		for (Object o : orcamentosEContratos) {
 			OrcamentoOuContrato orcamentoOuContrato = (OrcamentoOuContrato) o;
 			Object[] linha = new Object[6];
@@ -99,6 +133,74 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 			
 			modelo.addRow(linha);// adiciona alinha
 
+		}
+
+	}
+	
+	private void adicionarRadioButton() {
+
+		OuvinteRadioButton ouvinteRadioButton = new OuvinteRadioButton(this);
+		jrOrcamento = ComponentesDeJFrame.criarRadioButtons("Orçamentos", false, 30, 105, 110, 30, 15);
+		jrOrcamento.setFont(new Font("Arial", Font.ITALIC, 15));
+		jrOrcamento.addActionListener(ouvinteRadioButton);
+		add(jrOrcamento);
+
+		jrContrato = ComponentesDeJFrame.criarRadioButtons("Contratos", false, 165, 105, 100, 30, 15);
+		jrContrato.setFont(new Font("Arial", Font.ITALIC, 15));
+		jrContrato.addActionListener(ouvinteRadioButton);
+		add(jrContrato);
+
+		jrTodos = ComponentesDeJFrame.criarRadioButtons("Todos", true, 275, 105, 100, 30, 15);
+		jrTodos.setFont(new Font("Arial", Font.ITALIC, 15));
+		jrTodos.addActionListener(ouvinteRadioButton);
+		add(jrTodos);
+
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(jrTodos);
+		bg.add(jrContrato);
+		bg.add(jrOrcamento);
+
+	}
+	
+	private class OuvinteRadioButton implements ActionListener {
+		private TelaListarOrcamentosContratos janela;
+		private JScrollPane tabelaFiltrada;
+
+		public OuvinteRadioButton(TelaListarOrcamentosContratos janela) {
+			this.janela = janela;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			if (jrTodos.isSelected()) {
+				preencherTabela(OrcamentoController.getInstance().obterTodosOsOrcamentoEContratos().toArray());
+			} else if (jrContrato.isSelected()) {
+				preencherTabela(OrcamentoController.getInstance().filtrarPorTipo("Contrato").toArray());
+			} else {
+				preencherTabela(OrcamentoController.getInstance().filtrarPorTipo("Orcamento").toArray());
+			}
+
+		}
+
+	}
+	
+	public void limparTabela() {
+		int cont = modelo.getRowCount();
+		for (int i = 0; i < cont; i++) {
+			modelo.removeRow(0);
+		}
+		tabela.repaint();
+	}
+	
+	private class OuvinteBotaoVoltar implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == voltar) {
+				dispose();
+				TelaMenu telaMenu = new TelaMenu("Tela Menu");
+			}
 		}
 
 	}

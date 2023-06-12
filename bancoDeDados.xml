@@ -6,6 +6,12 @@
       <email>2@2</email>
       <CPF>11993299408</CPF>
     </model.ClienteFisico>
+    <model.ClienteFisico>
+      <nome>andrey</nome>
+      <telefone>99999999999</telefone>
+      <email>a@a</email>
+      <CPF>70401600483</CPF>
+    </model.ClienteFisico>
   </todosOsClientes>
   <todosOsFornecedores>
     <model.FornecedorFisico>
@@ -77,6 +83,19 @@
           </todosFornecedore>
         </model.Pacote>
       </pacotesDeFornecedores>
+    </model.OrcamentoOuContrato>
+    <model.OrcamentoOuContrato>
+      <clienteAssociado class="model.ClienteFisico" reference="../../../todosOsClientes/model.ClienteFisico[2]"/>
+      <nomeDoEvento>beber e comer</nomeDoEvento>
+      <dataEHoraDoEvento>2056-12-20T22:22:00</dataEHoraDoEvento>
+      <localDoEvento>bar</localDoEvento>
+      <tamanho>1</tamanho>
+      <foiContradoOuNao>false</foiContradoOuNao>
+      <valor>909090</valor>
+      <fornecedores>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[2]"/>
+      </fornecedores>
+      <pacotesDeFornecedores/>
     </model.OrcamentoOuContrato>
   </todosEvento>
   <todosServicos>

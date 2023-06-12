@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import baseDedados.CentralDeInformacoes;
 import baseDedados.Persistencia;
+import model.FornecedorFisico;
+import model.FornecedorJuridico;
 import model.OrcamentoOuContrato;
 import model.Pacote;
 import model.Pessoa;
@@ -42,6 +44,7 @@ public class OrcamentoController {
 	public void setFornecedores(ArrayList<Pessoa> fornecedores) {
 		this.fornecedores = fornecedores;
 	}
+	
 
 	public boolean adicionarOrcamento(OrcamentoOuContrato orcamento) {
 		LocalDateTime dataHoraAtual = LocalDateTime.now();
@@ -91,7 +94,23 @@ public class OrcamentoController {
 //		return false;
 //	}
 
-	
+	public ArrayList<OrcamentoOuContrato> filtrarPorTipo(String tipo){
+		ArrayList<OrcamentoOuContrato> TodosOrcamentos = obterTodosOsOrcamentoEContratos();
+		ArrayList<OrcamentoOuContrato> filtrar = new ArrayList();
+		for(OrcamentoOuContrato o: TodosOrcamentos) {
+			if (tipo.equalsIgnoreCase("Orcamento")) {
+				if (!o.isFoiContradoOuNao()) {
+					filtrar.add(o); //orcamento
+				}
+			}else {
+				if (o.isFoiContradoOuNao()) {
+					filtrar.add(o); //contrato
+				}
+			}
+		}
+		return filtrar;
+		
+	}
 	
 	
 }
