@@ -48,6 +48,8 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 	private JButton botaoVoltar;
 	private JButton botaoSalvar;
 	private JButton botaoAdicionarFornecedores;
+	
+	private OuvinteBotaoSalvar salvar;
 
 	private char[] novaData;
 
@@ -60,6 +62,10 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 		adicionarJTextField();
 		adicionarJButton();
 		setVisible(true);
+	}
+	
+	public OuvinteBotaoSalvar getSalvar() {
+		return salvar;
 	}
 
 	public JTextField getCampoValor() {
@@ -134,6 +140,10 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 		return informacao;
 	}
 
+	public JLabel getValor() {
+		return valor;
+	}
+
 	private void adicionarJLabel() {
 		titulo = ComponentesDeJFrame.criaJLabel("Cadastrar Orçamento", 0, 20, 800, 50, 30);
 		titulo.setHorizontalAlignment(JLabel.CENTER);
@@ -206,8 +216,9 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 		botaoVoltar.addActionListener(new OuvinteBotaoVoltar());
 		add(botaoVoltar);
 
+		salvar = new OuvinteBotaoSalvar(this);
 		botaoSalvar = ComponentesDeJFrame.criarBotao("Salvar", 410, 560, 150, 30);
-		botaoSalvar.addActionListener(new OuvinteBotaoSalavar(this));
+		botaoSalvar.addActionListener(salvar);
 		add(botaoSalvar);
 
 		botaoAdicionarFornecedores = ComponentesDeJFrame.criarBotao("Adicionar Fornecedores", 230, 450, 330, 35);
@@ -284,14 +295,15 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 		}
 	}
 
-	public class OuvinteBotaoSalavar implements ActionListener {
+	public class OuvinteBotaoSalvar implements ActionListener {
 		private TelaCadastrarOrcamento janela;
 
-		public OuvinteBotaoSalavar(TelaCadastrarOrcamento janela) {
+		public OuvinteBotaoSalvar(TelaCadastrarOrcamento janela) {
 			this.janela = janela;
 		}
 
 		public void actionPerformed(ActionEvent e) {
+			
 			String email = janela.getCampoEmailCliente().getText();
 			String nome = janela.getCampoNomeEvento().getText();
 			String local = janela.getCampoLocalEvento().getText();
@@ -299,41 +311,19 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 			String dataEHora = janela.getCampoDataEHoraEvento().getText();
 			String valor = janela.getCampoValor().getText();
 
-			String[] data = dataEHora.split(" ");
-
 			OrcamentoOuContrato orcamento = null;
 
 			ArrayList<Pacote> pacoteFornecedores = OrcamentoController.getInstance().getPacoteFornecedores();
 			ArrayList<Pessoa> fornecedores = OrcamentoController.getInstance().getFornecedores();
 
-			if (nome.isEmpty() || local.isEmpty() || tamanho.isEmpty() || dataEHora.isEmpty() || email.isEmpty()
-					|| valor.isEmpty()) {
-				JOptionPane.showMessageDialog(janela, "Todos os campos devem ser preenchidos");
 
-			} else if (!ValidaEmail.emailValidator(email)) {
-				JOptionPane.showMessageDialog(janela, "Email inválido");
-
-			} else if (!verificarSeDataEValida(data[0])) {
-				JOptionPane.showMessageDialog(janela, "Data inválida\nInforme uma data válida");
-
-			} else if (!verificarSeHoraEValida(data[1])) {
-				JOptionPane.showMessageDialog(janela, "Hora inválida\nInforme uma data/Hora válida");
-
-			} else if (!verificaSeStringContemApenasNumeros(tamanho)) {
-				JOptionPane.showMessageDialog(janela, "Tamanho inválido\nInforme apenas números");
-
-			} else if (!verificaSeStringContemApenasNumeros(valor)) {
-				JOptionPane.showMessageDialog(janela, "Valor inválido\nInforme apenas números");
-				
-			} else if (!ClienteController.getInstance().existeCliente(email)) {
-				JOptionPane.showMessageDialog(janela, "Não existe cliente com esse email");
-
-			} else {
+			if (validaTodosOsCampos(janela, email, nome, local, tamanho, dataEHora, valor)) {
 				Pessoa clienteAssocidado = ClienteController.getInstance().recuperarClientePorEmail(email);
 
 				LocalDateTime dataEHoraDoEvento = quebraDataEConverteEmLocalDateTime(dataEHora);
 
-				orcamento = new OrcamentoOuContrato(nome, dataEHoraDoEvento, local, tamanho, clienteAssocidado, false,valor);
+				orcamento = new OrcamentoOuContrato(nome, dataEHoraDoEvento, local, tamanho, clienteAssocidado, false,
+						valor);
 
 				boolean listaCheia = false;
 
@@ -357,11 +347,42 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 				} else {
 					JOptionPane.showMessageDialog(janela, "Você deve informar ao menos um Fornecedor/Pacote.");
 				}
+
 			}
-
 		}
-	}
 
+	}
+	public boolean validaTodosOsCampos(TelaCadastrarOrcamento janela, String email, String nome, String local,
+			String tamanho, String dataEHora, String valor) {
+
+		String[] data = dataEHora.split(" ");
+
+		if (nome.isEmpty() || local.isEmpty() || tamanho.isEmpty() || dataEHora.isEmpty() || email.isEmpty()
+				|| valor.isEmpty()) {
+			JOptionPane.showMessageDialog(janela, "Todos os campos devem ser preenchidos");
+
+		} else if (!ValidaEmail.emailValidator(email)) {
+			JOptionPane.showMessageDialog(janela, "Email inválido");
+
+		} else if (!verificarSeDataEValida(data[0])) {
+			JOptionPane.showMessageDialog(janela, "Data inválida\nInforme uma data válida");
+
+		} else if (!verificarSeHoraEValida(data[1])) {
+			JOptionPane.showMessageDialog(janela, "Hora inválida\nInforme uma data/Hora válida");
+
+		} else if (!verificaSeStringContemApenasNumeros(tamanho)) {
+			JOptionPane.showMessageDialog(janela, "Tamanho inválido\nInforme apenas números");
+
+		} else if (!verificaSeStringContemApenasNumeros(valor)) {
+			JOptionPane.showMessageDialog(janela, "Valor inválido\nInforme apenas números");
+
+		} else if (!ClienteController.getInstance().existeCliente(email)) {
+			JOptionPane.showMessageDialog(janela, "Não existe cliente com esse email");
+		} else {
+			return true;
+		}
+		return false;
+	}
 	public LocalDateTime quebraDataEConverteEmLocalDateTime(String data) {
 		String dataSemEspaco = data.replaceAll(" ", "");
 		novaData = new char[10];
@@ -434,5 +455,6 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 
 		return false;
 	}
-
+	
+	
 }

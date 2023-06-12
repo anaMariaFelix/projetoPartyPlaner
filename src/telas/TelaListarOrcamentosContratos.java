@@ -125,6 +125,7 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 			
 			JButton editar = new JButton("Editar");
 			editar.setBackground(new Color(39, 228, 86));
+			editar.addActionListener(new OuvinteBotaoEditar(orcamentoOuContrato));
 			linha[4] = editar;
 			
 			JButton detalhar = new JButton("Detalhar");
@@ -204,4 +205,30 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 		}
 
 	}
+	
+	public class OuvinteBotaoDetalhar implements ActionListener{
+		
+		public void actionPerformed(ActionEvent e) {
+			dispose();
+			
+			
+		}
+		
+	}
+	public class OuvinteBotaoEditar implements ActionListener{
+		private OrcamentoOuContrato orcamentoContrato;
+		
+		public OuvinteBotaoEditar(OrcamentoOuContrato orcamentoContrato) {
+			this.orcamentoContrato = orcamentoContrato;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			dispose();
+			new AuxTelaEditarOrcamento(orcamentoContrato,"Editar Orçamento/Contrato");
+			
+		}
+		
+	}
+	
+	
 }

@@ -17,7 +17,7 @@ import model.FornecedorFisico;
 import model.FornecedorJuridico;
 import model.OrcamentoOuContrato;
 import model.Pessoa;
-import telas.TelaCadastrarOrcamento.OuvinteBotaoSalavar;
+import telas.TelaCadastrarOrcamento.OuvinteBotaoSalvar;
 import util.ButtonEditor;
 import util.ButtonRenderer;
 import util.ComponentesDeJFrame;

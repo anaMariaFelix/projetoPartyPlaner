@@ -97,6 +97,28 @@
       </fornecedores>
       <pacotesDeFornecedores/>
     </model.OrcamentoOuContrato>
+    <model.OrcamentoOuContrato>
+      <clienteAssociado class="model.ClienteFisico" reference="../../../todosOsClientes/model.ClienteFisico"/>
+      <nomeDoEvento>a</nomeDoEvento>
+      <dataEHoraDoEvento>2029-12-12T20:20:00</dataEHoraDoEvento>
+      <localDoEvento>n sei</localDoEvento>
+      <tamanho>2</tamanho>
+      <foiContradoOuNao>false</foiContradoOuNao>
+      <valor>10.0</valor>
+      <fornecedores/>
+      <pacotesDeFornecedores>
+        <model.Pacote>
+          <nomeDoPacote>barato</nomeDoPacote>
+          <valorDoPacote>10</valorDoPacote>
+          <descricao>O mais barato</descricao>
+          <disponibilidade>Disponivel</disponibilidade>
+          <todosFornecedore>
+            <model.FornecedorFisico reference="../../../../../../todosOsFornecedores/model.FornecedorFisico"/>
+            <model.FornecedorJuridico reference="../../../../../../todosOsFornecedores/model.FornecedorJuridico"/>
+          </todosFornecedore>
+        </model.Pacote>
+      </pacotesDeFornecedores>
+    </model.OrcamentoOuContrato>
   </todosEvento>
   <todosServicos>
     <string>Buffet</string>
@@ -119,16 +141,7 @@
         <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
       </todosFornecedore>
     </model.Pacote>
-    <model.Pacote>
-      <nomeDoPacote>barato</nomeDoPacote>
-      <valorDoPacote>10</valorDoPacote>
-      <descricao>O mais barato</descricao>
-      <disponibilidade>Disponivel</disponibilidade>
-      <todosFornecedore>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
-        <model.FornecedorJuridico reference="../../../../todosOsFornecedores/model.FornecedorJuridico"/>
-      </todosFornecedore>
-    </model.Pacote>
+    <model.Pacote reference="../../todosEvento/model.OrcamentoOuContrato[4]/pacotesDeFornecedores/model.Pacote"/>
     <model.Pacote reference="../../todosEvento/model.OrcamentoOuContrato[2]/pacotesDeFornecedores/model.Pacote"/>
   </todosOsPacotes>
   <administrador>
