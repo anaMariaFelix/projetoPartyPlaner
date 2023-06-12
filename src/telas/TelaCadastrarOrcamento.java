@@ -36,12 +36,14 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 	private JLabel localEvento;
 	private JLabel tamanhoEvento;
 	private JLabel informacao;
+	private JLabel valor;
 
 	private JTextField campoEmailCliente;
 	private JTextField campoNomeEvento;
 	private JTextField campoDataEHoraEvento;
 	private JTextField campoLocalEvento;
 	private JTextField campoTamanhoEvento;
+	private JTextField campoValor;
 
 	private JButton botaoVoltar;
 	private JButton botaoSalvar;
@@ -58,6 +60,10 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 		adicionarJTextField();
 		adicionarJButton();
 		setVisible(true);
+	}
+
+	public JTextField getCampoValor() {
+		return campoValor;
 	}
 
 	public JTextField getCampoEmailCliente() {
@@ -129,73 +135,82 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 	}
 
 	private void adicionarJLabel() {
-		titulo = ComponentesDeJFrame.criaJLabel("Cadastrar Orçamento", 0, 40, 800, 50, 30);
+		titulo = ComponentesDeJFrame.criaJLabel("Cadastrar Orçamento", 0, 20, 800, 50, 30);
 		titulo.setHorizontalAlignment(JLabel.CENTER);
 		add(titulo);
 
-		emailClienteAssociado = ComponentesDeJFrame.criaJLabel("Email", 280, 110, 100, 30, 20);
+		emailClienteAssociado = ComponentesDeJFrame.criaJLabel("Email", 230, 100, 100, 30, 20);
 		add(emailClienteAssociado);
 
-		informacaoCliente = ComponentesDeJFrame.criaJLabel("(clinte associado)", 335, 110, 225, 30, 15);
-		informacaoCliente.setFont(new Font("Arial", Font.ITALIC, 10));
+		informacaoCliente = ComponentesDeJFrame.criaJLabel("(clinte associado)", 295, 100, 225, 30, 15);
+		informacaoCliente.setFont(new Font("Arial", Font.ITALIC, 15));
 		add(informacaoCliente);
 
-		nomeEvento = ComponentesDeJFrame.criaJLabel("Nome Do Evendo", 280, 180, 200, 30, 20);
+		nomeEvento = ComponentesDeJFrame.criaJLabel("Nome Do Evendo", 230, 170, 200, 30, 20);
 		add(nomeEvento);
 
-		dataEHoraEvento = ComponentesDeJFrame.criaJLabel("Data e Hora", 280, 250, 130, 30, 20);
+		dataEHoraEvento = ComponentesDeJFrame.criaJLabel("Data e Hora", 230, 240, 130, 30, 20);
 		add(dataEHoraEvento);
 
-		localEvento = ComponentesDeJFrame.criaJLabel("Local", 280, 320, 100, 30, 20);
+		localEvento = ComponentesDeJFrame.criaJLabel("Local", 230, 310, 100, 30, 20);
 		add(localEvento);
 
-		tamanhoEvento = ComponentesDeJFrame.criaJLabel("Tamanho", 280, 395, 90, 30, 20);
+		tamanhoEvento = ComponentesDeJFrame.criaJLabel("Tamanho", 230, 380, 90, 30, 20);
 		add(tamanhoEvento);
 
-		informacao = ComponentesDeJFrame.criaJLabel("(Quantidade de convidados)", 370, 395, 225, 30, 10);
-		informacao.setFont(new Font("Arial", Font.ITALIC, 10));
+		informacao = ComponentesDeJFrame.criaJLabel("(Quantidade de convidados)", 330, 380, 225, 30, 15);
+		informacao.setFont(new Font("Arial", Font.ITALIC, 15));
 		add(informacao);
+
+		valor = ComponentesDeJFrame.criaJLabel("Valor", 230, 490, 225, 30, 20);
+		add(valor);
 
 	}
 
 	private void adicionarJTextField() {
 
-		campoEmailCliente = ComponentesDeJFrame.criaJTextField(280, 140, 230, 30);
+		campoEmailCliente = ComponentesDeJFrame.criaJTextField(230, 130, 330, 30);
 		add(campoEmailCliente);
 
-		campoNomeEvento = ComponentesDeJFrame.criaJTextField(280, 210, 230, 30);
+		campoNomeEvento = ComponentesDeJFrame.criaJTextField(230, 200, 330, 30);
 		add(campoNomeEvento);
 
 		MaskFormatter mascaraDeData;
 		try {
 			mascaraDeData = new MaskFormatter("##/##/#### ##:##");
 			campoDataEHoraEvento = new JFormattedTextField(mascaraDeData);
-			campoDataEHoraEvento.setBounds(280, 280, 230, 30);
+			campoDataEHoraEvento.setBounds(230, 270, 330, 30);
 			add(campoDataEHoraEvento);
 
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 
-		campoLocalEvento = ComponentesDeJFrame.criaJTextField(280, 350, 230, 30);
+		campoLocalEvento = ComponentesDeJFrame.criaJTextField(230, 340, 330, 30);
 		add(campoLocalEvento);
 
-		campoTamanhoEvento = ComponentesDeJFrame.criaJTextField(280, 425, 230, 30);
-		campoTamanhoEvento.addKeyListener(new OuvinteCampoTamanho());
+		OuvinteCampoTamanhoEValor ouvinte = new OuvinteCampoTamanhoEValor();
+		campoTamanhoEvento = ComponentesDeJFrame.criaJTextField(230, 415, 330, 30);
+		campoTamanhoEvento.addKeyListener(ouvinte);
 		add(campoTamanhoEvento);
+
+		campoValor = ComponentesDeJFrame.criaJTextField(230, 520, 330, 30);
+		campoValor.addKeyListener(ouvinte);
+		campoValor.setEnabled(false);
+		add(campoValor);
 
 	}
 
 	private void adicionarJButton() {
-		botaoVoltar = ComponentesDeJFrame.criarBotao("Voltar", 280, 505, 100, 30);
+		botaoVoltar = ComponentesDeJFrame.criarBotao("Voltar", 230, 560, 150, 30);
 		botaoVoltar.addActionListener(new OuvinteBotaoVoltar());
 		add(botaoVoltar);
 
-		botaoSalvar = ComponentesDeJFrame.criarBotao("Salvar", 409, 505, 100, 30);
+		botaoSalvar = ComponentesDeJFrame.criarBotao("Salvar", 410, 560, 150, 30);
 		botaoSalvar.addActionListener(new OuvinteBotaoSalavar(this));
 		add(botaoSalvar);
 
-		botaoAdicionarFornecedores = ComponentesDeJFrame.criarBotao("Adicionar Fornecedores", 280, 465, 230, 30);
+		botaoAdicionarFornecedores = ComponentesDeJFrame.criarBotao("Adicionar Fornecedores", 230, 450, 330, 35);
 		botaoAdicionarFornecedores.addActionListener(new OuvinteBotaoFornecedores(this));
 		add(botaoAdicionarFornecedores);
 
@@ -211,7 +226,7 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 		}
 	}
 
-	public class OuvinteCampoTamanho implements KeyListener {
+	public class OuvinteCampoTamanhoEValor implements KeyListener {
 
 		public void keyTyped(KeyEvent e) {
 			char c = e.getKeyChar();
@@ -282,6 +297,7 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 			String local = janela.getCampoLocalEvento().getText();
 			String tamanho = janela.getCampoTamanhoEvento().getText();
 			String dataEHora = janela.getCampoDataEHoraEvento().getText();
+			String valor = janela.getCampoValor().getText();
 
 			String[] data = dataEHora.split(" ");
 
@@ -290,7 +306,8 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 			ArrayList<Pacote> pacoteFornecedores = OrcamentoController.getInstance().getPacoteFornecedores();
 			ArrayList<Pessoa> fornecedores = OrcamentoController.getInstance().getFornecedores();
 
-			if (nome.isEmpty() || local.isEmpty() || tamanho.isEmpty() || dataEHora.isEmpty() || email.isEmpty()) {
+			if (nome.isEmpty() || local.isEmpty() || tamanho.isEmpty() || dataEHora.isEmpty() || email.isEmpty()
+					|| valor.isEmpty()) {
 				JOptionPane.showMessageDialog(janela, "Todos os campos devem ser preenchidos");
 
 			} else if (!ValidaEmail.emailValidator(email)) {
@@ -302,19 +319,22 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 			} else if (!verificarSeHoraEValida(data[1])) {
 				JOptionPane.showMessageDialog(janela, "Hora inválida\nInforme uma data/Hora válida");
 
-			} else if (!verificaSeTamanhoEValido(tamanho)) {
+			} else if (!verificaSeStringContemApenasNumeros(tamanho)) {
 				JOptionPane.showMessageDialog(janela, "Tamanho inválido\nInforme apenas números");
 
+			} else if (!verificaSeStringContemApenasNumeros(valor)) {
+				JOptionPane.showMessageDialog(janela, "Valor inválido\nInforme apenas números");
+				
 			} else if (!ClienteController.getInstance().existeCliente(email)) {
 				JOptionPane.showMessageDialog(janela, "Não existe cliente com esse email");
 
 			} else {
 				Pessoa clienteAssocidado = ClienteController.getInstance().recuperarClientePorEmail(email);
-				
+
 				LocalDateTime dataEHoraDoEvento = quebraDataEConverteEmLocalDateTime(dataEHora);
-				
-				orcamento = new OrcamentoOuContrato(nome, dataEHoraDoEvento, local, tamanho, clienteAssocidado, false);
-				
+
+				orcamento = new OrcamentoOuContrato(nome, dataEHoraDoEvento, local, tamanho, clienteAssocidado, false,valor);
+
 				boolean listaCheia = false;
 
 				if (fornecedores.isEmpty() && !pacoteFornecedores.isEmpty()) {
@@ -378,9 +398,9 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 		}
 	}
 
-	public boolean verificaSeTamanhoEValido(String tamanho) {
+	public boolean verificaSeStringContemApenasNumeros(String tamanho) {
 		try {
-			int tamanhoint = Integer.parseInt(tamanho);
+			float tamanhoF = Float.parseFloat(tamanho);
 			return true;
 		} catch (Exception e) {
 			return false;

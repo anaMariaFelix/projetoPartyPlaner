@@ -56,6 +56,28 @@
       </fornecedores>
       <pacotesDeFornecedores/>
     </model.OrcamentoOuContrato>
+    <model.OrcamentoOuContrato>
+      <clienteAssociado class="model.ClienteFisico" reference="../../../todosOsClientes/model.ClienteFisico"/>
+      <nomeDoEvento>cume</nomeDoEvento>
+      <dataEHoraDoEvento>2023-12-20T20:20:00</dataEHoraDoEvento>
+      <localDoEvento>n sei</localDoEvento>
+      <tamanho>13</tamanho>
+      <foiContradoOuNao>false</foiContradoOuNao>
+      <valor>500.0</valor>
+      <fornecedores/>
+      <pacotesDeFornecedores>
+        <model.Pacote>
+          <nomeDoPacote>outro pacote</nomeDoPacote>
+          <valorDoPacote>500</valorDoPacote>
+          <descricao>O akdmnkdk</descricao>
+          <disponibilidade>Disponivel</disponibilidade>
+          <todosFornecedore>
+            <model.FornecedorFisico reference="../../../../../../todosOsFornecedores/model.FornecedorFisico"/>
+            <model.FornecedorFisico reference="../../../../../../todosOsFornecedores/model.FornecedorFisico[2]"/>
+          </todosFornecedore>
+        </model.Pacote>
+      </pacotesDeFornecedores>
+    </model.OrcamentoOuContrato>
   </todosEvento>
   <todosServicos>
     <string>Buffet</string>
@@ -67,7 +89,29 @@
     <string>Agente de publicidade</string>
     <string>Recepção</string>
   </todosServicos>
-  <todosOsPacotes/>
+  <todosOsPacotes>
+    <model.Pacote>
+      <nomeDoPacote>andrey</nomeDoPacote>
+      <valorDoPacote>500000000</valorDoPacote>
+      <descricao>ismael n vai</descricao>
+      <disponibilidade>Disponivel</disponibilidade>
+      <todosFornecedore>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[2]"/>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
+      </todosFornecedore>
+    </model.Pacote>
+    <model.Pacote>
+      <nomeDoPacote>barato</nomeDoPacote>
+      <valorDoPacote>10</valorDoPacote>
+      <descricao>O mais barato</descricao>
+      <disponibilidade>Disponivel</disponibilidade>
+      <todosFornecedore>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
+        <model.FornecedorJuridico reference="../../../../todosOsFornecedores/model.FornecedorJuridico"/>
+      </todosFornecedore>
+    </model.Pacote>
+    <model.Pacote reference="../../todosEvento/model.OrcamentoOuContrato[2]/pacotesDeFornecedores/model.Pacote"/>
+  </todosOsPacotes>
   <administrador>
     <nome>ana</nome>
     <sobrenome>maria</sobrenome>

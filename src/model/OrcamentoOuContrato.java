@@ -15,14 +15,17 @@ public class OrcamentoOuContrato {
 	private ArrayList<Pacote> pacotesDeFornecedores = new ArrayList<>();
 	
 	
-	public OrcamentoOuContrato(String nome, LocalDateTime dataHora, String local,String tamanho,Pessoa clienteAssociado,boolean foiContradoOuNao) {
+	public OrcamentoOuContrato(String nome, LocalDateTime dataHora, String local,String tamanho,Pessoa clienteAssociado,boolean foiContradoOuNao,String valor) {
 		this.nomeDoEvento = nome;
 		this.dataEHoraDoEvento = dataHora;
 		this.localDoEvento = local;
 		this.tamanho = tamanho;
 		this.clienteAssociado = clienteAssociado;
 		this.foiContradoOuNao = foiContradoOuNao;
+		this.valor = valor;
 	}
+	
+	
 	
 	public Pessoa getClienteAssociado() {
 		return clienteAssociado;

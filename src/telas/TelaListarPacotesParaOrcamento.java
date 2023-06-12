@@ -126,6 +126,9 @@ public class TelaListarPacotesParaOrcamento extends JanelaPadrao{
 		public void actionPerformed(ActionEvent e) {
 			OrcamentoController.getInstance().populaArrayPacotes(pacoteFornecedores);
 			dispose();
+			if (!pacoteFornecedores.isEmpty()) {
+				janela.getCampoValor().setText(String.valueOf(somaValoresDosPacotes()));
+			}
 			janela.setVisible(true);
 			
 		}
@@ -143,7 +146,7 @@ public class TelaListarPacotesParaOrcamento extends JanelaPadrao{
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-			if(!pacoteFornecedores.contains(pacote)) {
+			if(!pacoteFornecedores.contains(pacote) && !OrcamentoController.getInstance().getPacoteFornecedores().contains(pacote)) {
 				pacoteFornecedores.add(pacote);
 				JOptionPane.showMessageDialog(janela, "Pacote adicionado com sucesso");
 			}else {
@@ -151,5 +154,13 @@ public class TelaListarPacotesParaOrcamento extends JanelaPadrao{
 			}
 		}
 		
+	}
+	
+	public double somaValoresDosPacotes() {
+		double soma = 0f;
+		for(Pacote pacote: OrcamentoController.getInstance().getPacoteFornecedores()) {
+			soma += Double.parseDouble(pacote.getValorDoPacote());
+		}
+		return soma;
 	}
 }

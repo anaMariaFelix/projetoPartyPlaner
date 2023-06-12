@@ -13,6 +13,7 @@ import telas.TelaCadastrarCliente;
 import telas.TelaCadastrarOrcamento;
 import telas.TelaLogin;
 import telas.TelaMenu;
+import util.Constantes;
 
 public class Programa {
 
@@ -30,12 +31,12 @@ public class Programa {
 		} catch (ClassNotFoundException e) {
 			// handle exception
 		} catch (InstantiationException e) {
-			// handle exceptionana
+			// handle exception
 		} catch (IllegalAccessException e) {
 			// handle exception
 		}
 
-		CentralDeInformacoes centralDeInformacoes = Persistencia.getInstance().recupearCentral("bancoDeDados");
+		CentralDeInformacoes centralDeInformacoes = Persistencia.getInstance().recupearCentral(Constantes.NOME_ARQUIVO);
 
 //		if (CentralDeInformacoes.getInstance().getAdministrador() != null) {
 //			TelaLogin telaLogin = new TelaLogin("Tela de Login");

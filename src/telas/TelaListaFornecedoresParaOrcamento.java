@@ -133,8 +133,11 @@ public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 		public void actionPerformed(ActionEvent e) {
 			OrcamentoController.getInstance().populaArrayFornecedores(fornecedores);
 			dispose();
+					
+			if (!fornecedores.isEmpty()) {
+				janela.getCampoValor().setEnabled(true);
+			}				
 			janela.setVisible(true);
-			
 		}
 
 	}
@@ -150,7 +153,7 @@ public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-			if(!fornecedores.contains(fornecedor)) {
+			if(!fornecedores.contains(fornecedor) && !OrcamentoController.getInstance().getFornecedores().contains(fornecedor)) {
 				fornecedores.add(fornecedor);
 				JOptionPane.showMessageDialog(janela, "Fornecedor adicionado com sucesso");
 			}else {
