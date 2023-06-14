@@ -38,14 +38,14 @@ public class Programa {
 
 		CentralDeInformacoes centralDeInformacoes = Persistencia.getInstance().recupearCentral(Constantes.NOME_ARQUIVO);
 
-		if (CentralDeInformacoes.getInstance().getAdministrador() != null) {
-			TelaLogin telaLogin = new TelaLogin("Tela de Login");
+//		if (CentralDeInformacoes.getInstance().getAdministrador() != null) {
+//			TelaLogin telaLogin = new TelaLogin("Tela de Login");
+//
+//		} else {
+//			JanelaPadrao janela = new CadastamentoAdministrador();
+//		}
 
-		} else {
-			JanelaPadrao janela = new CadastamentoAdministrador();
-		}
-
-		//new TelaMenu("Menu");
+		new TelaMenu("Menu");
 		//TelaCadastrarOrcamento telaCadastrarOrcamento = new TelaCadastrarOrcamento("cadastrar");
 		
 

@@ -115,7 +115,6 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 			linha[0] = orcamentoOuContrato.getNomeDoEvento() ;
 			linha[1] = orcamentoOuContrato.getValor();
 			linha[2] = "Orçamento";
-			//adicionar.addActionListener(new OuvinteBotaoAdicionar(this,fisico));
 				
 			if (orcamentoOuContrato.isFoiContradoOuNao()) {
 				linha[2] = "Contrato";
@@ -132,7 +131,7 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 			detalhar.setBackground(new Color(39, 228, 86));
 			linha[5] = detalhar;
 			
-			modelo.addRow(linha);// adiciona alinha
+			modelo.addRow(linha);
 
 		}
 

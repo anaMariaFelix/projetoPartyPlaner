@@ -9,9 +9,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
-
-import com.itextpdf.text.Font;
-
 import baseDedados.CentralDeInformacoes;
 import controller.ClienteController;
 import controller.FornecedorController;

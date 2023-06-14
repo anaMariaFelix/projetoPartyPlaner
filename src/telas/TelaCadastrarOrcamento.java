@@ -330,7 +330,7 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 				LocalDateTime dataEHoraDoEvento = quebraDataEConverteEmLocalDateTime(dataEHora);
 
 				orcamento = new OrcamentoOuContrato(nome, dataEHoraDoEvento, local, tamanho, clienteAssocidado, false,
-						valor);
+						valor,false);
 
 				boolean listaCheia = false;
 

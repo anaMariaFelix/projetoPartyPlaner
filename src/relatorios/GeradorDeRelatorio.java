@@ -6,8 +6,9 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 
+import javax.swing.text.Document;
+
 import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
@@ -16,7 +17,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import baseDedados.CentralDeInformacoes;
 import model.OrcamentoOuContrato;
-import util.MetodosUtilizadosNoPrograma;
 
 public class GeradorDeRelatorio {
 	public static <PdfPTable> void obterProgramacaoDoMes(Month mes,CentralDeInformacoes centralDeInformacoes) {
