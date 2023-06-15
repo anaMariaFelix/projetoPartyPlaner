@@ -186,7 +186,7 @@ public class AuxTelaEditarOrcamento {
 					btExcluir.setBackground(new Color(39, 228, 86));// !!!!!!!! Ta removendo da tabela so quando volta,
 																	// quando salva a tabela volta com os fornecedores
 																	// excluidos!!!!!!!!!!!!!!
-					btExcluir.addActionListener(new OuvinteBotaoExcluir(fisicoOuJuridico, indiceExcluir));
+					btExcluir.addActionListener(new OuvinteBotaoExcluir(fisicoOuJuridico,indiceExcluir));
 
 				} else {
 					Pacote pacote = (Pacote) t;
@@ -194,6 +194,7 @@ public class AuxTelaEditarOrcamento {
 				}
 
 				modelo.addRow(linha);
+				indiceExcluir++;
 			}
 
 		}
@@ -208,7 +209,7 @@ public class AuxTelaEditarOrcamento {
 		tabela.repaint();
 	}
 
-	public String mudarDeLocalDateTimeParaString(LocalDateTime dataEHora) {
+	public static String mudarDeLocalDateTimeParaString(LocalDateTime dataEHora) {
 
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
@@ -244,15 +245,8 @@ public class AuxTelaEditarOrcamento {
 
 		public void actionPerformed(ActionEvent e) {
 			todosOsFornecedoresDoOrçamento[indiceDoFornecedor] = null;
-			OrcamentoController.getInstance().removerFornecedor(orcamentoContrato, fornecedor);// nao ta imediatamente
-																								// removendo o
-																								// fornecedor, e quando
-																								// remove e volta e
-																								// entra dnv ele aparece
-																								// removido,
-																								// salvar esta dando
-																								// certo so nao atualiza
-			limparTabela();																					// imediatamente
+			OrcamentoController.getInstance().removerFornecedor(orcamentoContrato, fornecedor);																						
+			limparTabela();
 			adicionarTabelaFornecedores();
 		}
 

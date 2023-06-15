@@ -56,20 +56,15 @@
   <todosEvento>
     <model.OrcamentoOuContrato>
       <clienteAssociado class="model.ClienteFisico" reference="../../../todosOsClientes/model.ClienteFisico"/>
-      <nomeDoEvento>v se ta incluindo certo</nomeDoEvento>
-      <dataEHoraDoEvento>2400-02-02T00:00:00</dataEHoraDoEvento>
-      <localDoEvento>aaaaa</localDoEvento>
-      <tamanho>12</tamanho>
+      <nomeDoEvento>Eventu</nomeDoEvento>
+      <dataEHoraDoEvento>8000-01-01T00:00:00</dataEHoraDoEvento>
+      <localDoEvento>AAAAA</localDoEvento>
+      <tamanho>0</tamanho>
       <foiContradoOuNao>false</foiContradoOuNao>
-      <valor>12</valor>
+      <valor>0303</valor>
       <foiConcluido>false</foiConcluido>
       <comentariosFornecedores/>
-      <fornecedores>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[2]"/>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[3]"/>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[4]"/>
-      </fornecedores>
+      <fornecedores/>
       <pacotesDeFornecedores/>
     </model.OrcamentoOuContrato>
     <model.OrcamentoOuContrato>
@@ -82,7 +77,11 @@
       <valor>10</valor>
       <foiConcluido>false</foiConcluido>
       <comentariosFornecedores/>
-      <fornecedores/>
+      <fornecedores>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[3]"/>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[2]"/>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
+      </fornecedores>
       <pacotesDeFornecedores/>
     </model.OrcamentoOuContrato>
     <model.OrcamentoOuContrato>
@@ -91,9 +90,22 @@
       <dataEHoraDoEvento>9000-01-01T00:00:00</dataEHoraDoEvento>
       <localDoEvento>iuqa</localDoEvento>
       <tamanho>30</tamanho>
-      <foiContradoOuNao>false</foiContradoOuNao>
+      <foiContradoOuNao>true</foiContradoOuNao>
       <valor>0</valor>
       <foiConcluido>false</foiConcluido>
+      <comentariosFornecedores/>
+      <fornecedores/>
+      <pacotesDeFornecedores/>
+    </model.OrcamentoOuContrato>
+    <model.OrcamentoOuContrato>
+      <clienteAssociado class="model.ClienteFisico" reference="../../../todosOsClientes/model.ClienteFisico"/>
+      <nomeDoEvento>v se ta incluindo certo</nomeDoEvento>
+      <dataEHoraDoEvento>2400-02-02T00:00:00</dataEHoraDoEvento>
+      <localDoEvento>aaaaa</localDoEvento>
+      <tamanho>12</tamanho>
+      <foiContradoOuNao>true</foiContradoOuNao>
+      <valor>12</valor>
+      <foiConcluido>true</foiConcluido>
       <comentariosFornecedores/>
       <fornecedores/>
       <pacotesDeFornecedores/>

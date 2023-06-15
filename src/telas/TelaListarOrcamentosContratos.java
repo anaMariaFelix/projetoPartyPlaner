@@ -129,6 +129,7 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 			
 			JButton detalhar = new JButton("Detalhar");
 			detalhar.setBackground(new Color(39, 228, 86));
+			detalhar.addActionListener(new OuvinteBotaoDetalhar(orcamentoOuContrato));
 			linha[5] = detalhar;
 			
 			modelo.addRow(linha);
@@ -207,8 +208,16 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 	
 	public class OuvinteBotaoDetalhar implements ActionListener{
 		
+		private OrcamentoOuContrato orcamentoContrato;
+		
+		public OuvinteBotaoDetalhar(OrcamentoOuContrato orcamentoContrato) {
+			this.orcamentoContrato = orcamentoContrato;
+		}
+		
 		public void actionPerformed(ActionEvent e) {
 			dispose();
+			new AuxDetalharOrcamentoContrato(orcamentoContrato);
+			
 			
 			
 		}
@@ -228,6 +237,7 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 		}
 		
 	}
+	
 	
 	
 }
