@@ -172,7 +172,7 @@ public class AuxTelaEditarOrcamento {
 	}
 
 	public void preencherTabela(Object[] fornecedoresOrcamento, int tamanho) {
-		int indiceExcluir = 0;
+		int indiceExcluir = 0; //comentei pq se indice para excluir for 0 ele iraa excluir a primira linha da tabela ate acabar todas
 		for (Object t : fornecedoresOrcamento) {
 			Object[] linha = new Object[tamanho];
 
@@ -194,7 +194,6 @@ public class AuxTelaEditarOrcamento {
 				}
 
 				modelo.addRow(linha);
-				indiceExcluir++;
 			}
 
 		}
@@ -253,7 +252,7 @@ public class AuxTelaEditarOrcamento {
 																								// removido,
 																								// salvar esta dando
 																								// certo so nao atualiza
-																								// imediatamente
+			limparTabela();																					// imediatamente
 			adicionarTabelaFornecedores();
 		}
 
@@ -291,8 +290,8 @@ public class AuxTelaEditarOrcamento {
 			LocalDateTime dataAntiga = orcamentoContrato.getDataEHoraDoEvento();
 			String emailDoAssociado = orcamentoContrato.getClienteAssociado().getEmail();
 
-			ArrayList<Pacote> pacoteFornecedores = orcamentoContrato.getPacotesDeFornecedores(); // OrcamentoController.getInstance().getPacoteFornecedores();
-			ArrayList<Pessoa> fornecedores = orcamentoContrato.getFornecedores(); // OrcamentoController.getInstance().getFornecedores();
+			ArrayList<Pacote> pacoteFornecedores =   OrcamentoController.getInstance().getPacoteFornecedores();
+			ArrayList<Pessoa> fornecedores =  OrcamentoController.getInstance().getFornecedores();
 
 			if (telaOrcamento.validaTodosOsCampos(telaOrcamento, email, nome, local, tamanho, dataEHora, valor)) {
 				Pessoa clienteAssocidado = ClienteController.getInstance().recuperarClientePorEmail(email);
@@ -300,7 +299,7 @@ public class AuxTelaEditarOrcamento {
 				LocalDateTime dataEHoraDoEvento = telaOrcamento.quebraDataEConverteEmLocalDateTime(dataEHora);
 
 				boolean foiContratado = false;
-				boolean foiConcluido = false; //flag criadapra passar no construtor
+				boolean foiConcluido = false; //flag criada pra passar no construtor
 				ArrayList<String> comentariosFornecedores = new ArrayList();//criado para fazer os comentario dos fornecedores 
 				
 				if (contrato.isSelected() && contrato.getText().equals("Promover para Contrato")) {// verifica se o
@@ -309,7 +308,7 @@ public class AuxTelaEditarOrcamento {
 																									// qual era o nome
 																									// dele
 					foiContratado = true;
-				} else {
+				} else if (contrato.isSelected() && contrato.getText().equals("Marcar como concluido")) {
 					foiContratado = true; //repeti aqui dentro pq se nao linha 302 ficava false e editava de forma errada
 					foiConcluido = true;
 					
@@ -350,6 +349,8 @@ public class AuxTelaEditarOrcamento {
 						JOptionPane.showMessageDialog(telaOrcamento, "Orçamento editado com sucesso");
 						telaOrcamento.dispose();
 						new TelaMenu("Menu");
+						OrcamentoController.getInstance().getFornecedores().clear();  //limpando as listas para nao adicionar todos 
+						OrcamentoController.getInstance().getPacoteFornecedores().clear();//pq quando voltava pra o menu se adicionasse qlqr um ele ia a lista antiga q ja tinha
 					}
 				} else {
 					JOptionPane.showMessageDialog(telaOrcamento, "Orçamento não encontrado");
