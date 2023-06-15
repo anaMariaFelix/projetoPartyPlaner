@@ -117,9 +117,9 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 			linha[2] = "Orçamento";
 				
 			if (orcamentoOuContrato.isFoiContradoOuNao()) {
-				linha[2] = "Contrato";
-			
+				linha[2] = "Contrato";			
 			}
+			
 			linha[3] = orcamentoOuContrato.getClienteAssociado().getNome();
 			
 			JButton editar = new JButton("Editar");

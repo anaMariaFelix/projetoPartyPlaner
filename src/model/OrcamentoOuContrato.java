@@ -119,9 +119,12 @@ public class OrcamentoOuContrato {
 		}
 	}
 	
-	public void adicionaFornecedoresNaLista(ArrayList<Pessoa> fornecedores) {
-		for(Pessoa p: fornecedores) {
-			this.fornecedores.add(p);
+	public void adicionaFornecedoresNaLista(ArrayList<Pessoa> fornecedoresNovos) {
+		for(Pessoa p: fornecedoresNovos) {
+			if (!fornecedores.contains(p)) {
+				this.fornecedores.add(p);
+			}
+				
 		}
 	}
 	

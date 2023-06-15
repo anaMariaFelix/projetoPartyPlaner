@@ -42,15 +42,24 @@ public class AuxTelaEditarOrcamento {
 	
 	private TelaListaFornecedoresParaOrcamento telaListaFornecedoresParaOrcamento;
 
-	
+	private ArrayList<Pessoa> novosFornecedores = new ArrayList();
 
 	public AuxTelaEditarOrcamento(OrcamentoOuContrato orcamentoContrato, String titulo) {
 		this.orcamentoContrato = orcamentoContrato;
 		this.titulo = titulo;
-		configurarTela();// Vou chamar o metodo de adicionar jbutton detro do metodo de configurar
-		adicionarTabelaFornecedores();// Pq na hora de deixar o botao invisivel o codigo quebra por caus que a
-										// variavel n recebe nada, tbm chamei adicionarCheckBox dentro de configurar pra ele nao quebrar
+		configurarTela();
+		adicionarTabelaFornecedores();
 	}
+	
+	public JTable getTabela() {
+		return tabela;
+	}
+
+	public DefaultTableModel getModelo() {
+		return modelo;
+	}
+
+
 
 	private void adicionarJCheckBox() {
 
@@ -59,8 +68,6 @@ public class AuxTelaEditarOrcamento {
 		contrato.setFont(new Font("Arial", Font.BOLD, 13));
 		telaCadastrarOrcamento.add(contrato);
 
-		// Altero checkboc para marcar como concluido caso seja um contrato, então
-		// checkbox para promover não aparece
 		if (orcamentoContrato.isFoiContradoOuNao()) {
 			contrato.setText("Marcar como concluido");
 		}
@@ -69,7 +76,7 @@ public class AuxTelaEditarOrcamento {
 	private void adicionarJButton() {
 
 		incluirFornecedor = ComponentesDeJFrame.criarBotao("Incluir Fornecedor", 574, 90, 140, 30);
-		incluirFornecedor.addActionListener(new OuvinteBotaoIncluirFornecedor());
+		incluirFornecedor.addActionListener(new OuvinteBotaoIncluirFornecedor(orcamentoContrato,this));
 		telaCadastrarOrcamento.add(incluirFornecedor);
 	}
 
@@ -117,7 +124,7 @@ public class AuxTelaEditarOrcamento {
 
 		telaCadastrarOrcamento.getBotaoSalvar().removeActionListener(telaCadastrarOrcamento.getSalvar());
 		telaCadastrarOrcamento.getBotaoSalvar().setBounds(220, 535, 110, 30);
-		telaCadastrarOrcamento.getBotaoSalvar().addActionListener(new OuvinteBotaoSalvar(telaCadastrarOrcamento));
+		telaCadastrarOrcamento.getBotaoSalvar().addActionListener(new OuvinteBotaoSalvar(telaCadastrarOrcamento,orcamentoContrato));
 
 		telaCadastrarOrcamento.getBotaoAdicionarFornecedores().setVisible(false);
 
@@ -135,6 +142,7 @@ public class AuxTelaEditarOrcamento {
 
 			incluirFornecedor.setVisible(false);// deixei o botao falso para nao podermos colocar fornecedores se for um
 			contrato.setVisible(false);									// contrato concluido
+			telaCadastrarOrcamento.getBotaoSalvar().setVisible(false);
 		}
 
 	}
@@ -172,7 +180,6 @@ public class AuxTelaEditarOrcamento {
 	}
 
 	public void preencherTabela(Object[] fornecedoresOrcamento, int tamanho) {
-		int indiceExcluir = 0; //comentei pq se indice para excluir for 0 ele iraa excluir a primira linha da tabela ate acabar todas
 		for (Object t : fornecedoresOrcamento) {
 			Object[] linha = new Object[tamanho];
 
@@ -183,10 +190,9 @@ public class AuxTelaEditarOrcamento {
 
 					JButton btExcluir = new JButton("Excluir");
 					linha[1] = btExcluir;
-					btExcluir.setBackground(new Color(39, 228, 86));// !!!!!!!! Ta removendo da tabela so quando volta,
-																	// quando salva a tabela volta com os fornecedores
-																	// excluidos!!!!!!!!!!!!!!
-					btExcluir.addActionListener(new OuvinteBotaoExcluir(fisicoOuJuridico,indiceExcluir));
+					btExcluir.setBackground(new Color(39, 228, 86));
+					btExcluir.addActionListener(new OuvinteBotaoExcluir(fisicoOuJuridico,this));
+					
 
 				} else {
 					Pacote pacote = (Pacote) t;
@@ -194,7 +200,6 @@ public class AuxTelaEditarOrcamento {
 				}
 
 				modelo.addRow(linha);
-				indiceExcluir++;
 			}
 
 		}
@@ -236,29 +241,55 @@ public class AuxTelaEditarOrcamento {
 	public class OuvinteBotaoExcluir implements ActionListener {
 
 		private Pessoa fornecedor;
-		private int indiceDoFornecedor;
+		private AuxTelaEditarOrcamento telaEditarOrcamento;
 
-		public OuvinteBotaoExcluir(Pessoa fornecedor, int indice) {
+		public OuvinteBotaoExcluir(Pessoa fornecedor,AuxTelaEditarOrcamento telaEditarOrcamento) {
 			this.fornecedor = fornecedor;
-			this.indiceDoFornecedor = indice;
+			this.telaEditarOrcamento = telaEditarOrcamento;
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			todosOsFornecedoresDoOrçamento[indiceDoFornecedor] = null;
-			OrcamentoController.getInstance().removerFornecedor(orcamentoContrato, fornecedor);																						
-			limparTabela();
-			adicionarTabelaFornecedores();
+			telaEditarOrcamento.getModelo().removeRow(retornaIndice(orcamentoContrato, fornecedor));
+			
+			telaEditarOrcamento.getModelo().fireTableDataChanged();
+			telaEditarOrcamento.getTabela().repaint();
+			
+			OrcamentoController.getInstance().removerFornecedor(orcamentoContrato, fornecedor);																					
+
 		}
 
 	}
+	
+	public int retornaIndice(OrcamentoOuContrato orcamento, Pessoa fornecedor) {
+		
+		for (int i = 0; i < orcamento.getFornecedores().size(); i++) {
+			if (orcamento.getFornecedores().get(i).equals(fornecedor)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
 
 	public class OuvinteBotaoIncluirFornecedor implements ActionListener {
+		
+		private AuxTelaEditarOrcamento telaEditarOrcamento;
+		private OrcamentoOuContrato orcamentoContrato;
+		
+		public OuvinteBotaoIncluirFornecedor (OrcamentoOuContrato orcamentoContrato,AuxTelaEditarOrcamento telaEditarOrcamento) {
+			this.telaEditarOrcamento = telaEditarOrcamento;
+			this.orcamentoContrato = orcamentoContrato;
+		}
 
 		public void actionPerformed(ActionEvent e) {
 			telaCadastrarOrcamento.dispose();
-			telaListaFornecedoresParaOrcamento = new TelaListaFornecedoresParaOrcamento(telaCadastrarOrcamento,
-					"Lista de Fornecedores");
+			
+			telaListaFornecedoresParaOrcamento = new TelaListaFornecedoresParaOrcamento(orcamentoContrato,telaCadastrarOrcamento,"Lista de Fornecedores");
+			
+			telaEditarOrcamento.getModelo().fireTableDataChanged();
 
+			
+			
 		}
 
 	}
@@ -266,9 +297,11 @@ public class AuxTelaEditarOrcamento {
 	public class OuvinteBotaoSalvar implements ActionListener {
 
 		private TelaCadastrarOrcamento telaOrcamento;
+		private OrcamentoOuContrato orcamentoContrato;
 
-		public OuvinteBotaoSalvar(TelaCadastrarOrcamento telaOrcamento) {
+		public OuvinteBotaoSalvar(TelaCadastrarOrcamento telaOrcamento,OrcamentoOuContrato orcamentoContrato) {
 			this.telaOrcamento = telaOrcamento;
+			this.orcamentoContrato = orcamentoContrato;
 		}
 
 		public void actionPerformed(ActionEvent e) {
@@ -284,8 +317,6 @@ public class AuxTelaEditarOrcamento {
 			LocalDateTime dataAntiga = orcamentoContrato.getDataEHoraDoEvento();
 			String emailDoAssociado = orcamentoContrato.getClienteAssociado().getEmail();
 
-			ArrayList<Pacote> pacoteFornecedores =   OrcamentoController.getInstance().getPacoteFornecedores();
-			ArrayList<Pessoa> fornecedores =  OrcamentoController.getInstance().getFornecedores();
 
 			if (telaOrcamento.validaTodosOsCampos(telaOrcamento, email, nome, local, tamanho, dataEHora, valor)) {
 				Pessoa clienteAssocidado = ClienteController.getInstance().recuperarClientePorEmail(email);
@@ -296,26 +327,23 @@ public class AuxTelaEditarOrcamento {
 				boolean foiConcluido = false; //flag criada pra passar no construtor
 				ArrayList<String> comentariosFornecedores = new ArrayList();//criado para fazer os comentario dos fornecedores 
 				
-				if (contrato.isSelected() && contrato.getText().equals("Promover para Contrato")) {// verifica se o
-																									// checkbox foi
-																									// selecionado e
-																									// qual era o nome
-																									// dele
+				if (contrato.isSelected() && contrato.getText().equals("Promover para Contrato")) {																		
 					foiContratado = true;
+					
 				} else if (contrato.isSelected() && contrato.getText().equals("Marcar como concluido")) {
 					foiContratado = true; //repeti aqui dentro pq se nao linha 302 ficava false e editava de forma errada
 					foiConcluido = true;
 					
-					if (!fornecedores.isEmpty()) { // verifica se sao fornecedores para fazer os comentarios
+					if (!orcamentoContrato.getFornecedores().isEmpty()) { // verifica se sao fornecedores para fazer os comentarios
 
-						for (Pessoa p : fornecedores) {// Onde os comentarios aparecem?? e devemos adicionar isso como
+						for (Pessoa p : orcamentoContrato.getFornecedores()) {// Onde os comentarios aparecem?? e devemos adicionar isso como
 														// atrinuto??(acho que nao, pq ele pode ta em +1 contrato)
 							String nomeFornecedor = p.getNome();
 							String comentario = JOptionPane.showInputDialog(telaOrcamento,"Faca um comentario sobre o(a) " + nomeFornecedor);// mudar essa mensagem
 							comentariosFornecedores.add(nomeFornecedor +" "+ comentario);
 						} // Fazer showMessage para adm colocar comentarios nos fornecedores
 					}
-					// Se nao for atributo onde vai aparecer e pq pedir?
+			
 				}
 				
 			
@@ -328,12 +356,12 @@ public class AuxTelaEditarOrcamento {
 				}
 				
 
-				if (!pacoteFornecedores.isEmpty()) { //retirei "fornecedores.isEmpty()" && pq tava sendo desnecessario
-					orcamento.adicionaPacotesNaLista(pacoteFornecedores);
+				if (!orcamentoContrato.getPacotesDeFornecedores().isEmpty()) { //retirei "fornecedores.isEmpty()" && pq tava sendo desnecessario
+					orcamento.adicionaPacotesNaLista(orcamentoContrato.getPacotesDeFornecedores());
 
 
-				} else if (!fornecedores.isEmpty()) { //retirei "pacoteFornecedores.isEmpty() &&" pq tava sendo desnecessario
-					orcamento.adicionaFornecedoresNaLista(fornecedores);
+				} else if (!orcamentoContrato.getFornecedores().isEmpty()) { //retirei "pacoteFornecedores.isEmpty() &&" pq tava sendo desnecessario
+					orcamento.adicionaFornecedoresNaLista(orcamentoContrato.getFornecedores());
 
 				}
 

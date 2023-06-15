@@ -15,6 +15,7 @@ import model.Pacote;
 import model.Pessoa;
 import telas.AuxTelaEditarOrcamento.OuvinteBotaoExcluir;
 import telas.TelaListarOrcamentosContratos.OuvinteBotaoDetalhar;
+import util.ComponentesDeJFrame;
 
 public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 	
@@ -26,13 +27,33 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 	private DefaultTableModel modelo;
 	
 	private Object[] todosOsOrcamentosEContratos = null;
+	
+	private JButton reuniao;
+	private JButton gerarPDF;
+	private JButton gerarPlanilha;
 
 	public AuxDetalharOrcamentoContrato(OrcamentoOuContrato orcamentoContrato) {
 		super("Dados");
 		this.orcamentoContrato = orcamentoContrato;
 		configurarTela();
+		adicionarBotoes();
+		
+	}
+
+	private void adicionarBotoes() {
 		
 		
+		
+		gerarPDF = ComponentesDeJFrame.criarBotao("GerarPDF", 380, 450, 100, 30);
+		telaCadastrarOrcamento.add(gerarPDF);
+		
+		gerarPlanilha = ComponentesDeJFrame.criarBotao("GerarPlanilha", 499, 450, 100, 30);
+		telaCadastrarOrcamento.add(gerarPlanilha);
+		
+		reuniao = ComponentesDeJFrame.criarBotao("Reunião", 616, 450, 100, 30); 
+		if (orcamentoContrato.isFoiContradoOuNao()) {
+			telaCadastrarOrcamento.add(reuniao);	
+		}
 	}
 
 	private void configurarTela() {
@@ -100,8 +121,8 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 		tabela = new JTable(modelo);
 		
 		JScrollPane painelTabela = new JScrollPane(tabela);
-		painelTabela.setBounds(30, 135, 730, 350);
-		add(painelTabela);
+		painelTabela.setBounds(380, 128, 335, 318);
+		telaCadastrarOrcamento.add(painelTabela);
 		
 		preencherTabela(todosOsOrcamentosEContratos);
 		
@@ -110,14 +131,20 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 	public void preencherTabela(Object[] orcamentosEContratos) {
 		for (Object o : orcamentosEContratos) {
 			Object[] linha = new Object[2];
-	
+			
+			
+			
 			if (o instanceof Pessoa) {
 				Pessoa fisicoOuJuridico = (Pessoa) o;
 				linha[0] = fisicoOuJuridico.getNome();
+				
+				
 			} else {
 				Pacote pacote = (Pacote) o;
 				linha[0] = pacote.getNomeDoPacote();
 			}
+			
+			
 			modelo.addRow(linha);
 
 		}
@@ -136,6 +163,20 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 			new TelaListarOrcamentosContratos("Lista de Orçamentos/Contratos");
 		}
 
+	}
+	public class OuvinteBotaoReuniao implements ActionListener {
+		private TelaCadastrarOrcamento janela;
+		
+		public OuvinteBotaoReuniao(TelaCadastrarOrcamento janela) {
+			this.janela = janela;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			janela.dispose();
+			
+			
+		}
+		
 	}
 	
 

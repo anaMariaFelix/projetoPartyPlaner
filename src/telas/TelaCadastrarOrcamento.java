@@ -280,7 +280,7 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 			if (opcaoEscolhida == 0) {
 				if (OrcamentoController.getInstance().getPacoteFornecedores().isEmpty()) {
 					janela.setVisible(false);
-					telaListaFornecedoresParaOrcamento = new TelaListaFornecedoresParaOrcamento(janela,
+					telaListaFornecedoresParaOrcamento = new TelaListaFornecedoresParaOrcamento(null,janela,
 							"Lista de Fornecedores");
 
 				} else {
