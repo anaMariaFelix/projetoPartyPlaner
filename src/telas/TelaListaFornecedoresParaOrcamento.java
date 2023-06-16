@@ -185,6 +185,7 @@ public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 				new AuxTelaEditarOrcamento(orcamentoComFornecedores,"Editar Orçamento/Contrato");
 			}else {
 				
+				
 				janela.setVisible(true);
 				
 			}

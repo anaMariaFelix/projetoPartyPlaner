@@ -273,6 +273,7 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 		}
 
 		public void actionPerformed(ActionEvent e) {
+			
 			Object[] opcoes = { "Fornecedores Individuais", "Pacote de Fornecedores" };
 			int opcaoEscolhida = JOptionPane.showOptionDialog(null, "Escolha entre:", "Opções",
 					JOptionPane.INFORMATION_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
@@ -347,6 +348,8 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 					if (OrcamentoController.getInstance().adicionarOrcamento(orcamento)) {
 						JOptionPane.showMessageDialog(janela, "Orçamento cadastrado com sucesso.");
 						dispose();
+						OrcamentoController.getInstance().getFornecedores().clear();
+						OrcamentoController.getInstance().getPacoteFornecedores().clear();
 						new TelaMenu("Menu");
 					} else {
 						JOptionPane.showMessageDialog(janela, "Orçamento já existente ou Data indisponivel");

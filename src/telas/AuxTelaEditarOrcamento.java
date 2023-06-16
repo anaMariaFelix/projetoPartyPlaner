@@ -15,6 +15,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import controller.ClienteController;
 import controller.OrcamentoController;
+import model.FornecedorFisico;
+import model.FornecedorJuridico;
 import model.OrcamentoOuContrato;
 import model.Pacote;
 import model.Pessoa;
@@ -39,14 +41,13 @@ public class AuxTelaEditarOrcamento {
 
 	private TelaListaFornecedoresParaOrcamento telaListaFornecedoresParaOrcamento;
 
-
 	public AuxTelaEditarOrcamento(OrcamentoOuContrato orcamentoContrato, String titulo) {
 		this.orcamentoContrato = orcamentoContrato;
 		this.titulo = titulo;
 		configurarTela();
 		adicionarTabelaFornecedores();
 	}
-	
+
 	public JButton getBotaoExcluir() {
 		return botaoExcluir;
 	}
@@ -70,7 +71,7 @@ public class AuxTelaEditarOrcamento {
 	private void adicionarJCheckBox() {
 
 		contrato = new JCheckBox("Promover para Contrato");
-		contrato.setBounds(380, 430, 190, 100);
+		contrato.setBounds(380, 450, 190, 100);
 		contrato.setFont(new Font("Arial", Font.BOLD, 13));
 		telaCadastrarOrcamento.add(contrato);
 
@@ -84,11 +85,11 @@ public class AuxTelaEditarOrcamento {
 		incluirFornecedor = ComponentesDeJFrame.criarBotao("Incluir Fornecedor", 574, 90, 140, 30);
 		incluirFornecedor.addActionListener(new OuvinteBotaoIncluirFornecedor(orcamentoContrato, this));
 		telaCadastrarOrcamento.add(incluirFornecedor);
-		
-		botaoExcluir = ComponentesDeJFrame.criarBotao("Remover", 574, 500, 140, 30);
-		botaoExcluir.addActionListener(new OuvinteBotaoExcluir(this,orcamentoContrato));
+
+		botaoExcluir = ComponentesDeJFrame.criarBotao("Remover", 576, 450, 140, 30);
+		botaoExcluir.addActionListener(new OuvinteBotaoExcluir(this, orcamentoContrato));
 		telaCadastrarOrcamento.add(botaoExcluir);
-		
+
 	}
 
 	private void configurarTela() {
@@ -155,6 +156,7 @@ public class AuxTelaEditarOrcamento {
 			incluirFornecedor.setVisible(false);// deixei o botao falso para nao podermos colocar fornecedores se for um
 			contrato.setVisible(false); // contrato concluido
 			telaCadastrarOrcamento.getBotaoSalvar().setVisible(false);
+			botaoExcluir.setVisible(false);
 		}
 
 	}
@@ -167,8 +169,7 @@ public class AuxTelaEditarOrcamento {
 
 		if (!orcamentoContrato.getFornecedores().isEmpty()) {
 			todosOsFornecedoresDoOrçamento = orcamentoContrato.getFornecedores().toArray();
-			
-			
+
 			if (orcamentoContrato.isFoiConcluido()) {
 				botaoExcluir.setVisible(false);
 
@@ -200,8 +201,6 @@ public class AuxTelaEditarOrcamento {
 			modelo.addRow(linha);
 		}
 		tabela.repaint();
-
-	
 
 	}
 
@@ -236,43 +235,38 @@ public class AuxTelaEditarOrcamento {
 		}
 
 	}
-	
-	private class OuvinteBotaoExcluir implements ActionListener{
-		
+
+	private class OuvinteBotaoExcluir implements ActionListener {
+
 		private AuxTelaEditarOrcamento janelaEditar;
 		private OrcamentoOuContrato orcamento;
-		
-		public OuvinteBotaoExcluir( AuxTelaEditarOrcamento janelaEditar,OrcamentoOuContrato orcamento) {
+
+		public OuvinteBotaoExcluir(AuxTelaEditarOrcamento janelaEditar, OrcamentoOuContrato orcamento) {
 			this.janelaEditar = janelaEditar;
 			this.orcamento = orcamento;
 		}
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			int linhaSelecionada = janelaEditar.getTabela().getSelectedRow();
 
 			if (linhaSelecionada == -1) {
-				
+
 				JOptionPane.showMessageDialog(null, "Selecione uma linha");
-				
-			}else {
+
+			} else {
 				orcamento.getFornecedores().remove(linhaSelecionada);
-				
+
 				todosOsFornecedoresDoOrçamento = orcamento.getFornecedores().toArray();
-				
+
 				janelaEditar.getModelo().removeRow(linhaSelecionada);
 				janelaEditar.getTabela().repaint();
-				
-				
-				
-				
-				
+
 			}
-		
-			
+
 		}
-		
+
 	}
 
 	public class OuvinteBotaoIncluirFornecedor implements ActionListener {
@@ -288,9 +282,8 @@ public class AuxTelaEditarOrcamento {
 
 		public void actionPerformed(ActionEvent e) {
 
-
-			telaListaFornecedoresParaOrcamento = new TelaListaFornecedoresParaOrcamento(true,guardaDadosDosCamposCopia(),
-					telaCadastrarOrcamento, "Lista de Fornecedores");
+			telaListaFornecedoresParaOrcamento = new TelaListaFornecedoresParaOrcamento(true,
+					guardaDadosDosCamposCopia(), telaCadastrarOrcamento, "Lista de Fornecedores");
 
 			telaCadastrarOrcamento.dispose();
 
@@ -299,18 +292,17 @@ public class AuxTelaEditarOrcamento {
 	}
 
 	private OrcamentoOuContrato guardaDadosDosCamposCopia() {
-		
-		OrcamentoOuContrato copiaOrcamento = new OrcamentoOuContrato(telaCadastrarOrcamento.getCampoNomeEvento().getText(), 
-				quebraDataEConverteEmLocalDateTime(telaCadastrarOrcamento.getCampoDataEHoraEvento().getText()), 
+
+		OrcamentoOuContrato copiaOrcamento = new OrcamentoOuContrato(
+				telaCadastrarOrcamento.getCampoNomeEvento().getText(),
+				quebraDataEConverteEmLocalDateTime(telaCadastrarOrcamento.getCampoDataEHoraEvento().getText()),
 				telaCadastrarOrcamento.getCampoLocalEvento().getText(),
-				telaCadastrarOrcamento.getCampoTamanhoEvento().getText(), 
-				orcamentoContrato.getClienteAssociado(),
-				orcamentoContrato.isFoiContradoOuNao(),
-				telaCadastrarOrcamento.getCampoValor().getText(),
+				telaCadastrarOrcamento.getCampoTamanhoEvento().getText(), orcamentoContrato.getClienteAssociado(),
+				orcamentoContrato.isFoiContradoOuNao(), telaCadastrarOrcamento.getCampoValor().getText(),
 				orcamentoContrato.isFoiConcluido());
-				
+
 		copiaOrcamento.setFornecedores(orcamentoContrato.getFornecedores());
-		
+
 		return copiaOrcamento;
 	}
 
@@ -364,46 +356,82 @@ public class AuxTelaEditarOrcamento {
 
 				LocalDateTime dataEHoraDoEvento = telaOrcamento.quebraDataEConverteEmLocalDateTime(dataEHora);
 
-				boolean foiContratado = false;
-				boolean foiConcluido = false; // flag criada pra passar no construtor
 				ArrayList<String> comentariosFornecedores = new ArrayList();// criado para fazer os comentario dos
 																			// fornecedores
 
 				if (contrato.isSelected() && contrato.getText().equals("Promover para Contrato")) {
-					foiContratado = true;
+					orcamentoContrato.setFoiContradoOuNao(true);
+
+					if (!orcamentoContrato.getFornecedores().isEmpty()) {
+						
+						for (int i = 0; i < orcamentoContrato.getFornecedores().size(); i++) {
+							if (orcamentoContrato.getFornecedores().get(i) instanceof FornecedorFisico) {
+								
+								FornecedorFisico fisico = (FornecedorFisico) orcamentoContrato.getFornecedores().get(i);
+								fisico.setQuantContratosFisico(fisico.getQuantContratosFisico() + 1);
+							}else {
+								FornecedorJuridico juridico = (FornecedorJuridico)orcamentoContrato.getFornecedores().get(i);
+								juridico.setQuantContratosJuridico(juridico.getQuantContratosJuridico()+ 1);
+							}
+							
+						}
+					} else {					
+						for (int i = 0; i < orcamentoContrato.getPacotesDeFornecedores().size(); i++) {							
+							Pacote pacote = orcamentoContrato.getPacotesDeFornecedores().get(i);
+							
+							for (int j = 0; j < pacote.getTodosFornecedore().size();j++) {
+								
+								if (pacote.getTodosFornecedore().get(j) instanceof FornecedorFisico) {
+									
+									FornecedorFisico fisico = (FornecedorFisico) pacote.getTodosFornecedore().get(j);
+									fisico.setQuantContratosFisico(fisico.getQuantContratosFisico() + 1);
+								}else {
+									FornecedorJuridico juridico = (FornecedorJuridico)pacote.getTodosFornecedore().get(j);
+									juridico.setQuantContratosJuridico(juridico.getQuantContratosJuridico()+ 1);
+								}
+																
+							}
+							
+						}
+
+					}
 
 				} else if (contrato.isSelected() && contrato.getText().equals("Marcar como concluido")) {
-					foiContratado = true; // repeti aqui dentro pq se nao linha 302 ficava false e editava de forma
-											// errada
-					foiConcluido = true;
+					orcamentoContrato.setFoiContradoOuNao(true);
+					orcamentoContrato.setFoiConcluido(true);
 
 					if (!orcamentoContrato.getFornecedores().isEmpty()) { // verifica se sao fornecedores para fazer os
 																			// comentarios
 
 						for (Pessoa p : orcamentoContrato.getFornecedores()) {
+
 							String nomeFornecedor = p.getNome();
 							String comentario = JOptionPane.showInputDialog(telaOrcamento,
 									"Faca um comentario sobre o(a) " + nomeFornecedor);
-							comentariosFornecedores.add(nomeFornecedor + " " + comentario);
-						} 
+
+							if (p instanceof FornecedorFisico) {
+								FornecedorFisico fisico = (FornecedorFisico) p;
+								fisico.getComentariosFornecedores().add(comentario);
+
+							} else {
+								FornecedorJuridico juridico = (FornecedorJuridico) p;
+								juridico.getComentariosFornecedores().add(comentario);
+							}
+
+						}
 					}
 
 				}
 
 				orcamento = new OrcamentoOuContrato(nome, dataEHoraDoEvento, local, tamanho, clienteAssocidado,
-						foiContratado, valor, foiConcluido);
+						orcamentoContrato.isFoiContradoOuNao(), valor, orcamentoContrato.isFoiConcluido());
 
-				if (!comentariosFornecedores.isEmpty()) {// verifico se lista ta cheia para adicionar os comentarios
-					orcamento.setComentariosFornecedores(comentariosFornecedores);
-				}
+				if (!orcamentoContrato.getPacotesDeFornecedores().isEmpty()) {
 
-				if (!orcamentoContrato.getPacotesDeFornecedores().isEmpty()) { 
-				 
 					orcamento.adicionaPacotesNaLista(orcamentoContrato.getPacotesDeFornecedores());
 
-				} else if (!orcamentoContrato.getFornecedores().isEmpty()) { 
-					
-					
+				} else if (!orcamentoContrato.getFornecedores().isEmpty()) {
+
 					orcamento.adicionaFornecedoresNaLista(todosOsFornecedoresDoOrçamento);
 
 				}
@@ -413,11 +441,12 @@ public class AuxTelaEditarOrcamento {
 					if (OrcamentoController.getInstance().adicionarOrcamento(orcamento)) {
 						JOptionPane.showMessageDialog(telaOrcamento, "Orçamento editado com sucesso");
 						telaOrcamento.dispose();
+//						OrcamentoController.getInstance().getFornecedores().clear();
+//						OrcamentoController.getInstance().getPacoteFornecedores().clear();
 						new TelaMenu("Menu");
-						OrcamentoController.getInstance().getFornecedores().clear();
-						OrcamentoController.getInstance().getPacoteFornecedores().clear();
+
 					}
-					
+
 				} else {
 					JOptionPane.showMessageDialog(telaOrcamento, "Orçamento não encontrado");
 				}

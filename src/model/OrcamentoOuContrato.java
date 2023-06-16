@@ -12,8 +12,7 @@ public class OrcamentoOuContrato {
 	private String tamanho;
 	private boolean foiContradoOuNao;
 	private String valor;
-	public boolean foiConcluido; //Adicionei esse atributo pq precimaos saber se ele foi concluido para nao deixarmos alterar mais nada do contrato. 16
-	public ArrayList<String> comentariosFornecedores = new ArrayList(); //Fiz esse atributo para os comentarios dos fornecedores ficarem no evento
+	public boolean foiConcluido;
 	private ArrayList<Pessoa> fornecedores = new ArrayList<>();
 	private ArrayList<Pacote> pacotesDeFornecedores = new ArrayList<>();
 	
@@ -27,14 +26,6 @@ public class OrcamentoOuContrato {
 		this.foiContradoOuNao = foiContradoOuNao;
 		this.valor = valor;
 		this.foiConcluido = foiConcluido;
-	}
-	
-	public ArrayList<String> getComentariosFornecedores() {
-		return comentariosFornecedores;
-	}
-
-	public void setComentariosFornecedores(ArrayList<String> comentariosFornecedores) {
-		this.comentariosFornecedores = comentariosFornecedores;
 	}
 
 	public boolean isFoiConcluido() {

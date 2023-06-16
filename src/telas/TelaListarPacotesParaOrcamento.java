@@ -123,12 +123,17 @@ public class TelaListarPacotesParaOrcamento extends JanelaPadrao{
 	}
 	private class OuvinteBotaoVoltar implements ActionListener {
 
+		
 		public void actionPerformed(ActionEvent e) {
+			
 			OrcamentoController.getInstance().populaArrayPacotes(pacoteFornecedores);
 			dispose();
+			
 			if (!pacoteFornecedores.isEmpty()) {
+				
 				janela.getCampoValor().setText(String.valueOf(somaValoresDosPacotes()));
 			}
+			
 			janela.setVisible(true);
 			
 		}

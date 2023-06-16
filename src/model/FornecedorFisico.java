@@ -8,7 +8,7 @@ public class FornecedorFisico extends Pessoa{
 	private int quantContratosFisico = 0;
 	private boolean disponibilidade ;
 	private String motivoIndisponibilidade;
-	
+	public ArrayList<String> comentariosFornecedores = new ArrayList(); 
 	
 	public FornecedorFisico(String nome, String sobrenome, String telefone, String cpfCnpj,String email,ArrayList<String> servicos,boolean disponibilidade) {
 		super(nome, null, telefone, email);
@@ -19,6 +19,16 @@ public class FornecedorFisico extends Pessoa{
 	}
 	
 	
+	public ArrayList<String> getComentariosFornecedores() {
+		return comentariosFornecedores;
+	}
+
+
+	public void setComentariosFornecedores(ArrayList<String> comentariosFornecedores) {
+		this.comentariosFornecedores = comentariosFornecedores;
+	}
+
+
 	public String getMotivoIndisponibilidade() {
 		return motivoIndisponibilidade;
 	}
