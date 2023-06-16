@@ -127,6 +127,13 @@ public class OrcamentoOuContrato {
 			}	
 		}
 	}
+	public void adicionaFornecedoresNaLista(Object[] vetor) {
+		for(Object p: vetor) {
+			if (!fornecedores.contains(p)) {
+				this.fornecedores.add((Pessoa)p);
+			}	
+		}
+	}
 	
 	
 	

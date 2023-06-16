@@ -111,7 +111,7 @@ public class OrcamentoController {
 	public boolean removerOrcamentoOuContrato(LocalDateTime data, String email) {
 		ArrayList<OrcamentoOuContrato> todosOsOrcamentos = obterTodosOsOrcamentoEContratos();
 		for (OrcamentoOuContrato o : todosOsOrcamentos) {
-			if (o.getDataEHoraDoEvento() == data && o.getClienteAssociado().getEmail().equals(email)) {
+			if (o.getDataEHoraDoEvento().equals(data) && o.getClienteAssociado().getEmail().equals(email)) {
 				CentralDeInformacoes.getInstance().getTodosEvento().remove(o);
 				Persistencia.getInstance().salvarCentral(CentralDeInformacoes.getInstance(), Constantes.NOME_ARQUIVO);
 				return true;

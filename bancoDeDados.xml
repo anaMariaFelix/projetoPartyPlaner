@@ -70,9 +70,9 @@
       <nomeDoEvento>Evento novo 20</nomeDoEvento>
       <dataEHoraDoEvento>7000-01-01T00:00:00</dataEHoraDoEvento>
       <localDoEvento>quem paga é ana</localDoEvento>
-      <tamanho>1000</tamanho>
+      <tamanho>700</tamanho>
       <foiContradoOuNao>false</foiContradoOuNao>
-      <valor>0</valor>
+      <valor>-250</valor>
       <foiConcluido>false</foiConcluido>
       <comentariosFornecedores/>
       <fornecedores>
@@ -82,18 +82,33 @@
     </model.OrcamentoOuContrato>
     <model.OrcamentoOuContrato>
       <clienteAssociado class="model.ClienteFisico" reference="../../../todosOsClientes/model.ClienteFisico"/>
-      <nomeDoEvento>Eventu</nomeDoEvento>
-      <dataEHoraDoEvento>8000-01-01T00:00:00</dataEHoraDoEvento>
-      <localDoEvento>AAAAA</localDoEvento>
-      <tamanho>0</tamanho>
+      <nomeDoEvento>Verificar se ta adicionando</nomeDoEvento>
+      <dataEHoraDoEvento>2500-12-12T00:00:00</dataEHoraDoEvento>
+      <localDoEvento>AQUI</localDoEvento>
+      <tamanho>10</tamanho>
       <foiContradoOuNao>false</foiContradoOuNao>
-      <valor>0303</valor>
+      <valor>10000</valor>
       <foiConcluido>false</foiConcluido>
       <comentariosFornecedores/>
       <fornecedores>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[5]"/>
         <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[4]"/>
+      </fornecedores>
+      <pacotesDeFornecedores/>
+    </model.OrcamentoOuContrato>
+    <model.OrcamentoOuContrato>
+      <clienteAssociado class="model.ClienteFisico" reference="../../../todosOsClientes/model.ClienteFisico"/>
+      <nomeDoEvento>Evento novo</nomeDoEvento>
+      <dataEHoraDoEvento>7000-10-10T00:00:00</dataEHoraDoEvento>
+      <localDoEvento>sssssssss</localDoEvento>
+      <tamanho>11110</tamanho>
+      <foiContradoOuNao>false</foiContradoOuNao>
+      <valor>0003330</valor>
+      <foiConcluido>false</foiConcluido>
+      <comentariosFornecedores/>
+      <fornecedores>
         <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[2]"/>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[5]"/>
       </fornecedores>
       <pacotesDeFornecedores/>
     </model.OrcamentoOuContrato>
@@ -117,37 +132,17 @@
     </model.OrcamentoOuContrato>
     <model.OrcamentoOuContrato>
       <clienteAssociado class="model.ClienteFisico" reference="../../../todosOsClientes/model.ClienteFisico"/>
-      <nomeDoEvento>Verificar se ta adicionando</nomeDoEvento>
-      <dataEHoraDoEvento>2500-12-12T00:00:00</dataEHoraDoEvento>
-      <localDoEvento>AQUI</localDoEvento>
-      <tamanho>10</tamanho>
+      <nomeDoEvento>Eventu</nomeDoEvento>
+      <dataEHoraDoEvento>8000-01-01T00:00:00</dataEHoraDoEvento>
+      <localDoEvento>AAAAA</localDoEvento>
+      <tamanho>0</tamanho>
       <foiContradoOuNao>false</foiContradoOuNao>
-      <valor>10000</valor>
-      <foiConcluido>false</foiConcluido>
-      <comentariosFornecedores/>
-      <fornecedores>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[4]"/>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[5]"/>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[2]"/>
-      </fornecedores>
-      <pacotesDeFornecedores/>
-    </model.OrcamentoOuContrato>
-    <model.OrcamentoOuContrato>
-      <clienteAssociado class="model.ClienteFisico" reference="../../../todosOsClientes/model.ClienteFisico"/>
-      <nomeDoEvento>Evento novo</nomeDoEvento>
-      <dataEHoraDoEvento>7000-10-10T00:00:00</dataEHoraDoEvento>
-      <localDoEvento>tbm</localDoEvento>
-      <tamanho>10</tamanho>
-      <foiContradoOuNao>false</foiContradoOuNao>
-      <valor>0003330</valor>
+      <valor>1000</valor>
       <foiConcluido>false</foiConcluido>
       <comentariosFornecedores/>
       <fornecedores>
         <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
         <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[2]"/>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[2]"/>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[5]"/>
       </fornecedores>
       <pacotesDeFornecedores/>
     </model.OrcamentoOuContrato>
@@ -161,7 +156,10 @@
       <valor>100000</valor>
       <foiConcluido>false</foiConcluido>
       <comentariosFornecedores/>
-      <fornecedores/>
+      <fornecedores>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[5]"/>
+      </fornecedores>
       <pacotesDeFornecedores/>
     </model.OrcamentoOuContrato>
     <model.OrcamentoOuContrato>
@@ -185,8 +183,6 @@
     <string>Local</string>
     <string>Segurança</string>
     <string>Serviços Gerais</string>
-    <string>Agente de publicidade</string>
-    <string>Recepção</string>
   </todosServicos>
   <todosOsPacotes>
     <model.Pacote>

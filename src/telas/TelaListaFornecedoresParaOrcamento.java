@@ -73,6 +73,14 @@ public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 	public ArrayList<Pessoa> getFornecedores() {
 		return fornecedores;
 	}
+	
+	public DefaultTableModel getModelo() {
+		return modelo;
+	}
+
+	public JTable getTabela() {
+		return tabela;
+	}
 
 	private void adicionarJButton() {
 		voltar = ComponentesDeJFrame.criarBotao("Voltar", 636, 490, 125, 35);

@@ -1,6 +1,5 @@
 package telas;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,12 +8,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import controller.OrcamentoController;
 import model.OrcamentoOuContrato;
 import model.Pacote;
 import model.Pessoa;
-import telas.AuxTelaEditarOrcamento.OuvinteBotaoExcluir;
-import telas.TelaListarOrcamentosContratos.OuvinteBotaoDetalhar;
 import util.ComponentesDeJFrame;
 
 public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
