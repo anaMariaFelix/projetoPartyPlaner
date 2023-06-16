@@ -1,4 +1,4 @@
-package util;
+package telas;
 
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -10,17 +10,21 @@ import controller.FornecedorController;
 import model.FornecedorFisico;
 import model.FornecedorJuridico;
 import model.Pessoa;
-import telas.TelaCadastrarFornecedor;
+import util.ComponentesDeJFrame;
 
 public class AuxDetalhaFornecedor {
 	
 	private DefaultTableModel modelo;
 	private JTable tabela;
 	
+	private DefaultTableModel modeloComentario;
+	private JTable tabelaComentario;
+	
 	
 	public  void detalharFornecedor(String cpfCnpj) {
 		
 		JScrollPane tabelaServicos;
+		JScrollPane tabelaComentario;
 		TelaCadastrarFornecedor telaCadastrarFornecedor = new TelaCadastrarFornecedor("Dados Fornecedor");
 		
 		telaCadastrarFornecedor.getLbTitulo().setBounds(250, 35, 300, 50);
@@ -49,7 +53,7 @@ public class AuxDetalhaFornecedor {
 		telaCadastrarFornecedor.getBotaoServicos().setVisible(false);
 		telaCadastrarFornecedor.getJlServicos().setVisible(false);
 
-		telaCadastrarFornecedor.getBotaoVoltar().setBounds(100, 500, 100, 30);
+		telaCadastrarFornecedor.getBotaoVoltar().setBounds(100, 442, 100, 30);
 
 		if (pessoa instanceof FornecedorFisico) {
 			FornecedorFisico fisico = (FornecedorFisico) pessoa;
@@ -60,6 +64,7 @@ public class AuxDetalhaFornecedor {
 			telaCadastrarFornecedor.getCampoCPF().setEnabled(false);
 			telaCadastrarFornecedor.getPessoaJuridica().setVisible(false);
 			tabelaServicos = tabelaDetalharServicos(fisico);
+			tabelaComentario = tabelaListaComentario(fisico);
 			telaCadastrarFornecedor.add(exibeDisponibilidade(fisico));
 
 		} else {
@@ -73,6 +78,7 @@ public class AuxDetalhaFornecedor {
 			telaCadastrarFornecedor.getPessoaFisica().setVisible(false);
 			telaCadastrarFornecedor.getCampoCNPJ().setEnabled(false);
 			tabelaServicos = tabelaDetalharServicos(juridico);
+			tabelaComentario = tabelaListaComentario(juridico);
 			telaCadastrarFornecedor.add(exibeDisponibilidade(juridico));
 		}
 		
@@ -81,8 +87,14 @@ public class AuxDetalhaFornecedor {
 		telaCadastrarFornecedor.add(disponibilidade);
 		
 		
+		
 		tabelaServicos.setBounds(400, 100, 225, 183);
 		telaCadastrarFornecedor.add(tabelaServicos);
+		
+		tabelaComentario.setBounds(400,290,225,183);
+		telaCadastrarFornecedor.add(tabelaComentario);
+		
+		
 		
 	}
 	
@@ -139,5 +151,34 @@ public class AuxDetalhaFornecedor {
 		return new JScrollPane(tabela);
 
 	}
+	
+	private JScrollPane tabelaListaComentario(Pessoa pessoa) {
+		modeloComentario = new DefaultTableModel();
+		modeloComentario.addColumn("Comentarios");
+
+		Object[] todosOsFornecedores;
+
+		if (pessoa instanceof FornecedorFisico) {
+			FornecedorFisico fisico = (FornecedorFisico) pessoa;
+			todosOsFornecedores = fisico.getComentariosFornecedores().toArray();
+
+		} else {
+			FornecedorJuridico juridico = (FornecedorJuridico) pessoa;
+			todosOsFornecedores = juridico.getComentariosFornecedores().toArray();
+		}
+
+		for (int i = 0; i < todosOsFornecedores.length; i++) {
+			Object[] linha = new Object[1];
+			linha[0] = todosOsFornecedores[i];
+			modeloComentario.addRow(linha);
+		}
+
+		tabelaComentario = new JTable(modeloComentario);
+
+		return new JScrollPane(tabelaComentario);
+
+	}
+	
+	
 
 }
