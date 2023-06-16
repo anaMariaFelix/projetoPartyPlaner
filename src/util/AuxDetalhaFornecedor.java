@@ -13,6 +13,7 @@ import model.Pessoa;
 import telas.TelaCadastrarFornecedor;
 
 public class AuxDetalhaFornecedor {
+	
 	private DefaultTableModel modelo;
 	private JTable tabela;
 	
@@ -21,15 +22,17 @@ public class AuxDetalhaFornecedor {
 		
 		JScrollPane tabelaServicos;
 		TelaCadastrarFornecedor telaCadastrarFornecedor = new TelaCadastrarFornecedor("Dados Fornecedor");
-		telaCadastrarFornecedor.getJlNomeCompleto().setBounds(100, 180, 150, 30);
-		telaCadastrarFornecedor.getJlTelefone().setBounds(100, 250, 130, 30);
-		telaCadastrarFornecedor.getJlEmail().setBounds(100, 320, 130, 30);
-		telaCadastrarFornecedor.getCpfCnpj().setBounds(100, 415, 225, 30);
+		
+		telaCadastrarFornecedor.getLbTitulo().setBounds(250, 35, 300, 50);
+		telaCadastrarFornecedor.getJlNomeCompleto().setBounds(100, 100, 150, 30);
+		telaCadastrarFornecedor.getJlTelefone().setBounds(100, 165, 130, 30);
+		telaCadastrarFornecedor.getJlEmail().setBounds(100, 225, 130, 30);
+		telaCadastrarFornecedor.getCpfCnpj().setBounds(100, 285, 225, 30);
 
 		// Campos TextField
-		telaCadastrarFornecedor.getCampoNomeCompleto().setBounds(100, 210, 225, 30);
-		telaCadastrarFornecedor.getCampoTelefone().setBounds(100, 280, 225, 30);
-		telaCadastrarFornecedor.getCampoEmail().setBounds(100, 350, 225, 30);
+		telaCadastrarFornecedor.getCampoNomeCompleto().setBounds(100, 130, 225, 30);
+		telaCadastrarFornecedor.getCampoTelefone().setBounds(100, 193, 225, 30);
+		telaCadastrarFornecedor.getCampoEmail().setBounds(100, 253, 225, 30);
 
 		Pessoa pessoa = FornecedorController.getInstance().recuperarFornecedorPorCpfOuCnpj(cpfCnpj);
 
@@ -51,8 +54,8 @@ public class AuxDetalhaFornecedor {
 		if (pessoa instanceof FornecedorFisico) {
 			FornecedorFisico fisico = (FornecedorFisico) pessoa;
 			telaCadastrarFornecedor.getCampoCPF().setText(fisico.getCpfCnpj());
-			telaCadastrarFornecedor.getCampoCPF().setBounds(100, 440, 225, 30);
-			telaCadastrarFornecedor.getPessoaFisica().setBounds(100, 380, 200, 30);
+			telaCadastrarFornecedor.getCampoCPF().setBounds(100, 315, 225, 30);
+			telaCadastrarFornecedor.getPessoaFisica().setBounds(100, 348, 200, 30);
 			telaCadastrarFornecedor.setListaDeServicos(fisico.getServicos());
 			telaCadastrarFornecedor.getCampoCPF().setEnabled(false);
 			telaCadastrarFornecedor.getPessoaJuridica().setVisible(false);
@@ -63,8 +66,8 @@ public class AuxDetalhaFornecedor {
 			FornecedorJuridico juridico = (FornecedorJuridico) pessoa;
 			telaCadastrarFornecedor.getPessoaJuridica().doClick();
 			telaCadastrarFornecedor.getCampoCNPJ().setText(juridico.getCnpj());
-			telaCadastrarFornecedor.getCampoCNPJ().setBounds(100, 440, 225, 30);
-			telaCadastrarFornecedor.getPessoaJuridica().setBounds(100, 380, 200, 30);
+			telaCadastrarFornecedor.getCampoCNPJ().setBounds(100, 315, 225, 30);
+			telaCadastrarFornecedor.getPessoaJuridica().setBounds(100, 348, 200, 30);
 			telaCadastrarFornecedor.setListaDeServicos(juridico.getServicos());
 			telaCadastrarFornecedor.getCpfCnpj().setText("CNPJ");
 			telaCadastrarFornecedor.getPessoaFisica().setVisible(false);
@@ -72,15 +75,20 @@ public class AuxDetalhaFornecedor {
 			tabelaServicos = tabelaDetalharServicos(juridico);
 			telaCadastrarFornecedor.add(exibeDisponibilidade(juridico));
 		}
+		
 
-		JLabel disponibilidade = ComponentesDeJFrame.criaJLabel("Disponibilidade", 400,415,200,30,15);
+		JLabel disponibilidade = ComponentesDeJFrame.criaJLabel("Disponibilidade", 100,378,200,30,15);
 		telaCadastrarFornecedor.add(disponibilidade);
-		tabelaServicos.setBounds(400, 184, 225, 196);
+		
+		
+		tabelaServicos.setBounds(400, 100, 225, 183);
 		telaCadastrarFornecedor.add(tabelaServicos);
+		
 	}
 	
+	
 	private JTextField exibeDisponibilidade(Pessoa pessoa) {
-		JTextField disponibilidade = ComponentesDeJFrame.criaJTextField(400,440, 225, 30);
+		JTextField disponibilidade = ComponentesDeJFrame.criaJTextField(100,408, 225, 30);
 		if(pessoa instanceof FornecedorFisico) {
 			FornecedorFisico fisico = (FornecedorFisico) pessoa;
 			if(fisico.isDisponibilidade()) {
