@@ -115,6 +115,7 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 					}else if (!ValidadorCPF.isCPF(cpf)) {
 						JOptionPane.showMessageDialog(janela, "O CPF não é válido, informe novamente");
 
+					
 					} else if (janela.getListaDeServicos().isEmpty()) {
 						JOptionPane.showMessageDialog(janela, "Você deve fornecer ao menos um serviço");
 					} else {
