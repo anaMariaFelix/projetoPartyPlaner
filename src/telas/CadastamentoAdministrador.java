@@ -1,7 +1,6 @@
 package telas;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -10,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import baseDedados.CentralDeInformacoes;
 import ouvintes.OuvinteBotaoSalvar;
 import util.ComponentesDeJFrame;
 

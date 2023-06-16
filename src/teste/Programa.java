@@ -1,18 +1,16 @@
 package teste;
 
-import javax.swing.JTextField;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import baseDedados.CentralDeInformacoes;
 import baseDedados.Persistencia;
 import telas.CadastamentoAdministrador;
 import telas.JanelaPadrao;
-import telas.TelaCadastrarCliente;
-import telas.TelaCadastrarOrcamento;
 import telas.TelaLogin;
 import telas.TelaMenu;
+import util.Constantes;
 
 public class Programa {
 
@@ -30,21 +28,21 @@ public class Programa {
 		} catch (ClassNotFoundException e) {
 			// handle exception
 		} catch (InstantiationException e) {
-			// handle exceptionana
+			// handle exception
 		} catch (IllegalAccessException e) {
 			// handle exception
 		}
 
-		CentralDeInformacoes centralDeInformacoes = Persistencia.getInstance().recupearCentral("bancoDeDados");
+		CentralDeInformacoes centralDeInformacoes = Persistencia.getInstance().recupearCentral(Constantes.NOME_ARQUIVO);
 
-//		if (CentralDeInformacoes.getInstance().getAdministrador() != null) {
-//			TelaLogin telaLogin = new TelaLogin("Tela de Login");
-//
-//		} else {
-//			JanelaPadrao janela = new CadastamentoAdministrador();
-//		}
+		if (CentralDeInformacoes.getInstance().getAdministrador() != null) {
+			TelaLogin telaLogin = new TelaLogin("Tela de Login");
 
-		new TelaMenu("Menu");
+		} else {
+			JanelaPadrao janela = new CadastamentoAdministrador();
+		}
+
+		//new TelaMenu("Menu");
 		//TelaCadastrarOrcamento telaCadastrarOrcamento = new TelaCadastrarOrcamento("cadastrar");
 		
 

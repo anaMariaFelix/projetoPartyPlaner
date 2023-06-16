@@ -14,7 +14,6 @@ import javax.swing.JTextField;
 
 import baseDedados.CentralDeInformacoes;
 import baseDedados.Persistencia;
-import ouvintes.OuvinteBotaoSalvar;
 import util.ComponentesDeJFrame;
 
 
@@ -93,7 +92,7 @@ public class TelaLogin extends JanelaPadrao {
 			
 			CentralDeInformacoes  centralDeInformacao = Persistencia.getInstance().recupearCentral("bancoDeDados");
 			String campoEmail = getCampoEmail().getText();
-			String campoSenha = new String(getCampoSenha().getPassword());;
+			String campoSenha = new String(getCampoSenha().getPassword());
 			
 			if(campoEmail.isEmpty() || campoSenha.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos","ERRO", JOptionPane.ERROR_MESSAGE);

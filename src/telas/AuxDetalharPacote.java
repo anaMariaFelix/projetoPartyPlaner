@@ -1,5 +1,6 @@
 package telas;
 
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +16,6 @@ import model.FornecedorFisico;
 import model.FornecedorJuridico;
 import model.Pacote;
 import model.Pessoa;
-import util.AuxDetalhaFornecedor;
 import util.ButtonEditor;
 import util.ButtonRenderer;
 import util.ComponentesDeJFrame;

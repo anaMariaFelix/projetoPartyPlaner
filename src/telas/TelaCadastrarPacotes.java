@@ -24,8 +24,6 @@ import model.FornecedorJuridico;
 import model.Pacote;
 import model.Pessoa;
 import util.ComponentesDeJFrame;
-import util.ValidaEmail;
-import util.ValidadorCPF;
 
 public class TelaCadastrarPacotes extends JanelaPadrao {
 	private String titulo;

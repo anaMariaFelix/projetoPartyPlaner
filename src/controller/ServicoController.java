@@ -1,18 +1,9 @@
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-
-import javax.swing.JOptionPane;
 
 import baseDedados.CentralDeInformacoes;
 import baseDedados.Persistencia;
-import telas.TelaDeServicos;
 import util.Constantes;
 
 public class ServicoController {

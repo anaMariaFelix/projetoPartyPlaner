@@ -159,14 +159,19 @@ public class TelaDeServicos extends JanelaPadrao {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			int linhaSelecionada = janela.getTabela().getSelectedRow();// esse metodo retorna o indice da linha selecionada na
-			// tabela
-			if (linhaSelecionada == -1) {// verifica se tem alguma linha selecionada
-				JOptionPane.showMessageDialog(janela, "Selecione uma linha");// se n tiver exibe essa mensagem
+			int linhaSelecionada = janela.getTabela().getSelectedRow();
+
+			if (linhaSelecionada == -1) {
+				
+				JOptionPane.showMessageDialog(janela, "Selecione uma linha");
+				
 			}else {
+				
 				ServicoController.getInstance().removerServico(linhaSelecionada);
+				
 				janela.getModelo().removeRow(linhaSelecionada);
 				janela.getTabela().repaint();
+				
 				JOptionPane.showMessageDialog(janela, "Removido");
 			}
 		

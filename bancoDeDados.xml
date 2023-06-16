@@ -1,75 +1,7 @@
 <baseDedados.CentralDeInformacoes>
-  <todosOsClientes>
-    <model.ClienteFisico>
-      <nome>ana maria</nome>
-      <telefone>44444444444</telefone>
-      <email>2@2</email>
-      <CPF>11993299408</CPF>
-    </model.ClienteFisico>
-  </todosOsClientes>
-  <todosOsFornecedores>
-    <model.FornecedorFisico>
-      <nome>ana</nome>
-      <telefone>44444444444</telefone>
-      <email>fag@gyugh</email>
-      <cpfCnpj>11993299408</cpfCnpj>
-      <servicos>
-        <string>Musica</string>
-      </servicos>
-      <quantContratosFisico>0</quantContratosFisico>
-      <disponibilidade>true</disponibilidade>
-    </model.FornecedorFisico>
-    <model.FornecedorFisico>
-      <nome>andrey</nome>
-      <telefone>44444444444</telefone>
-      <email>lkj@11</email>
-      <cpfCnpj>70401600483</cpfCnpj>
-      <servicos>
-        <string>Buffet</string>
-      </servicos>
-      <quantContratosFisico>0</quantContratosFisico>
-      <disponibilidade>true</disponibilidade>
-    </model.FornecedorFisico>
-    <model.FornecedorJuridico>
-      <nome>ismael</nome>
-      <telefone>77777777777</telefone>
-      <email>kjh@ghvh</email>
-      <cnpj>75708413000124</cnpj>
-      <servicos>
-        <string>Buffet</string>
-      </servicos>
-      <quantContratosJuridico>0</quantContratosJuridico>
-      <disponibilidade>true</disponibilidade>
-    </model.FornecedorJuridico>
-  </todosOsFornecedores>
-  <todosEvento>
-    <model.OrcamentoOuContrato>
-      <clienteAssociado class="model.ClienteFisico" reference="../../../todosOsClientes/model.ClienteFisico"/>
-      <nomeDoEvento>teste</nomeDoEvento>
-      <dataEHoraDoEvento>2024-02-02T22:22:00</dataEHoraDoEvento>
-      <localDoEvento>igreja</localDoEvento>
-      <tamanho>123456</tamanho>
-      <foiContradoOuNao>false</foiContradoOuNao>
-      <fornecedores>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[2]"/>
-      </fornecedores>
-      <pacotesDeFornecedores/>
-    </model.OrcamentoOuContrato>
-    <model.OrcamentoOuContrato>
-      <clienteAssociado class="model.ClienteFisico" reference="../../../todosOsClientes/model.ClienteFisico"/>
-      <nomeDoEvento>teste 0000</nomeDoEvento>
-      <dataEHoraDoEvento>2024-02-05T22:22:00</dataEHoraDoEvento>
-      <localDoEvento>kkkkkk</localDoEvento>
-      <tamanho>100</tamanho>
-      <foiContradoOuNao>false</foiContradoOuNao>
-      <fornecedores>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[2]"/>
-      </fornecedores>
-      <pacotesDeFornecedores/>
-    </model.OrcamentoOuContrato>
-  </todosEvento>
+  <todosOsClientes/>
+  <todosOsFornecedores/>
+  <todosEvento/>
   <todosServicos>
     <string>Buffet</string>
     <string>Musica</string>
@@ -82,8 +14,8 @@
   </todosServicos>
   <todosOsPacotes/>
   <administrador>
-    <nome>ana</nome>
-    <sobrenome>maria</sobrenome>
+    <nome>a</nome>
+    <sobrenome>d</sobrenome>
     <email>1@1</email>
     <senha>12345678</senha>
   </administrador>

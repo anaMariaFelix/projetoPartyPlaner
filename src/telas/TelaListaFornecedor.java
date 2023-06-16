@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import controller.FornecedorController;
@@ -22,7 +21,6 @@ import model.FornecedorFisico;
 import model.FornecedorJuridico;
 import model.Pacote;
 import model.Pessoa;
-import util.AuxDetalhaFornecedor;
 import util.ButtonEditor;
 import util.ButtonRenderer;
 import util.ComponentesDeJFrame;

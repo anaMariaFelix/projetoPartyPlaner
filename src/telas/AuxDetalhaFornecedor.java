@@ -1,4 +1,4 @@
-package util;
+package telas;
 
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -10,26 +10,33 @@ import controller.FornecedorController;
 import model.FornecedorFisico;
 import model.FornecedorJuridico;
 import model.Pessoa;
-import telas.TelaCadastrarFornecedor;
+import util.ComponentesDeJFrame;
 
 public class AuxDetalhaFornecedor {
+	
 	private DefaultTableModel modelo;
 	private JTable tabela;
+	
+	private DefaultTableModel modeloComentario;
+	private JTable tabelaComentario;
 	
 	
 	public  void detalharFornecedor(String cpfCnpj) {
 		
 		JScrollPane tabelaServicos;
+		JScrollPane tabelaComentario;
 		TelaCadastrarFornecedor telaCadastrarFornecedor = new TelaCadastrarFornecedor("Dados Fornecedor");
-		telaCadastrarFornecedor.getJlNomeCompleto().setBounds(100, 180, 150, 30);
-		telaCadastrarFornecedor.getJlTelefone().setBounds(100, 250, 130, 30);
-		telaCadastrarFornecedor.getJlEmail().setBounds(100, 320, 130, 30);
-		telaCadastrarFornecedor.getCpfCnpj().setBounds(100, 415, 225, 30);
+		
+		telaCadastrarFornecedor.getLbTitulo().setBounds(250, 35, 300, 50);
+		telaCadastrarFornecedor.getJlNomeCompleto().setBounds(100, 100, 150, 30);
+		telaCadastrarFornecedor.getJlTelefone().setBounds(100, 165, 130, 30);
+		telaCadastrarFornecedor.getJlEmail().setBounds(100, 225, 130, 30);
+		telaCadastrarFornecedor.getCpfCnpj().setBounds(100, 285, 225, 30);
 
 		// Campos TextField
-		telaCadastrarFornecedor.getCampoNomeCompleto().setBounds(100, 210, 225, 30);
-		telaCadastrarFornecedor.getCampoTelefone().setBounds(100, 280, 225, 30);
-		telaCadastrarFornecedor.getCampoEmail().setBounds(100, 350, 225, 30);
+		telaCadastrarFornecedor.getCampoNomeCompleto().setBounds(100, 130, 225, 30);
+		telaCadastrarFornecedor.getCampoTelefone().setBounds(100, 193, 225, 30);
+		telaCadastrarFornecedor.getCampoEmail().setBounds(100, 253, 225, 30);
 
 		Pessoa pessoa = FornecedorController.getInstance().recuperarFornecedorPorCpfOuCnpj(cpfCnpj);
 
@@ -46,41 +53,54 @@ public class AuxDetalhaFornecedor {
 		telaCadastrarFornecedor.getBotaoServicos().setVisible(false);
 		telaCadastrarFornecedor.getJlServicos().setVisible(false);
 
-		telaCadastrarFornecedor.getBotaoVoltar().setBounds(100, 500, 100, 30);
+		telaCadastrarFornecedor.getBotaoVoltar().setBounds(100, 442, 100, 30);
 
 		if (pessoa instanceof FornecedorFisico) {
 			FornecedorFisico fisico = (FornecedorFisico) pessoa;
 			telaCadastrarFornecedor.getCampoCPF().setText(fisico.getCpfCnpj());
-			telaCadastrarFornecedor.getCampoCPF().setBounds(100, 440, 225, 30);
-			telaCadastrarFornecedor.getPessoaFisica().setBounds(100, 380, 200, 30);
+			telaCadastrarFornecedor.getCampoCPF().setBounds(100, 315, 225, 30);
+			telaCadastrarFornecedor.getPessoaFisica().setBounds(100, 348, 200, 30);
 			telaCadastrarFornecedor.setListaDeServicos(fisico.getServicos());
 			telaCadastrarFornecedor.getCampoCPF().setEnabled(false);
 			telaCadastrarFornecedor.getPessoaJuridica().setVisible(false);
 			tabelaServicos = tabelaDetalharServicos(fisico);
+			tabelaComentario = tabelaListaComentario(fisico);
 			telaCadastrarFornecedor.add(exibeDisponibilidade(fisico));
 
 		} else {
 			FornecedorJuridico juridico = (FornecedorJuridico) pessoa;
 			telaCadastrarFornecedor.getPessoaJuridica().doClick();
 			telaCadastrarFornecedor.getCampoCNPJ().setText(juridico.getCnpj());
-			telaCadastrarFornecedor.getCampoCNPJ().setBounds(100, 440, 225, 30);
-			telaCadastrarFornecedor.getPessoaJuridica().setBounds(100, 380, 200, 30);
+			telaCadastrarFornecedor.getCampoCNPJ().setBounds(100, 315, 225, 30);
+			telaCadastrarFornecedor.getPessoaJuridica().setBounds(100, 348, 200, 30);
 			telaCadastrarFornecedor.setListaDeServicos(juridico.getServicos());
 			telaCadastrarFornecedor.getCpfCnpj().setText("CNPJ");
 			telaCadastrarFornecedor.getPessoaFisica().setVisible(false);
 			telaCadastrarFornecedor.getCampoCNPJ().setEnabled(false);
 			tabelaServicos = tabelaDetalharServicos(juridico);
+			tabelaComentario = tabelaListaComentario(juridico);
 			telaCadastrarFornecedor.add(exibeDisponibilidade(juridico));
 		}
+		
 
-		JLabel disponibilidade = ComponentesDeJFrame.criaJLabel("Disponibilidade", 400,415,200,30,15);
+		JLabel disponibilidade = ComponentesDeJFrame.criaJLabel("Disponibilidade", 100,378,200,30,15);
 		telaCadastrarFornecedor.add(disponibilidade);
-		tabelaServicos.setBounds(400, 184, 225, 196);
+		
+		
+		
+		tabelaServicos.setBounds(400, 100, 225, 183);
 		telaCadastrarFornecedor.add(tabelaServicos);
+		
+		tabelaComentario.setBounds(400,290,225,183);
+		telaCadastrarFornecedor.add(tabelaComentario);
+		
+		
+		
 	}
 	
+	
 	private JTextField exibeDisponibilidade(Pessoa pessoa) {
-		JTextField disponibilidade = ComponentesDeJFrame.criaJTextField(400,440, 225, 30);
+		JTextField disponibilidade = ComponentesDeJFrame.criaJTextField(100,408, 225, 30);
 		if(pessoa instanceof FornecedorFisico) {
 			FornecedorFisico fisico = (FornecedorFisico) pessoa;
 			if(fisico.isDisponibilidade()) {
@@ -131,5 +151,34 @@ public class AuxDetalhaFornecedor {
 		return new JScrollPane(tabela);
 
 	}
+	
+	private JScrollPane tabelaListaComentario(Pessoa pessoa) {
+		modeloComentario = new DefaultTableModel();
+		modeloComentario.addColumn("Comentarios");
+
+		Object[] todosOsFornecedores;
+
+		if (pessoa instanceof FornecedorFisico) {
+			FornecedorFisico fisico = (FornecedorFisico) pessoa;
+			todosOsFornecedores = fisico.getComentariosFornecedores().toArray();
+
+		} else {
+			FornecedorJuridico juridico = (FornecedorJuridico) pessoa;
+			todosOsFornecedores = juridico.getComentariosFornecedores().toArray();
+		}
+
+		for (int i = 0; i < todosOsFornecedores.length; i++) {
+			Object[] linha = new Object[1];
+			linha[0] = todosOsFornecedores[i];
+			modeloComentario.addRow(linha);
+		}
+
+		tabelaComentario = new JTable(modeloComentario);
+
+		return new JScrollPane(tabelaComentario);
+
+	}
+	
+	
 
 }

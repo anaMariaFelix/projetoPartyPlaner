@@ -1,12 +1,5 @@
 package email;
 
-import org.apache.commons.mail.Email;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
-
-import model.OrcamentoOuContrato;
-import util.MetodosUtilizadosNoPrograma;
-
 public class Mensageiro {
 //	public static void enviarEmailParaCliente(OrcamentoOuContrato evento,String msg) {
 //		Email email = new SimpleEmail();

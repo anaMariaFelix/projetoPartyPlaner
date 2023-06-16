@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -11,13 +12,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 import controller.FornecedorController;
 import controller.OrcamentoController;
 import model.FornecedorFisico;
 import model.FornecedorJuridico;
 import model.OrcamentoOuContrato;
 import model.Pessoa;
-import telas.TelaCadastrarOrcamento.OuvinteBotaoSalavar;
 import util.ButtonEditor;
 import util.ButtonRenderer;
 import util.ComponentesDeJFrame;
@@ -34,15 +35,38 @@ public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 	
 	private TelaCadastrarOrcamento janela;
 	
-	public TelaListaFornecedoresParaOrcamento(TelaCadastrarOrcamento janela,String titulo) {
+	private OrcamentoOuContrato orcamento;
+	
+	private AuxTelaEditarOrcamento telaEditarOrcamento;
+	
+	private boolean telaEditar;
+	
+	public TelaListaFornecedoresParaOrcamento(boolean telaEditar,OrcamentoOuContrato orcamento,TelaCadastrarOrcamento janela,String titulo) {
 		super(titulo);
 		this.janela = janela;
+		this.orcamento = orcamento;
+		this.telaEditar = telaEditar;
 		adicionarJLabel();
 		adicionarJTable();
 		adicionarJButton();
 		setVisible(true);
 	}
 	
+	public AuxTelaEditarOrcamento getTelaEditarOrcamento() {
+		return telaEditarOrcamento;
+	}
+
+	public void setTelaEditarOrcamento(AuxTelaEditarOrcamento telaEditarOrcamento) {
+		this.telaEditarOrcamento = telaEditarOrcamento;
+	}
+
+	public OrcamentoOuContrato getOrcamento() {
+		return orcamento;
+	}
+
+	public void setOrcamento(OrcamentoOuContrato orcamento) {
+		this.orcamento = orcamento;
+	}
 
 	public JButton getBotaoNovo() {
 		return botaoNovo;
@@ -50,14 +74,22 @@ public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 	public ArrayList<Pessoa> getFornecedores() {
 		return fornecedores;
 	}
+	
+	public DefaultTableModel getModelo() {
+		return modelo;
+	}
+
+	public JTable getTabela() {
+		return tabela;
+	}
 
 	private void adicionarJButton() {
 		voltar = ComponentesDeJFrame.criarBotao("Voltar", 636, 490, 125, 35);
-		voltar.addActionListener(new OuvinteBotaoVoltar());
+		voltar.addActionListener(new OuvinteBotaoVoltarIncluirFornecedor(telaEditar,orcamento,telaEditarOrcamento));
 		add(voltar);
 		
 		botaoNovo = ComponentesDeJFrame.criarBotao("Novo",  636, 94, 125, 35);
-		botaoNovo.addActionListener(new OuvinteBotaoNovo());
+		botaoNovo.addActionListener(new OuvinteBotaoNovo(orcamento));
 		add(botaoNovo);
 	}
 
@@ -128,12 +160,45 @@ public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 		}
 
 	}
-	private class OuvinteBotaoVoltar implements ActionListener {
+	private class OuvinteBotaoVoltarIncluirFornecedor implements ActionListener {
 
+		private OrcamentoOuContrato orcamentoComFornecedores;
+		private AuxTelaEditarOrcamento telaEditarContratoOrcamento;
+		private boolean editar;
+		
+		public OuvinteBotaoVoltarIncluirFornecedor(boolean editar,OrcamentoOuContrato orcamentoComFornecedores,AuxTelaEditarOrcamento telaEditarContratoOrcamento) {
+			this.orcamentoComFornecedores = orcamentoComFornecedores;
+			this.telaEditarContratoOrcamento = telaEditarContratoOrcamento;
+			this.editar = editar;
+			
+		}
+		
 		public void actionPerformed(ActionEvent e) {
 			OrcamentoController.getInstance().populaArrayFornecedores(fornecedores);
+					
+			if (!fornecedores.isEmpty()) {
+				janela.getCampoValor().setEnabled(true);
+			}
+			
+			if (editar) {
+				orcamentoComFornecedores.adicionaFornecedoresNaLista(fornecedores);
+				
+				new AuxTelaEditarOrcamento(orcamentoComFornecedores,"Editar Orçamento/Contrato");
+			}else {
+				
+				
+				janela.setVisible(true);
+				
+			}
+			
+			
+			
 			dispose();
-			janela.setVisible(true);
+			
+			
+			
+			
+			
 			
 		}
 
@@ -150,7 +215,12 @@ public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-			if(!fornecedores.contains(fornecedor)) {
+			
+			if (orcamento != null) {
+				preencheFornecedores();
+			}
+			
+			if(!fornecedores.contains(fornecedor) && !OrcamentoController.getInstance().getFornecedores().contains(fornecedor)) {
 				fornecedores.add(fornecedor);
 				JOptionPane.showMessageDialog(janela, "Fornecedor adicionado com sucesso");
 			}else {
@@ -161,25 +231,44 @@ public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 	}
 	
 	public class OuvinteBotaoNovo implements ActionListener{
-
+		
+		private OrcamentoOuContrato orcamentoComFornecedores;
+		
+		public OuvinteBotaoNovo(OrcamentoOuContrato orcamentoComFornecedores) {
+			this.orcamentoComFornecedores = orcamentoComFornecedores;
+		}
+	
 		public void actionPerformed(ActionEvent e) {
 			dispose();
 			TelaCadastrarFornecedor telaCadastrarFornecedor	= new TelaCadastrarFornecedor("Cadastro Fornecedor");
 			telaCadastrarFornecedor.getBotaoVoltar().removeActionListener(telaCadastrarFornecedor.ouvinteVoltar);
-			telaCadastrarFornecedor.getBotaoVoltar().addActionListener(new ouvinteBotaoVoltarTelaCadastrarFornecedor(telaCadastrarFornecedor));
+			telaCadastrarFornecedor.getBotaoVoltar().addActionListener(new ouvinteBotaoVoltarTelaCadastrarFornecedor(orcamentoComFornecedores,telaCadastrarFornecedor));
+			
 		}
 	}
 	
 	public class ouvinteBotaoVoltarTelaCadastrarFornecedor implements ActionListener{
-		private TelaCadastrarFornecedor telaCadastrarFornecedor;
 		
-		public ouvinteBotaoVoltarTelaCadastrarFornecedor(TelaCadastrarFornecedor telaCadastrarFornecedor) {
+		private TelaCadastrarFornecedor telaCadastrarFornecedor;
+		private OrcamentoOuContrato orcamentoComFornecedores;
+		
+		public ouvinteBotaoVoltarTelaCadastrarFornecedor(OrcamentoOuContrato orcamentoComFornecedores,TelaCadastrarFornecedor telaCadastrarFornecedor) {
 			this.telaCadastrarFornecedor = telaCadastrarFornecedor;
+			this.orcamentoComFornecedores = orcamentoComFornecedores;
 		}
+		
 		public void actionPerformed(ActionEvent e) {
-			telaCadastrarFornecedor.dispose();
-			new TelaListaFornecedoresParaOrcamento(janela,"Lista De Fornecedores");
 			
+			telaCadastrarFornecedor.dispose();
+			new TelaListaFornecedoresParaOrcamento(false,orcamentoComFornecedores,janela,"Lista De Fornecedores");
+			
+		}
+		
+	}
+	
+	public void preencheFornecedores() {
+		for (Pessoa p: orcamento.getFornecedores()) {
+			fornecedores.add(p);
 		}
 		
 	}

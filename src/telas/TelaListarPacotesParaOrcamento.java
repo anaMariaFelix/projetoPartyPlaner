@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -123,9 +124,17 @@ public class TelaListarPacotesParaOrcamento extends JanelaPadrao{
 	}
 	private class OuvinteBotaoVoltar implements ActionListener {
 
+		
 		public void actionPerformed(ActionEvent e) {
+			
 			OrcamentoController.getInstance().populaArrayPacotes(pacoteFornecedores);
 			dispose();
+			
+			if (!pacoteFornecedores.isEmpty()) {
+				
+				janela.getCampoValor().setText(String.valueOf(somaValoresDosPacotes()));
+			}
+			
 			janela.setVisible(true);
 			
 		}
@@ -143,7 +152,7 @@ public class TelaListarPacotesParaOrcamento extends JanelaPadrao{
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-			if(!pacoteFornecedores.contains(pacote)) {
+			if(!pacoteFornecedores.contains(pacote) && !OrcamentoController.getInstance().getPacoteFornecedores().contains(pacote)) {
 				pacoteFornecedores.add(pacote);
 				JOptionPane.showMessageDialog(janela, "Pacote adicionado com sucesso");
 			}else {
@@ -151,5 +160,13 @@ public class TelaListarPacotesParaOrcamento extends JanelaPadrao{
 			}
 		}
 		
+	}
+	
+	public double somaValoresDosPacotes() {
+		double soma = 0f;
+		for(Pacote pacote: OrcamentoController.getInstance().getPacoteFornecedores()) {
+			soma += Double.parseDouble(pacote.getValorDoPacote());
+		}
+		return soma;
 	}
 }

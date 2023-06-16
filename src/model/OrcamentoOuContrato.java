@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class OrcamentoOuContrato {
+	
 	private Pessoa clienteAssociado;
 	private String nomeDoEvento;
 	private LocalDateTime dataEHoraDoEvento;
@@ -11,19 +12,31 @@ public class OrcamentoOuContrato {
 	private String tamanho;
 	private boolean foiContradoOuNao;
 	private String valor;
+	public boolean foiConcluido;
 	private ArrayList<Pessoa> fornecedores = new ArrayList<>();
 	private ArrayList<Pacote> pacotesDeFornecedores = new ArrayList<>();
 	
-	
-	public OrcamentoOuContrato(String nome, LocalDateTime dataHora, String local,String tamanho,Pessoa clienteAssociado,boolean foiContradoOuNao) {
+	//adicionei no construtor o foiConcluido para utilizar a mesma logida do foiContratado
+	public OrcamentoOuContrato(String nome, LocalDateTime dataHora, String local,String tamanho,Pessoa clienteAssociado,boolean foiContradoOuNao,String valor,boolean foiConcluido) {
 		this.nomeDoEvento = nome;
 		this.dataEHoraDoEvento = dataHora;
 		this.localDoEvento = local;
 		this.tamanho = tamanho;
 		this.clienteAssociado = clienteAssociado;
 		this.foiContradoOuNao = foiContradoOuNao;
+		this.valor = valor;
+		this.foiConcluido = foiConcluido;
 	}
-	
+
+	public boolean isFoiConcluido() {
+		return foiConcluido;
+	}
+
+	public void setFoiConcluido(boolean foiConcluido) {
+		this.foiConcluido = foiConcluido;
+	}
+
+
 	public Pessoa getClienteAssociado() {
 		return clienteAssociado;
 	}
@@ -98,9 +111,18 @@ public class OrcamentoOuContrato {
 		}
 	}
 	
-	public void adicionaFornecedoresNaLista(ArrayList<Pessoa> fornecedores) {
-		for(Pessoa p: fornecedores) {
-			this.fornecedores.add(p);
+	public void adicionaFornecedoresNaLista(ArrayList<Pessoa> fornecedoresNovos) {
+		for(Pessoa p: fornecedoresNovos) {
+			if (!fornecedores.contains(p)) {
+				this.fornecedores.add(p);
+			}	
+		}
+	}
+	public void adicionaFornecedoresNaLista(Object[] vetor) {
+		for(Object p: vetor) {
+			if (!fornecedores.contains(p)) {
+				this.fornecedores.add((Pessoa)p);
+			}	
 		}
 	}
 	

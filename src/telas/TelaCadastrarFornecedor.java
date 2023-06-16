@@ -5,19 +5,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
 
-import com.itextpdf.text.Font;
-
-import baseDedados.CentralDeInformacoes;
-import controller.ClienteController;
 import controller.FornecedorController;
 import controller.ServicoController;
-import model.ClienteFisico;
-import model.ClienteJuridico;
 import model.FornecedorFisico;
 import model.FornecedorJuridico;
 import model.Pessoa;

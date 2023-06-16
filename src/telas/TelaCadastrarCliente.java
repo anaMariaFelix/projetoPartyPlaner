@@ -9,25 +9,18 @@ import java.awt.event.KeyListener;
 import java.text.ParseException;
 
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
-import baseDedados.CentralDeInformacoes;
-import baseDedados.Persistencia;
 import controller.ClienteController;
 import model.ClienteFisico;
 import model.ClienteJuridico;
 import model.Pessoa;
-import ouvintes.OuvinteBotaoSalvar;
 import util.ComponentesDeJFrame;
 import util.ValidaEmail;
 import util.ValidadorCPF;
