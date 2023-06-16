@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class OrcamentoOuContrato {
+	
 	private Pessoa clienteAssociado;
 	private String nomeDoEvento;
 	private LocalDateTime dataEHoraDoEvento;
@@ -123,8 +124,7 @@ public class OrcamentoOuContrato {
 		for(Pessoa p: fornecedoresNovos) {
 			if (!fornecedores.contains(p)) {
 				this.fornecedores.add(p);
-			}
-				
+			}	
 		}
 	}
 	

@@ -67,16 +67,16 @@
   <todosEvento>
     <model.OrcamentoOuContrato>
       <clienteAssociado class="model.ClienteFisico" reference="../../../todosOsClientes/model.ClienteFisico"/>
-      <nomeDoEvento>EVENTO CONTRATO</nomeDoEvento>
-      <dataEHoraDoEvento>9000-12-12T00:00:00</dataEHoraDoEvento>
-      <localDoEvento>A</localDoEvento>
-      <tamanho>10</tamanho>
+      <nomeDoEvento>Evento novo 20</nomeDoEvento>
+      <dataEHoraDoEvento>7000-01-01T00:00:00</dataEHoraDoEvento>
+      <localDoEvento>quem paga é ana</localDoEvento>
+      <tamanho>1000</tamanho>
       <foiContradoOuNao>false</foiContradoOuNao>
-      <valor>10</valor>
+      <valor>0</valor>
       <foiConcluido>false</foiConcluido>
       <comentariosFornecedores/>
       <fornecedores>
-        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[3]"/>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[4]"/>
       </fornecedores>
       <pacotesDeFornecedores/>
     </model.OrcamentoOuContrato>
@@ -93,6 +93,25 @@
       <fornecedores>
         <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[5]"/>
         <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[4]"/>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
+      </fornecedores>
+      <pacotesDeFornecedores/>
+    </model.OrcamentoOuContrato>
+    <model.OrcamentoOuContrato>
+      <clienteAssociado class="model.ClienteFisico" reference="../../../todosOsClientes/model.ClienteFisico"/>
+      <nomeDoEvento>EVENTO CONTRATO</nomeDoEvento>
+      <dataEHoraDoEvento>9000-12-12T00:00:00</dataEHoraDoEvento>
+      <localDoEvento>BB</localDoEvento>
+      <tamanho>12</tamanho>
+      <foiContradoOuNao>false</foiContradoOuNao>
+      <valor>40</valor>
+      <foiConcluido>false</foiConcluido>
+      <comentariosFornecedores/>
+      <fornecedores>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[3]"/>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[5]"/>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico"/>
+        <model.FornecedorFisico reference="../../../../todosOsFornecedores/model.FornecedorFisico[2]"/>
       </fornecedores>
       <pacotesDeFornecedores/>
     </model.OrcamentoOuContrato>

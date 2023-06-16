@@ -49,12 +49,10 @@ public class OrcamentoController {
 		LocalDateTime dataHoraAtual = LocalDateTime.now();
 		if (!existeOrcamentoNessaData(orcamento.getDataEHoraDoEvento())
 				&& orcamento.getDataEHoraDoEvento().isAfter(dataHoraAtual)) {
-			CentralDeInformacoes.getInstance().getTodosEvento().add(0, orcamento);// modifiquei para ele adicionar no
-																					// indice 0 para quando ele listar
-																					// os orcamentos
+			CentralDeInformacoes.getInstance().getTodosEvento().add(0, orcamento);
+			
 			Persistencia.getInstance().salvarCentral(CentralDeInformacoes.getInstance(), Constantes.NOME_ARQUIVO);// os modificados fiquem em cima,em ordem decrescente
-			return true;// 14 - Eles são listados em ordem decrescente desde a última vez que sofreram
-						// alguma modificação (os mais recentes primeiros).
+			return true;
 
 		}
 		return false;
