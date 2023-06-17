@@ -11,14 +11,24 @@ import util.Constantes;
 
 public class CentralDeInformacoes {
 
-	private static CentralDeInformacoes instance;
-
+	/**
+	 * Atributos criados na central de informações para que sejam todos preenchidos
+	 * de acordo com a quanttidade de coisas que iremos cadastrar durante a execução
+	 * do sistema
+	 */
 	private ArrayList<Pessoa> todosOsClientes = new ArrayList();
 	private ArrayList<Pessoa> todosOsFornecedores = new ArrayList();
 	private ArrayList<OrcamentoOuContrato> todosEvento = new ArrayList();
 	private ArrayList<String> todosServicos = new ArrayList();
 	private ArrayList<Pacote> todosOsPacotes = new ArrayList();
 	private Administrador administrador;
+
+	/**
+	 * Atibuto da propria classe que esta privado para nao ser estanciado mais de
+	 * uma vez, utilizamos o padrao singleton para termos apenas uma instancia dessa
+	 * classe para nao perdermos as alterações que fizermos nela
+	 */
+	private static CentralDeInformacoes instance;
 
 	private CentralDeInformacoes() {
 		popularTodosServicos();
@@ -36,6 +46,11 @@ public class CentralDeInformacoes {
 		}
 		return instance;
 	}
+
+	/**
+	 * gets e sets dos atriutos para podermos acessalos em outros locais que a
+	 * central de informação for estanciado
+	 */
 
 	public ArrayList<Pacote> getTodosOsPacotes() {
 		return todosOsPacotes;
@@ -85,6 +100,10 @@ public class CentralDeInformacoes {
 		this.administrador = administrador;
 	}
 
+	/**
+	 * Metodo que utilizamos para iniciarmos com alguns serviços cadastrados, para o
+	 * programa não iniciar sem nenhum serviço
+	 */
 	private void popularTodosServicos() {
 		todosServicos.addAll(Arrays.asList("Buffet", "Musica", "Ornamentação", "Local", "Segurança", "Serviços Gerais",
 				"Agente de publicidade", "Recepção"));
