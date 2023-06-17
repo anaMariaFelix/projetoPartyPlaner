@@ -1,5 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <baseDedados.CentralDeInformacoes>
-  <todosOsClientes/>
+  <todosOsClientes>
+    <model.ClienteFisico>
+      <nome>sidcliççç</nome>
+      <telefone>99999999999</telefone>
+      <email>s@s</email>
+      <CPF>11181131448</CPF>
+    </model.ClienteFisico>
+  </todosOsClientes>
   <todosOsFornecedores/>
   <todosEvento/>
   <todosServicos>

@@ -4,7 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
@@ -33,6 +35,11 @@ public class Persistencia {
 		return instance;
 	}
 	
+	/**
+	 * Para gravar o arquivo no UTF-8 foi consultado os seguintes sites
+	 * https://cursos.alura.com.br/forum/topico-duvida-sobre-encode-com-xstream-e-o-springboot-119178
+	 * https://stackoverflow.com/questions/21096367/how-to-make-the-printwriter-to-write-utf-8
+	 */
 	public void salvarCentral(CentralDeInformacoes centralDeinformacoes,String nomeDoArquivo) {
 		arquivo = new File(nomeDoArquivo+".xml");
 
@@ -40,13 +47,13 @@ public class Persistencia {
 			if(!arquivo.exists()) {
 				arquivo.createNewFile();
 			}
-			//https://cursos.alura.com.br/forum/topico-duvida-sobre-encode-com-xstream-e-o-springboot-119178
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 	        Writer writer = new OutputStreamWriter(outputStream,     StandardCharsets.UTF_8);
 	        writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
 	        xstream.toXML(centralDeinformacoes, writer);
 	        String xml = outputStream.toString("UTF-8");
-			PrintWriter gravar = new PrintWriter(arquivo);
+	        OutputStream os = new FileOutputStream(arquivo);
+	        PrintWriter gravar = new PrintWriter(new OutputStreamWriter(os, "UTF-8"));
 			gravar.print(xml);
 			gravar.close();
 		}catch (IOException e) {
