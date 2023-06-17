@@ -41,9 +41,6 @@ public class Programa {
 		} else {
 			JanelaPadrao janela = new CadastamentoAdministrador();
 		}
-
-		//new TelaMenu("Menu");
-		//TelaCadastrarOrcamento telaCadastrarOrcamento = new TelaCadastrarOrcamento("cadastrar");
 		
 
 	}

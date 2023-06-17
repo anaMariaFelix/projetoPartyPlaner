@@ -16,6 +16,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.AnyTypePermission;
 
+
 public class Persistencia {
 	
 	private static Persistencia instance;
@@ -35,11 +36,7 @@ public class Persistencia {
 		return instance;
 	}
 	
-	/**
-	 * Para gravar o arquivo no UTF-8 foi consultado os seguintes sites
-	 * https://cursos.alura.com.br/forum/topico-duvida-sobre-encode-com-xstream-e-o-springboot-119178
-	 * https://stackoverflow.com/questions/21096367/how-to-make-the-printwriter-to-write-utf-8
-	 */
+
 	public void salvarCentral(CentralDeInformacoes centralDeinformacoes,String nomeDoArquivo) {
 		arquivo = new File(nomeDoArquivo+".xml");
 
@@ -60,6 +57,7 @@ public class Persistencia {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	public CentralDeInformacoes recupearCentral(String nome) {
 		arquivo = new File(nome+".xml");

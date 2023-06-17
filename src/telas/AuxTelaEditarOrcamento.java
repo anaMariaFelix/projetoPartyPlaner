@@ -143,7 +143,7 @@ public class AuxTelaEditarOrcamento {
 		telaCadastrarOrcamento.getBotaoAdicionarFornecedores().setVisible(false);
 
 		adicionarJButton(); // adiciono o botao e o check e depois verifico se é um contrato concluido(16)
-		adicionarJCheckBox(); // para setar os visible
+		adicionarJCheckBox(); 
 
 		if (orcamentoContrato.isFoiConcluido()) {// Se nao for concluido deixa tudo como esta(podendo alterar), se nao
 													// deixo os campos inacessiveis (16)
