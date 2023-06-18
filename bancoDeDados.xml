@@ -63,8 +63,282 @@
       <disponibilidade>true</disponibilidade>
       <comentariosFornecedores/>
     </model.FornecedorFisico>
+    <model.FornecedorFisico>
+      <nome>qweqwe</nome>
+      <telefone>11111111111</telefone>
+      <email>12345@1243</email>
+      <cpfCnpj>22758445034</cpfCnpj>
+      <servicos>
+        <string>Buffet</string>
+      </servicos>
+      <quantContratosFisico>0</quantContratosFisico>
+      <disponibilidade>true</disponibilidade>
+      <comentariosFornecedores/>
+    </model.FornecedorFisico>
+    <model.FornecedorFisico>
+      <nome>wdboqwudbqiu</nome>
+      <telefone>65565656565</telefone>
+      <email>1231231@1212312</email>
+      <cpfCnpj>93974173048</cpfCnpj>
+      <servicos>
+        <string>Buffet</string>
+      </servicos>
+      <quantContratosFisico>0</quantContratosFisico>
+      <disponibilidade>true</disponibilidade>
+      <comentariosFornecedores/>
+    </model.FornecedorFisico>
+    <model.FornecedorFisico>
+      <nome>dcefrverv</nome>
+      <telefone>63963963939</telefone>
+      <email>128731825@19827362873</email>
+      <cpfCnpj>01312043008</cpfCnpj>
+      <servicos>
+        <string>Buffet</string>
+      </servicos>
+      <quantContratosFisico>0</quantContratosFisico>
+      <disponibilidade>true</disponibilidade>
+      <comentariosFornecedores/>
+    </model.FornecedorFisico>
+    <model.FornecedorFisico>
+      <nome>gwebdiwyvfy</nome>
+      <telefone>89124801089</telefone>
+      <email>1371269873@sifusl</email>
+      <cpfCnpj>95550002043</cpfCnpj>
+      <servicos>
+        <string>Buffet</string>
+      </servicos>
+      <quantContratosFisico>0</quantContratosFisico>
+      <disponibilidade>true</disponibilidade>
+      <comentariosFornecedores/>
+    </model.FornecedorFisico>
   </todosOsFornecedores>
   <todosEvento>
+    <model.OrcamentoOuContrato>
+      <clienteAssociado class="model.ClienteFisico">
+        <nome>aaaaaaaaa</nome>
+        <telefone>11111111111</telefone>
+        <email>1@1</email>
+        <CPF>34473600033</CPF>
+      </clienteAssociado>
+      <nomeDoEvento>ANSIA</nomeDoEvento>
+      <dataEHoraDoEvento>5451-09-03T21:00:00</dataEHoraDoEvento>
+      <localDoEvento>OIQUWYR</localDoEvento>
+      <tamanho>984</tamanho>
+      <foiContradoOuNao>false</foiContradoOuNao>
+      <valor>124146.0</valor>
+      <foiConcluido>false</foiConcluido>
+      <fornecedores/>
+      <pacotesDeFornecedores>
+        <model.Pacote>
+          <nomeDoPacote>Pacote novo</nomeDoPacote>
+          <valorDoPacote>123546</valorDoPacote>
+          <descricao>AAAAAAAAA</descricao>
+          <disponibilidade>Disponivel</disponibilidade>
+          <todosFornecedore>
+            <model.FornecedorFisico>
+              <nome>Emerson</nome>
+              <telefone>11111111111</telefone>
+              <email>1@1</email>
+              <cpfCnpj>34473600033</cpfCnpj>
+              <servicos>
+                <string>Buffet</string>
+              </servicos>
+              <quantContratosFisico>7</quantContratosFisico>
+              <disponibilidade>true</disponibilidade>
+              <comentariosFornecedores>
+                <string>Bom demais</string>
+                <string></string>
+                <string>Muito ruim</string>
+                <string>Muito bom</string>
+                <string>Trabalha muito</string>
+              </comentariosFornecedores>
+            </model.FornecedorFisico>
+            <model.FornecedorFisico>
+              <nome>AANA</nome>
+              <telefone>33333333333</telefone>
+              <email>12@123</email>
+              <cpfCnpj>78256509058</cpfCnpj>
+              <servicos>
+                <string>Buffet</string>
+              </servicos>
+              <quantContratosFisico>7</quantContratosFisico>
+              <disponibilidade>true</disponibilidade>
+              <comentariosFornecedores>
+                <string>Ana</string>
+                <string></string>
+                <string>Muito ruim</string>
+                <string>Legalzinha</string>
+                <string>ajsoi</string>
+              </comentariosFornecedores>
+            </model.FornecedorFisico>
+          </todosFornecedore>
+        </model.Pacote>
+        <model.Pacote>
+          <nomeDoPacote>PACOTE NOVO</nomeDoPacote>
+          <valorDoPacote>600</valorDoPacote>
+          <descricao>AAAAAAAAAAAAAAAAAAAAAAAAH</descricao>
+          <disponibilidade>Disponivel</disponibilidade>
+          <todosFornecedore>
+            <model.FornecedorFisico>
+              <nome>AANA</nome>
+              <telefone>33333333333</telefone>
+              <email>12@123</email>
+              <cpfCnpj>78256509058</cpfCnpj>
+              <servicos>
+                <string>Buffet</string>
+              </servicos>
+              <quantContratosFisico>7</quantContratosFisico>
+              <disponibilidade>true</disponibilidade>
+              <comentariosFornecedores>
+                <string>Ana</string>
+                <string></string>
+                <string>Muito ruim</string>
+                <string>Legalzinha</string>
+                <string>Nao gosta de trabalhar, fora</string>
+              </comentariosFornecedores>
+            </model.FornecedorFisico>
+            <model.FornecedorFisico>
+              <nome>Bruna</nome>
+              <telefone>11111111111</telefone>
+              <email>12345@1245</email>
+              <cpfCnpj>64469475009</cpfCnpj>
+              <servicos>
+                <string>Buffet</string>
+              </servicos>
+              <quantContratosFisico>0</quantContratosFisico>
+              <disponibilidade>true</disponibilidade>
+              <comentariosFornecedores/>
+            </model.FornecedorFisico>
+            <model.FornecedorFisico>
+              <nome>wdboqwudbqiu</nome>
+              <telefone>65565656565</telefone>
+              <email>1231231@1212312</email>
+              <cpfCnpj>93974173048</cpfCnpj>
+              <servicos>
+                <string>Buffet</string>
+              </servicos>
+              <quantContratosFisico>0</quantContratosFisico>
+              <disponibilidade>true</disponibilidade>
+              <comentariosFornecedores/>
+            </model.FornecedorFisico>
+          </todosFornecedore>
+        </model.Pacote>
+      </pacotesDeFornecedores>
+    </model.OrcamentoOuContrato>
+    <model.OrcamentoOuContrato>
+      <clienteAssociado class="model.ClienteFisico">
+        <nome>aaaaaaaaa</nome>
+        <telefone>11111111111</telefone>
+        <email>1@1</email>
+        <CPF>34473600033</CPF>
+      </clienteAssociado>
+      <nomeDoEvento>TA ACABANU</nomeDoEvento>
+      <dataEHoraDoEvento>2023-06-18T15:30:00</dataEHoraDoEvento>
+      <localDoEvento>Braza cada um nas suas casas</localDoEvento>
+      <tamanho>3</tamanho>
+      <foiContradoOuNao>false</foiContradoOuNao>
+      <valor>500000</valor>
+      <foiConcluido>false</foiConcluido>
+      <fornecedores>
+        <model.FornecedorFisico>
+          <nome>Emerson</nome>
+          <telefone>11111111111</telefone>
+          <email>1@1</email>
+          <cpfCnpj>34473600033</cpfCnpj>
+          <servicos>
+            <string>Buffet</string>
+          </servicos>
+          <quantContratosFisico>7</quantContratosFisico>
+          <disponibilidade>true</disponibilidade>
+          <comentariosFornecedores>
+            <string>Bom demais</string>
+            <string></string>
+            <string>Muito ruim</string>
+            <string>Muito bom</string>
+            <string>Lindo, trabalha muito</string>
+          </comentariosFornecedores>
+        </model.FornecedorFisico>
+        <model.FornecedorFisico>
+          <nome>AANA</nome>
+          <telefone>33333333333</telefone>
+          <email>12@123</email>
+          <cpfCnpj>78256509058</cpfCnpj>
+          <servicos>
+            <string>Buffet</string>
+          </servicos>
+          <quantContratosFisico>7</quantContratosFisico>
+          <disponibilidade>true</disponibilidade>
+          <comentariosFornecedores>
+            <string>Ana</string>
+            <string></string>
+            <string>Muito ruim</string>
+            <string>Legalzinha</string>
+            <string>Nao gosta de trabalhar, fora</string>
+          </comentariosFornecedores>
+        </model.FornecedorFisico>
+        <model.FornecedorFisico>
+          <nome>Bruna</nome>
+          <telefone>11111111111</telefone>
+          <email>12345@1245</email>
+          <cpfCnpj>64469475009</cpfCnpj>
+          <servicos>
+            <string>Buffet</string>
+          </servicos>
+          <quantContratosFisico>0</quantContratosFisico>
+          <disponibilidade>true</disponibilidade>
+          <comentariosFornecedores/>
+        </model.FornecedorFisico>
+        <model.FornecedorFisico>
+          <nome>qweqwe</nome>
+          <telefone>11111111111</telefone>
+          <email>12345@1243</email>
+          <cpfCnpj>22758445034</cpfCnpj>
+          <servicos>
+            <string>Buffet</string>
+          </servicos>
+          <quantContratosFisico>0</quantContratosFisico>
+          <disponibilidade>true</disponibilidade>
+          <comentariosFornecedores/>
+        </model.FornecedorFisico>
+        <model.FornecedorFisico>
+          <nome>wdboqwudbqiu</nome>
+          <telefone>65565656565</telefone>
+          <email>1231231@1212312</email>
+          <cpfCnpj>93974173048</cpfCnpj>
+          <servicos>
+            <string>Buffet</string>
+          </servicos>
+          <quantContratosFisico>0</quantContratosFisico>
+          <disponibilidade>true</disponibilidade>
+          <comentariosFornecedores/>
+        </model.FornecedorFisico>
+        <model.FornecedorFisico>
+          <nome>dcefrverv</nome>
+          <telefone>63963963939</telefone>
+          <email>128731825@19827362873</email>
+          <cpfCnpj>01312043008</cpfCnpj>
+          <servicos>
+            <string>Buffet</string>
+          </servicos>
+          <quantContratosFisico>0</quantContratosFisico>
+          <disponibilidade>true</disponibilidade>
+          <comentariosFornecedores/>
+        </model.FornecedorFisico>
+        <model.FornecedorFisico>
+          <nome>gwebdiwyvfy</nome>
+          <telefone>89124801089</telefone>
+          <email>1371269873@sifusl</email>
+          <cpfCnpj>95550002043</cpfCnpj>
+          <servicos>
+            <string>Buffet</string>
+          </servicos>
+          <quantContratosFisico>0</quantContratosFisico>
+          <disponibilidade>true</disponibilidade>
+          <comentariosFornecedores/>
+        </model.FornecedorFisico>
+      </fornecedores>
+      <pacotesDeFornecedores/>
+    </model.OrcamentoOuContrato>
     <model.OrcamentoOuContrato>
       <clienteAssociado class="model.ClienteFisico">
         <nome>aaaaaaaaa</nome>
@@ -586,6 +860,56 @@
             <string>Legalzinha</string>
             <string>ajsoi</string>
           </comentariosFornecedores>
+        </model.FornecedorFisico>
+      </todosFornecedore>
+    </model.Pacote>
+    <model.Pacote>
+      <nomeDoPacote>PACOTE NOVO</nomeDoPacote>
+      <valorDoPacote>600</valorDoPacote>
+      <descricao>AAAAAAAAAAAAAAAAAAAAAAAAH</descricao>
+      <disponibilidade>Disponivel</disponibilidade>
+      <todosFornecedore>
+        <model.FornecedorFisico>
+          <nome>AANA</nome>
+          <telefone>33333333333</telefone>
+          <email>12@123</email>
+          <cpfCnpj>78256509058</cpfCnpj>
+          <servicos>
+            <string>Buffet</string>
+          </servicos>
+          <quantContratosFisico>7</quantContratosFisico>
+          <disponibilidade>true</disponibilidade>
+          <comentariosFornecedores>
+            <string>Ana</string>
+            <string></string>
+            <string>Muito ruim</string>
+            <string>Legalzinha</string>
+            <string>Nao gosta de trabalhar, fora</string>
+          </comentariosFornecedores>
+        </model.FornecedorFisico>
+        <model.FornecedorFisico>
+          <nome>Bruna</nome>
+          <telefone>11111111111</telefone>
+          <email>12345@1245</email>
+          <cpfCnpj>64469475009</cpfCnpj>
+          <servicos>
+            <string>Buffet</string>
+          </servicos>
+          <quantContratosFisico>0</quantContratosFisico>
+          <disponibilidade>true</disponibilidade>
+          <comentariosFornecedores/>
+        </model.FornecedorFisico>
+        <model.FornecedorFisico>
+          <nome>wdboqwudbqiu</nome>
+          <telefone>65565656565</telefone>
+          <email>1231231@1212312</email>
+          <cpfCnpj>93974173048</cpfCnpj>
+          <servicos>
+            <string>Buffet</string>
+          </servicos>
+          <quantContratosFisico>0</quantContratosFisico>
+          <disponibilidade>true</disponibilidade>
+          <comentariosFornecedores/>
         </model.FornecedorFisico>
       </todosFornecedore>
     </model.Pacote>

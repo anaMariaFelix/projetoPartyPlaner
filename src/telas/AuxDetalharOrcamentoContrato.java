@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -11,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import model.OrcamentoOuContrato;
 import model.Pacote;
 import model.Pessoa;
+import relatorios.GeradorDePlanilha;
 import util.ComponentesDeJFrame;
 
 public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
@@ -42,10 +44,12 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 		telaCadastrarOrcamento.add(gerarPDF);
 		
 		gerarPlanilha = ComponentesDeJFrame.criarBotao("GerarPlanilha", 499, 450, 100, 30);
+		gerarPlanilha.addActionListener(new OuvinteGerarPlanilha(orcamentoContrato));
 		telaCadastrarOrcamento.add(gerarPlanilha);
 		
 		reuniao = ComponentesDeJFrame.criarBotao("Reunião", 616, 450, 100, 30); 
 		if (orcamentoContrato.isFoiContradoOuNao()) {
+			
 			telaCadastrarOrcamento.add(reuniao);	
 		}
 	}
@@ -190,6 +194,23 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 			
 		}
 		
+		
+	}
+	
+	public class OuvinteGerarPlanilha implements ActionListener{
+
+		private OrcamentoOuContrato orcamento;
+		
+		public OuvinteGerarPlanilha(OrcamentoOuContrato orcamento) {
+			this.orcamento = orcamento;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			
+			GeradorDePlanilha.criarPlanilha(orcamento);
+			JOptionPane.showMessageDialog(null, "Planilha criada com sucesso");
+			
+		}
 		
 	}
 	

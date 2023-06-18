@@ -7,6 +7,7 @@ import model.Administrador;
 import model.OrcamentoOuContrato;
 import model.Pacote;
 import model.Pessoa;
+import model.Reuniao;
 import util.Constantes;
 
 public class CentralDeInformacoes {
@@ -21,6 +22,7 @@ public class CentralDeInformacoes {
 	private ArrayList<OrcamentoOuContrato> todosEvento = new ArrayList();
 	private ArrayList<String> todosServicos = new ArrayList();
 	private ArrayList<Pacote> todosOsPacotes = new ArrayList();
+	private ArrayList<Reuniao> todasAsReunioes = new ArrayList();
 	private Administrador administrador;
 
 	/**
@@ -51,9 +53,17 @@ public class CentralDeInformacoes {
 	 * gets e sets dos atriutos para podermos acessalos em outros locais que a
 	 * central de informação for estanciado
 	 */
-
+	
 	public ArrayList<Pacote> getTodosOsPacotes() {
 		return todosOsPacotes;
+	}
+
+	public ArrayList<Reuniao> getTodasAsReunioes() {
+		return todasAsReunioes;
+	}
+
+	public void setTodasAsReunioes(ArrayList<Reuniao> todasAsReunioes) {
+		this.todasAsReunioes = todasAsReunioes;
 	}
 
 	public void setTodosOsPacotes(ArrayList<Pacote> todosOsPacotes) {
