@@ -63,6 +63,7 @@ public class AuxDetalhaFornecedor {
 			telaCadastrarFornecedor.setListaDeServicos(fisico.getServicos());
 			telaCadastrarFornecedor.getCampoCPF().setEnabled(false);
 			telaCadastrarFornecedor.getPessoaJuridica().setVisible(false);
+			telaCadastrarFornecedor.getPessoaFisica().setEnabled(false);
 			tabelaServicos = tabelaDetalharServicos(fisico);
 			tabelaComentario = tabelaListaComentario(fisico);
 			telaCadastrarFornecedor.add(exibeDisponibilidade(fisico));
@@ -76,6 +77,7 @@ public class AuxDetalhaFornecedor {
 			telaCadastrarFornecedor.setListaDeServicos(juridico.getServicos());
 			telaCadastrarFornecedor.getCpfCnpj().setText("CNPJ");
 			telaCadastrarFornecedor.getPessoaFisica().setVisible(false);
+			telaCadastrarFornecedor.getPessoaJuridica().setEnabled(false);
 			telaCadastrarFornecedor.getCampoCNPJ().setEnabled(false);
 			tabelaServicos = tabelaDetalharServicos(juridico);
 			tabelaComentario = tabelaListaComentario(juridico);

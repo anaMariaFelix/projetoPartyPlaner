@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -44,6 +45,13 @@ public class ComponentesDeJFrame {
 		JTextField campo = new JTextField();
 		campo.setBounds(x, y, comprimento, largura);
 		return campo;
+	}
+	
+	public static JCheckBox criaCheckBox(String titulo, int x, int y,int comprimento,int largura,int tamanho) {
+		JCheckBox check = new JCheckBox(titulo);
+		check.setBounds(x,y,comprimento,largura);
+		check.setFont(new Font("Arial",Font.BOLD,tamanho));
+		return check;	
 	}
 
 }

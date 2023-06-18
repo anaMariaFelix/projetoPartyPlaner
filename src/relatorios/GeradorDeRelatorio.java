@@ -1,82 +1,149 @@
 package relatorios;
 
-import java.time.Month;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
-import baseDedados.CentralDeInformacoes;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import model.OrcamentoOuContrato;
+import model.Pacote;
+import model.Pessoa;
 
 public class GeradorDeRelatorio {
-	public static <PdfPTable> void obterProgramacaoDoMes(Month mes,CentralDeInformacoes centralDeInformacoes) {
-//		Document doc = new Document(PageSize.A4);
-//		
-//		try {
-//			PdfWriter.getInstance(doc, new FileOutputStream("relatorio.pdf"));
-//			
-//			doc.open();
-//			com.itextpdf.text.pdf.PdfPTable tabela = new com.itextpdf.text.pdf.PdfPTable(2);
-//			PdfPCell cabe = new PdfPCell(new Paragraph("                                               -Eventos do mês"));
-//			cabe.setColspan(2);
-//			cabe.setBackgroundColor(BaseColor.CYAN);
-//			tabela.addCell(cabe);
-//			
-//			ArrayList<OrcamentoOuContrato> arrayEventos = verificaSeTemEventoComUmMesEspecifico(mes,centralDeInformacoes);
-//
-//			if( !arrayEventos.isEmpty()) {
-//				for(int i = 0;i < arrayEventos.size();i++) {
-//					Paragraph p = new Paragraph("-Evento:");
-//					tabela.addCell(p);
-//					p = new Paragraph("-Cliente:");
-//					tabela.addCell(p);
-//					p = new Paragraph("Nome: "+arrayEventos.get(i).getNome());
-//					tabela.addCell(p);
-//					p = new Paragraph("Nome: "+arrayEventos.get(i).getClienteAssociado().getNome());
-//					tabela.addCell(p);
-//					p = new Paragraph("Local: "+arrayEventos.get(i).getLocal());
-//					tabela.addCell(p);
-//					//p = new Paragraph("Sexo: "+arrayEventos.get(i).getClienteAssociado().getSexo().name());
-//					//tabela.addCell(p);
-//				//
-//					//p = new Paragraph("CPF: "+arrayEventos.get(i).getClienteAssociado().getCPF());
-//					//tabela.addCell(p);
-//					p = new Paragraph("Id: "+Long.toString(arrayEventos.get(i).getId()));
-//					tabela.addCell(p);
-//					p = new Paragraph("Email: "+arrayEventos.get(i).getClienteAssociado().getEmail());
-//					tabela.addCell(p);
-//					p = new Paragraph("Foi Contratado: "+arrayEventos.get(i).getFoiContradoOuNao());
-//					tabela.addCell(p);
-//					p = new Paragraph(" ");
-//					tabela.addCell(p);
-//					p = new Paragraph(" ");
-//					tabela.addCell(p);
-//					p = new Paragraph(" ");
-//					tabela.addCell(p);
-//				
-//				
-//					
-//				}
-//			}
-//			doc.add(tabela);
-//			doc.close();
-//			
-//		} catch (FileNotFoundException | DocumentException e) {
-//			e.printStackTrace();
-//		}
-//	
-//	}
-//	public static ArrayList<OrcamentoOuContrato> verificaSeTemEventoComUmMesEspecifico(Month mes,CentralDeInformacoes centralDeInformacoes) {
-//		
-//		ArrayList<OrcamentoOuContrato> eventos = centralDeInformacoes.getTodosEvento();
-//		ArrayList<OrcamentoOuContrato> eventosDoMes =  new ArrayList();
-//		
-//		for(int i = 0;i < eventos.size();i++) {
-//			LocalDateTime dataEvento =  eventos.get(i).getDataHora();
-//			Month mesEvento = dataEvento.getMonth();
-//			if(mesEvento.equals(mes)) {
-//				eventosDoMes.add(eventos.get(i));
-//				
-//			}
-//		}
-//	
-//		return eventosDoMes;
+	public static <PdfPTable> void gerarRelatorioOrcamento(OrcamentoOuContrato orcamentoOuContrato, boolean todos,
+			boolean nome, boolean email, boolean data, boolean tamanho, boolean valor, boolean fornecedoresPacotes) {
+		
+		boolean verificaSeEntrou = false;
+		
+		Document doc = new Document(PageSize.A4);
+
+		try {
+			PdfWriter.getInstance(doc, new FileOutputStream("Orcamento.pdf"));
+
+			doc.open();
+
+			Paragraph p = null;
+
+			if (todos) {
+				verificaSeEntrou = true;
+				p = new Paragraph("-Evento:" + orcamentoOuContrato.getNomeDoEvento());
+				doc.add(p);
+				p = new Paragraph("Cliente: " + orcamentoOuContrato.getClienteAssociado().getNome());
+				doc.add(p);
+				p = new Paragraph("Email do Cliente: " + orcamentoOuContrato.getClienteAssociado().getEmail());
+				doc.add(p);
+				p = new Paragraph("Data do Evento: " + orcamentoOuContrato.getDataEHoraDoEvento());
+				doc.add(p);
+				p = new Paragraph("Local do evento: " + orcamentoOuContrato.getLocalDoEvento());
+				doc.add(p);
+				p = new Paragraph("Tamanho do evento: " + orcamentoOuContrato.getTamanho());
+				doc.add(p);
+				p = new Paragraph("Valor do evento: " + orcamentoOuContrato.getValor());
+				doc.add(p);
+
+				if (!orcamentoOuContrato.getFornecedores().isEmpty()) {
+					p = new Paragraph("Fornecedores Do Evento: ");
+					doc.add(p);
+					for (Pessoa fornecedor : orcamentoOuContrato.getFornecedores()) {
+						p = new Paragraph("-" + fornecedor.getNome());
+						doc.add(p);
+					}
+				} else {
+					p = new Paragraph("Pacotes Do Evento: ");
+					doc.add(p);
+					for (Pacote pacotes : orcamentoOuContrato.getPacotesDeFornecedores()) {
+						int cont = 0;
+						p = new Paragraph("-" + pacotes.getNomeDoPacote());
+						doc.add(p);
+						if (cont == 0) {
+							p = new Paragraph("Fornecedores do Pacote: ");
+							doc.add(p);
+						}
+						cont++;
+						for (Pessoa fornecedores : pacotes.getTodosFornecedore()) {
+							p = new Paragraph("-: " + fornecedores.getNome());
+							doc.add(p);
+						}
+					}
+
+				}
+			} else {
+				if (nome) {
+					p = new Paragraph("-Evento:" + orcamentoOuContrato.getNomeDoEvento());
+					doc.add(p);
+					verificaSeEntrou = true;
+				}
+
+				if (email) {
+					p = new Paragraph("Email do Cliente: " + orcamentoOuContrato.getClienteAssociado().getEmail());
+					doc.add(p);
+					verificaSeEntrou = true;
+				}
+
+				if (data) {
+					p = new Paragraph("Data do Evento: " + orcamentoOuContrato.getDataEHoraDoEvento());
+					doc.add(p);
+					verificaSeEntrou = true;
+				}
+
+				if (tamanho) {
+					p = new Paragraph("Tamanho do evento: " + orcamentoOuContrato.getTamanho());
+					doc.add(p);
+					verificaSeEntrou = true;
+				}
+
+				if (valor) {
+					p = new Paragraph("Valor do evento: " + orcamentoOuContrato.getValor());
+					doc.add(p);
+					verificaSeEntrou = true;
+				}
+
+				if (fornecedoresPacotes) {
+					verificaSeEntrou = true;
+					if (!orcamentoOuContrato.getFornecedores().isEmpty()) {
+						p = new Paragraph("Fornecedores Do Evento: ");
+						doc.add(p);
+						for (Pessoa fornecedor : orcamentoOuContrato.getFornecedores()) {
+							p = new Paragraph("-" + fornecedor.getNome());
+							doc.add(p);
+						}
+					} else {
+						p = new Paragraph("Pacotes Do Evento: ");
+						doc.add(p);
+						for (Pacote pacotes : orcamentoOuContrato.getPacotesDeFornecedores()) {
+							int cont = 0;
+							p = new Paragraph("-" + pacotes.getNomeDoPacote());
+							doc.add(p);
+							if (cont == 0) {
+								p = new Paragraph("Fornecedores do Pacote: ");
+								doc.add(p);
+							}
+							cont++;
+							for (Pessoa fornecedores : pacotes.getTodosFornecedore()) {
+								p = new Paragraph("-: " + fornecedores.getNome());
+								doc.add(p);
+							}
+						}
+
+					}
+					
+				}
+				if (!verificaSeEntrou) {
+					p = new Paragraph("Não consta");
+					doc.add(p);
+				}
+			}
+
+			doc.close();
+
+		} catch (FileNotFoundException | DocumentException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

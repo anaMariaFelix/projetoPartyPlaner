@@ -332,11 +332,11 @@ public class AuxTelaEditarOrcamento {
 	public class OuvinteBotaoSalvar implements ActionListener {
 
 		private TelaCadastrarOrcamento telaOrcamento;
-		private OrcamentoOuContrato orcamentoContrato;
+		private OrcamentoOuContrato orcamentoContratoSalvar;
 
-		public OuvinteBotaoSalvar(TelaCadastrarOrcamento telaOrcamento, OrcamentoOuContrato orcamentoContrato) {
+		public OuvinteBotaoSalvar(TelaCadastrarOrcamento telaOrcamento, OrcamentoOuContrato orcamentoContratoSalvar) {
 			this.telaOrcamento = telaOrcamento;
-			this.orcamentoContrato = orcamentoContrato;
+			this.orcamentoContratoSalvar = orcamentoContratoSalvar;
 		}
 
 		public void actionPerformed(ActionEvent e) {
@@ -349,8 +349,8 @@ public class AuxTelaEditarOrcamento {
 			String valor = telaOrcamento.getCampoValor().getText();
 			OrcamentoOuContrato orcamento = null;
 
-			LocalDateTime dataAntiga = orcamentoContrato.getDataEHoraDoEvento();
-			String emailDoAssociado = orcamentoContrato.getClienteAssociado().getEmail();
+			LocalDateTime dataAntiga = orcamentoContratoSalvar.getDataEHoraDoEvento();
+			String emailDoAssociado = orcamentoContratoSalvar.getClienteAssociado().getEmail();
 
 			if (telaOrcamento.validaTodosOsCampos(telaOrcamento, email, nome, local, tamanho, dataEHora, valor)) {
 				Pessoa clienteAssocidado = ClienteController.getInstance().recuperarClientePorEmail(email);
@@ -361,24 +361,24 @@ public class AuxTelaEditarOrcamento {
 																			// fornecedores
 
 				if (contrato.isSelected() && contrato.getText().equals("Promover para Contrato")) {
-					orcamentoContrato.setFoiContradoOuNao(true);
+					orcamentoContratoSalvar.setFoiContradoOuNao(true);
 
-					if (!orcamentoContrato.getFornecedores().isEmpty()) {
+					if (!orcamentoContratoSalvar.getFornecedores().isEmpty()) {
 						
-						for (int i = 0; i < orcamentoContrato.getFornecedores().size(); i++) {
-							if (orcamentoContrato.getFornecedores().get(i) instanceof FornecedorFisico) {
+						for (int i = 0; i < orcamentoContratoSalvar.getFornecedores().size(); i++) {
+							if (orcamentoContratoSalvar.getFornecedores().get(i) instanceof FornecedorFisico) {
 								
-								FornecedorFisico fisico = (FornecedorFisico) orcamentoContrato.getFornecedores().get(i);
+								FornecedorFisico fisico = (FornecedorFisico) orcamentoContratoSalvar.getFornecedores().get(i);
 								fisico.setQuantContratosFisico(fisico.getQuantContratosFisico() + 1);
 							}else {
-								FornecedorJuridico juridico = (FornecedorJuridico)orcamentoContrato.getFornecedores().get(i);
+								FornecedorJuridico juridico = (FornecedorJuridico)orcamentoContratoSalvar.getFornecedores().get(i);
 								juridico.setQuantContratosJuridico(juridico.getQuantContratosJuridico()+ 1);
 							}
 							
 						}
 					} else {					
-						for (int i = 0; i < orcamentoContrato.getPacotesDeFornecedores().size(); i++) {							
-							Pacote pacote = orcamentoContrato.getPacotesDeFornecedores().get(i);
+						for (int i = 0; i < orcamentoContratoSalvar.getPacotesDeFornecedores().size(); i++) {							
+							Pacote pacote = orcamentoContratoSalvar.getPacotesDeFornecedores().get(i);
 							
 							for (int j = 0; j < pacote.getTodosFornecedore().size();j++) {
 								
@@ -398,40 +398,33 @@ public class AuxTelaEditarOrcamento {
 					}
 
 				} else if (contrato.isSelected() && contrato.getText().equals("Marcar como concluido")) {
-					orcamentoContrato.setFoiContradoOuNao(true);
-					orcamentoContrato.setFoiConcluido(true);
+					orcamentoContratoSalvar.setFoiContradoOuNao(true);
+					orcamentoContratoSalvar.setFoiConcluido(true);
 
-					if (!orcamentoContrato.getFornecedores().isEmpty()) { // verifica se sao fornecedores para fazer os
-																			// comentarios
-
-						for (Pessoa p : orcamentoContrato.getFornecedores()) {
-
-							String nomeFornecedor = p.getNome();
-							String comentario = JOptionPane.showInputDialog(telaOrcamento,
-									"Faca um comentario sobre o(a) " + nomeFornecedor);
-
-							if (p instanceof FornecedorFisico) {
-								FornecedorFisico fisico = (FornecedorFisico) p;
-								fisico.getComentariosFornecedores().add(comentario);
-
-							} else {
-								FornecedorJuridico juridico = (FornecedorJuridico) p;
-								juridico.getComentariosFornecedores().add(comentario);
+					if (!orcamentoContratoSalvar.getFornecedores().isEmpty()) { 
+						for (Pessoa p : orcamentoContratoSalvar.getFornecedores()) {			
+							adicionarComentarioAosFornecedores(p);
+						}
+					}else {
+						for (int i = 0; i < orcamentoContratoSalvar.getPacotesDeFornecedores().size();i++) {
+							Pacote pacote = (Pacote)orcamentoContratoSalvar.getPacotesDeFornecedores().get(i);
+							
+							for (int j = 0; j < pacote.getTodosFornecedore().size(); j++) {			
+								adicionarComentarioAosFornecedores(pacote.getTodosFornecedore().get(j));
 							}
-
 						}
 					}
 
 				}
 
 				orcamento = new OrcamentoOuContrato(nome, dataEHoraDoEvento, local, tamanho, clienteAssocidado,
-						orcamentoContrato.isFoiContradoOuNao(), valor, orcamentoContrato.isFoiConcluido());
+						orcamentoContratoSalvar.isFoiContradoOuNao(), valor, orcamentoContratoSalvar.isFoiConcluido());
 
-				if (!orcamentoContrato.getPacotesDeFornecedores().isEmpty()) {
+				if (!orcamentoContratoSalvar.getPacotesDeFornecedores().isEmpty()) {
 
-					orcamento.adicionaPacotesNaLista(orcamentoContrato.getPacotesDeFornecedores());
+					orcamento.adicionaPacotesNaLista(orcamentoContratoSalvar.getPacotesDeFornecedores());
 
-				} else if (!orcamentoContrato.getFornecedores().isEmpty()) {
+				} else if (!orcamentoContratoSalvar.getFornecedores().isEmpty()) {
 
 					orcamento.adicionaFornecedoresNaLista(todosOsFornecedoresDoOrcamento);
 
@@ -442,8 +435,6 @@ public class AuxTelaEditarOrcamento {
 					if (OrcamentoController.getInstance().adicionarOrcamento(orcamento)) {
 						JOptionPane.showMessageDialog(telaOrcamento, "Orçamento editado com sucesso");
 						telaOrcamento.dispose();
-//						OrcamentoController.getInstance().getFornecedores().clear();
-//						OrcamentoController.getInstance().getPacoteFornecedores().clear();
 						new TelaMenu("Menu");
 
 					}
@@ -455,6 +446,21 @@ public class AuxTelaEditarOrcamento {
 
 		}
 
+	}
+	
+	public void adicionarComentarioAosFornecedores(Pessoa fornecedor) {
+		String comentario = null;
+		String nomeFornecedor = fornecedor.getNome();						
+		while (comentario == null) {
+			comentario = JOptionPane.showInputDialog(null,"Faca um comentario sobre o(a) " + nomeFornecedor);
+		}							
+		if (fornecedor instanceof FornecedorFisico) {
+			FornecedorFisico fisico = (FornecedorFisico) fornecedor;
+			fisico.getComentariosFornecedores().add(comentario);
+		} else {
+			FornecedorJuridico juridico = (FornecedorJuridico) fornecedor;
+			juridico.getComentariosFornecedores().add(comentario);
+		}
 	}
 
 }

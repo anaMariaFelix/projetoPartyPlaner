@@ -36,11 +36,9 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 		
 	}
 
-	private void adicionarBotoes() {
-		
-		
-		
+	private void adicionarBotoes() {	
 		gerarPDF = ComponentesDeJFrame.criarBotao("GerarPDF", 380, 450, 100, 30);
+		gerarPDF.addActionListener(new OuvinteGerarPDF(orcamentoContrato,telaCadastrarOrcamento));
 		telaCadastrarOrcamento.add(gerarPDF);
 		
 		gerarPlanilha = ComponentesDeJFrame.criarBotao("GerarPlanilha", 499, 450, 100, 30);
@@ -172,6 +170,26 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 			
 			
 		}
+		
+	}
+	
+	public class OuvinteGerarPDF implements ActionListener{
+		
+		private OrcamentoOuContrato orcamento;
+		private TelaCadastrarOrcamento janelaEditar;
+		
+		public OuvinteGerarPDF(OrcamentoOuContrato orcamento,TelaCadastrarOrcamento janelaEditar) {
+			this.orcamento = orcamento;
+			this.janelaEditar = janelaEditar;
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			janelaEditar.dispose();
+			new TelaGerarPDF("Dados do Relatorio", orcamento);
+			
+			
+		}
+		
 		
 	}
 	

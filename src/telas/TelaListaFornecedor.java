@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -96,7 +97,8 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		modelo.addColumn("Detalhar");
 
 		Object[] todosOsFornecedores = FornecedorController.getInstance().obterTodosOsFornecedores().toArray();
-
+		Arrays.sort(todosOsFornecedores);
+		
 		tabela = new JTable(modelo);
 		tabela.getColumn("Editar").setCellRenderer(new ButtonRenderer()); // Mostra um botao dentro da célula
 																			// (linha/coluna)
