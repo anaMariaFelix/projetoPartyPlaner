@@ -64,7 +64,7 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 	}
 
 	private void adicionarJLabel() {
-		titulo = ComponentesDeJFrame.criaJLabel("Lista de Orçamentos/Contratos", 0, 40, 800, 50, 30);
+		titulo = ComponentesDeJFrame.criaJLabel("Lista de Orçamentos/Contratos", 0, 36, 800, 50, 30);
 		titulo.setHorizontalAlignment(JLabel.CENTER);
 		add(titulo);
 		
@@ -75,6 +75,10 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 		voltar = ComponentesDeJFrame.criarBotao("Voltar", 636, 490, 125, 35);
 		voltar.addActionListener(ouvinteBotaoVoltar);
 		add(voltar);
+		
+		JButton botaoReunioes = ComponentesDeJFrame.criarBotao("Lista de Reuniões", 635, 98, 125, 35);
+		botaoReunioes.addActionListener(new OuvinteReunioes());
+		add(botaoReunioes);
 	}
 
 	protected void adicionarJTable() {
@@ -236,6 +240,17 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 		
 	}
 	
+	public class OuvinteReunioes implements ActionListener{
+
+		
+		
+		public void actionPerformed(ActionEvent e) {
+			dispose();
+			new TelaListaReunioes("Reuniões");
+			
+		}
+		
+	}
 	
 	
 }

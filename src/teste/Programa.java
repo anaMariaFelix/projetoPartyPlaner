@@ -1,22 +1,12 @@
 package teste;
 
-import java.awt.Desktop;
-import java.io.FileOutputStream;
-
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
-
-import com.itextpdf.text.pdf.PdfWriter;
-
 import javax.swing.UnsupportedLookAndFeelException;
 
 import baseDedados.CentralDeInformacoes;
 import baseDedados.Persistencia;
-import telas.CadastamentoAdministrador;
-import telas.JanelaPadrao;
-import telas.TelaListarOrcamentosContratos;
-import telas.TelaLogin;
+import telas.TelaMenu;
 import util.Constantes;
 
 public class Programa {
@@ -49,8 +39,8 @@ public class Programa {
 //			JanelaPadrao janela = new CadastamentoAdministrador();
 //		}
 		
-		//new TelaMenu("Menu");
-		new TelaListarOrcamentosContratos("titulo");
+		new TelaMenu("Menu");
+		//new TelaListarOrcamentosContratos("titulo");
 
 	}
 

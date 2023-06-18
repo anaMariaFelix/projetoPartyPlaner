@@ -27,18 +27,23 @@ import util.ComponentesDeJFrame;
 
 public class TelaCadastrarPacotes extends JanelaPadrao {
 	private String titulo;
+	
 	private JButton botaoVoltar;
 	private JButton jbFornecedores;
 	private JButton botaoSalvar;
+	
 	private ArrayList<Pessoa> listaDeFornecedores = new ArrayList();
+	
 	private JTextField campoNomeDoPacote;
 	private JTextField campoValorPacote;
 	private JTextArea tfDescricao;
+	
 	private JLabel lbTitulo;
 	private JLabel nomeDoPacote;
 	private JLabel escolhaFornecedores;
 	private JLabel valorPacote;
 	private JLabel caracteristicas;
+	
 	private JScrollPane painel;
 
 
@@ -142,7 +147,6 @@ public class TelaCadastrarPacotes extends JanelaPadrao {
 		add(campoValorPacote);
 
 		tfDescricao = new JTextArea();// e um campo que suporta multiplas linhas(testo)
-		tfDescricao.setText("Descrição: ");// palavra que aparece dentro do campo
 
 		painel = new JScrollPane(tfDescricao);// JScrollPane é uma barra de rolagem que aparece quando o
 															// texto n cabe mas no campo
@@ -152,36 +156,6 @@ public class TelaCadastrarPacotes extends JanelaPadrao {
 		tfDescricao.setWrapStyleWord(true);// quebra o texto tbm para a proxima linha mas ele coloca a palavra completa
 											// na proxima linha
 		add(painel);
-
-		// ouvinte anonimo para quando o campo receber foco o "descriçao " que esta
-		// dentro dele saia
-		tfDescricao.addFocusListener(new FocusListener() {// FocusListener verifica se o campo recebel foco
-
-			@Override
-			public void focusLost(FocusEvent e) {// quando perde o foco
-				JTextArea tf = (JTextArea) e.getSource();
-				String texto = tf.getText();
-
-				if (texto.trim().equals("")) {// nesse metodo quando o campo perde o foco se(if) ele tiver vazio ele
-												// volta a ter a palvra "descrição " dentro dele
-					tf.setText("Descrição: ");
-					tf.repaint();
-				}
-
-			}
-
-			@Override
-			public void focusGained(FocusEvent e) {// quando ganha foco
-				JTextArea tf = (JTextArea) e.getSource();// pega o jtextArea
-				String texto = tf.getText();
-
-				if (texto.equals("Descrição: ")) {// se for igual quando ele receber foco ai ele atualiza para
-													// barnco(sem nada)
-					tf.setText("");// passa a ser vazio
-					tf.repaint();// atualiza
-				}
-			}
-		});
 
 	}
 

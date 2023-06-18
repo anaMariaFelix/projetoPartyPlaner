@@ -1,84 +1,68 @@
 package controller;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
+import java.util.Timer;
 
 import baseDedados.CentralDeInformacoes;
+import baseDedados.Persistencia;
 import model.Reuniao;
+import util.Constantes;
 
 public class ReuniaoController {
 
 	private static ReuniaoController instance;
-	
-	static ArrayList<Reuniao> listaTeste = new ArrayList();
-	
+
 	private ReuniaoController() {
-		
+
 	}
-	
-	public ReuniaoController getInstance() {
+
+	public static ReuniaoController getInstance() {
 		if (instance == null) {
 			instance = new ReuniaoController();
 		}
 		return instance;
 	}
-	
-	
-	
-	public static boolean adicionarReuniao(Reuniao reuniao) {
-		if (!existeReuniao(reuniao.getData())) {
-			listaTeste.add(reuniao);
+
+	public boolean adicionarReuniao(Reuniao reuniao) {
+		if (!existeReuniao(reuniao.getDataHora())) {
+			CentralDeInformacoes.getInstance().getTodasAsReunioes().add(reuniao);
+			Persistencia.getInstance().salvarCentral(CentralDeInformacoes.getInstance(), Constantes.NOME_ARQUIVO);
 			return true;
 		}
 		return false;
 	}
-	
-	public static boolean existeReuniao(LocalDateTime data) {
-		for (Reuniao reunioes: listaTeste) {
-			if (reunioes.getData().equals(data) || data.getHour() < reunioes.getData().getHour()-30) {
+
+	public boolean existeReuniao(String data) {
+		LocalDateTime dataComparar = quebraDataEConverteEmLocalDateTime(data);
+		
+		
+		for (Reuniao reunioes : CentralDeInformacoes.getInstance().getTodasAsReunioes()) {
+			LocalDateTime dataReuniao = quebraDataEConverteEmLocalDateTime(reunioes.getDataHora());
+			long intervalo = Math.abs(dataReuniao.until(dataComparar, ChronoUnit.MINUTES));
+			if (dataComparar.equals(dataReuniao)) {
 				return true;
 			}
+			if (intervalo < 30) {
+				return true;
+			}		
 		}
-		
-		
+
 		return false;
+
 	}
-	
-	public static ArrayList<Reuniao> obterTodasReunioes(){
+
+	public ArrayList<Reuniao> obterTodasReunioes() {
 		return CentralDeInformacoes.getInstance().getTodasAsReunioes();
 	}
-	
-	public static void main(String[] args) {
-		
-		ReuniaoController instance = new ReuniaoController();
-		
-		Reuniao r = new Reuniao();
-		
-		r.setData(quebraDataEConverteEmLocalDateTime("12/12/2000 12:30"));
-		
-		adicionarReuniao(r);
-		Reuniao r2 = new Reuniao();
-		r2.setData(quebraDataEConverteEmLocalDateTime("12/12/2000 12:30"));
-		
-		if (adicionarReuniao(r2)) {
-			JOptionPane.showMessageDialog(null,"DEU CERTO");
-		}else {
-			JOptionPane.showMessageDialog(null, "Deu errado");
-		}
-		
-		
-		
-		
-		
-		
-		
-	}
-	public static LocalDateTime quebraDataEConverteEmLocalDateTime(String data) {
+
+	public LocalDateTime quebraDataEConverteEmLocalDateTime(String data) {
 		String dataSemEspaco = data.replaceAll(" ", "");
-		char [] novaData = new char[10];
+		char[] novaData = new char[10];
 		char[] hora = new char[5];
 		int cont = 0;
 		for (int i = 0; i < dataSemEspaco.length(); i++) {
@@ -98,5 +82,8 @@ public class ReuniaoController {
 		return dateTime;
 	}
 	
-	
+	public void atualizarCentral() {
+		Persistencia.getInstance().salvarCentral(CentralDeInformacoes.getInstance(), Constantes.NOME_ARQUIVO);
+	}
+
 }

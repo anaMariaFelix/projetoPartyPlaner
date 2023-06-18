@@ -1,7 +1,10 @@
 package telas;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -34,7 +37,6 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 		super("Dados");
 		this.orcamentoContrato = orcamentoContrato;
 		configurarTela();
-		adicionarBotoes();
 		
 	}
 
@@ -49,7 +51,7 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 		
 		reuniao = ComponentesDeJFrame.criarBotao("Reunião", 616, 450, 100, 30); 
 		if (orcamentoContrato.isFoiContradoOuNao()) {
-			
+			reuniao.addActionListener(new OuvinteReuniao(orcamentoContrato,telaCadastrarOrcamento));
 			telaCadastrarOrcamento.add(reuniao);	
 		}
 	}
@@ -102,6 +104,7 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 
 		telaCadastrarOrcamento.getBotaoAdicionarFornecedores().setVisible(false);
 
+		adicionarBotoes();
 		adicionarJTable();
 	}
 	
@@ -209,6 +212,32 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 			
 			GeradorDePlanilha.criarPlanilha(orcamento);
 			JOptionPane.showMessageDialog(null, "Planilha criada com sucesso");
+			
+			Desktop desktop = Desktop.getDesktop();
+			File file = new File("Orcamento.xls");
+			try {
+				desktop.open(file);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
+		}
+		
+	}
+	
+	public class OuvinteReuniao implements ActionListener{
+
+		private OrcamentoOuContrato orcamentoOuContrato;
+		private TelaCadastrarOrcamento telaCadastrarOrcamento;
+		
+		public OuvinteReuniao(OrcamentoOuContrato orcamentoOuContrato,TelaCadastrarOrcamento telaCadastrarOrcamento) {
+			this.orcamentoOuContrato = orcamentoOuContrato;
+			this.telaCadastrarOrcamento = telaCadastrarOrcamento;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			telaCadastrarOrcamento.dispose();
+			new TelaCadastrarReuniao("Cadastrar Reuniões",orcamentoOuContrato);
 			
 		}
 		
