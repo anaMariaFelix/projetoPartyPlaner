@@ -1,7 +1,10 @@
 package telas;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -178,9 +181,17 @@ public class TelaGerarPDF extends JanelaPadrao {
 		public void actionPerformed(ActionEvent e) {
 
 			GeradorDeRelatorio relatorio = new GeradorDeRelatorio();
-			relatorio.gerarRelatorioOrcamento(orcamentoContrato, todos, nome, email, data, tamanho, valor,
-					fornecedoresPacotes);
+			relatorio.gerarRelatorioOrcamento(orcamentoContrato, todos, nome, email, data, tamanho, valor,fornecedoresPacotes);
 			JOptionPane.showMessageDialog(null, "Relatório gerado com sucesso!");
+			
+			Desktop desktop = Desktop.getDesktop();
+			File file = new File("Orcamento.pdf");
+			try {
+				desktop.open(file);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
 			dispose();
 			new AuxDetalharOrcamentoContrato(orcamentoOuContrato);
 

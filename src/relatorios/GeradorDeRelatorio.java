@@ -1,10 +1,10 @@
 package relatorios;
 
 import java.awt.Desktop;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-
-import javax.swing.JOptionPane;
+import java.io.IOException;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -18,14 +18,17 @@ import model.Pessoa;
 
 public class GeradorDeRelatorio {
 	public static <PdfPTable> void gerarRelatorioOrcamento(OrcamentoOuContrato orcamentoOuContrato, boolean todos,
-			boolean nome, boolean email, boolean data, boolean tamanho, boolean valor, boolean fornecedoresPacotes) {
+			boolean nome, boolean email, boolean data, boolean tamanho, boolean valor, boolean fornecedoresPacotes){
 
 		boolean verificaSeEntrou = false;
 
 		Document doc = new Document(PageSize.A4);
+		
+		FileOutputStream pdf = null;
 
 		try {
-			PdfWriter.getInstance(doc, new FileOutputStream("Orcamento.pdf"));
+			pdf = new FileOutputStream("Orcamento.pdf");
+			PdfWriter.getInstance(doc, pdf);
 
 			doc.open();
 
@@ -183,8 +186,6 @@ public class GeradorDeRelatorio {
 		} catch (FileNotFoundException | DocumentException e) {
 			e.printStackTrace();
 		}
-		
-
 	}
 
 }
