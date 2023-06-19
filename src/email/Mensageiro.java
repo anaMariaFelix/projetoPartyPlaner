@@ -9,15 +9,16 @@ import org.apache.commons.mail.SimpleEmail;
 import controller.AdministradorController;
 import model.OrcamentoOuContrato;
 import model.Reuniao;
+import telas.SplashScreen;
 
 public class Mensageiro {
-
-	public static void enviarEmailParaCliente(String emailAdministrador, Reuniao reuniao, String msg,
-			OrcamentoOuContrato evento) {
+	
+	public static void enviarEmailParaCliente(String emailAdministrador, Reuniao reuniao, String msg,OrcamentoOuContrato evento) {
+		
 		Email email = new SimpleEmail();
 
 		try {
-			email.setDebug(true);
+			email.setDebug(false);
 			email.setHostName("smtp.gmail.com");
 			email.setAuthentication("mensageiro811@gmail.com", "yazgcogoqjxgaxag");
 			email.setSSL(true);
@@ -28,6 +29,7 @@ public class Mensageiro {
 					+ AdministradorController.getInstance().obterAdministrador().getSobrenome() + "\n" + "\n"
 					+ "Data da reuniao: " + reuniao.getDataHora() + "\n" + msg);
 			email.send();
+			SplashScreen.getInstance().showSplashAndExit();	
 			JOptionPane.showMessageDialog(null, "Email enviado com sucesso");
 
 		} catch (EmailException e) {

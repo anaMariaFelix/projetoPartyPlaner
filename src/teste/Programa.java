@@ -10,9 +10,10 @@ import telas.TelaMenu;
 import util.Constantes;
 
 public class Programa {
-
+	
 	public static void main(String[] args) {
-
+		
+		
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
@@ -31,7 +32,7 @@ public class Programa {
 		}
 
 		CentralDeInformacoes centralDeInformacoes = Persistencia.getInstance().recupearCentral(Constantes.NOME_ARQUIVO);
-
+//
 //		if (CentralDeInformacoes.getInstance().getAdministrador() != null) {
 //			TelaLogin telaLogin = new TelaLogin("Tela de Login");
 //

@@ -147,13 +147,17 @@
     </model.Reuniao>
     <model.Reuniao>
       <dataHora>27/11/5050 00:10</dataHora>
+      <ataReuniao>
+        <string>aaa</string>
+        <string>aaaaa</string>
+      </ataReuniao>
       <cliente class="model.ClienteFisico">
         <nome>Isamel</nome>
         <telefone>15615195195</telefone>
         <email>ismael.morais@academico.ifpb.edu.br</email>
         <CPF>71308976437</CPF>
       </cliente>
-      <concluido>false</concluido>
+      <concluido>true</concluido>
     </model.Reuniao>
     <model.Reuniao>
       <dataHora>12/12/3000 00:00</dataHora>
@@ -174,6 +178,72 @@
         <CPF>71308976437</CPF>
       </cliente>
       <concluido>true</concluido>
+    </model.Reuniao>
+    <model.Reuniao>
+      <dataHora>10/03/2024 12:00</dataHora>
+      <ataReuniao/>
+      <cliente class="model.ClienteFisico">
+        <nome>Isamel</nome>
+        <telefone>15615195195</telefone>
+        <email>ismael.morais@academico.ifpb.edu.br</email>
+        <CPF>71308976437</CPF>
+      </cliente>
+      <concluido>false</concluido>
+    </model.Reuniao>
+    <model.Reuniao>
+      <dataHora>05/10/2024 02:22</dataHora>
+      <ataReuniao/>
+      <cliente class="model.ClienteFisico">
+        <nome>Isamel</nome>
+        <telefone>15615195195</telefone>
+        <email>ismael.morais@academico.ifpb.edu.br</email>
+        <CPF>71308976437</CPF>
+      </cliente>
+      <concluido>false</concluido>
+    </model.Reuniao>
+    <model.Reuniao>
+      <dataHora>05/12/2025 22:22</dataHora>
+      <ataReuniao/>
+      <cliente class="model.ClienteFisico">
+        <nome>Isamel</nome>
+        <telefone>15615195195</telefone>
+        <email>ismael.morais@academico.ifpb.edu.br</email>
+        <CPF>71308976437</CPF>
+      </cliente>
+      <concluido>false</concluido>
+    </model.Reuniao>
+    <model.Reuniao>
+      <dataHora>12/12/2025 14:25</dataHora>
+      <ataReuniao/>
+      <cliente class="model.ClienteFisico">
+        <nome>Isamel</nome>
+        <telefone>15615195195</telefone>
+        <email>ismael.morais@academico.ifpb.edu.br</email>
+        <CPF>71308976437</CPF>
+      </cliente>
+      <concluido>false</concluido>
+    </model.Reuniao>
+    <model.Reuniao>
+      <dataHora>12/10/2024 12:00</dataHora>
+      <ataReuniao/>
+      <cliente class="model.ClienteFisico">
+        <nome>Isamel</nome>
+        <telefone>15615195195</telefone>
+        <email>ismael.morais@academico.ifpb.edu.br</email>
+        <CPF>71308976437</CPF>
+      </cliente>
+      <concluido>false</concluido>
+    </model.Reuniao>
+    <model.Reuniao>
+      <dataHora>15/04/2030 13:00</dataHora>
+      <ataReuniao/>
+      <cliente class="model.ClienteFisico">
+        <nome>Isamel</nome>
+        <telefone>15615195195</telefone>
+        <email>ismael.morais@academico.ifpb.edu.br</email>
+        <CPF>71308976437</CPF>
+      </cliente>
+      <concluido>false</concluido>
     </model.Reuniao>
   </todasAsReunioes>
   <administrador>
