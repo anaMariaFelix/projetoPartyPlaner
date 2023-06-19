@@ -22,11 +22,11 @@ import model.Pessoa;
 import util.ButtonEditor;
 import util.ButtonRenderer;
 import util.ComponentesDeJFrame;
+import util.Constantes;
 
 public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 	private DefaultTableModel modelo;
 	private JTable tabela;
-	
 	private JLabel titulo;
 	private JButton voltar;
 	private JButton botaoNovo;
@@ -155,7 +155,7 @@ public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 				}
 			}
 
-			modelo.addRow(linha);// adiciona alinha
+			modelo.addRow(linha);
 
 		}
 
@@ -183,23 +183,15 @@ public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 			if (editar) {
 				orcamentoComFornecedores.adicionaFornecedoresNaLista(fornecedores);
 				
-				new AuxTelaEditarOrcamento(orcamentoComFornecedores,"Editar Orçamento/Contrato");
+				new AuxTelaEditarOrcamento(orcamentoComFornecedores,Constantes.TITULO_EDITAR_ORCAMENTO_CONTRATO);
 			}else {
 				
 				
 				janela.setVisible(true);
 				
 			}
-			
-			
-			
 			dispose();
-			
-			
-			
-			
-			
-			
+
 		}
 
 	}
@@ -240,7 +232,7 @@ public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 	
 		public void actionPerformed(ActionEvent e) {
 			dispose();
-			TelaCadastrarFornecedor telaCadastrarFornecedor	= new TelaCadastrarFornecedor("Cadastro Fornecedor");
+			TelaCadastrarFornecedor telaCadastrarFornecedor	= new TelaCadastrarFornecedor(Constantes.TITULO_CADASTRAR_FORNECEDOR);
 			telaCadastrarFornecedor.getBotaoVoltar().removeActionListener(telaCadastrarFornecedor.ouvinteVoltar);
 			telaCadastrarFornecedor.getBotaoVoltar().addActionListener(new ouvinteBotaoVoltarTelaCadastrarFornecedor(orcamentoComFornecedores,telaCadastrarFornecedor));
 			
@@ -260,7 +252,7 @@ public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
 		public void actionPerformed(ActionEvent e) {
 			
 			telaCadastrarFornecedor.dispose();
-			new TelaListaFornecedoresParaOrcamento(false,orcamentoComFornecedores,janela,"Lista De Fornecedores");
+			new TelaListaFornecedoresParaOrcamento(false,orcamentoComFornecedores,janela,Constantes.TITULO_LISTAR_FORNECEDORES);
 			
 		}
 		

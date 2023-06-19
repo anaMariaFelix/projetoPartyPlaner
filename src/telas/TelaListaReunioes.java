@@ -18,10 +18,11 @@ import model.Reuniao;
 import util.ButtonEditor;
 import util.ButtonRenderer;
 import util.ComponentesDeJFrame;
+import util.Constantes;
 
 public class TelaListaReunioes extends JanelaPadrao {
-
 	private JButton voltar;
+	
 	private DefaultTableModel modelo;
 	private JTable tabela;
 
@@ -154,7 +155,7 @@ public class TelaListaReunioes extends JanelaPadrao {
 
 			ReuniaoController.getInstance().atualizarCentral();
 			dispose();
-			new TelaListaReunioes("Lista de Reuniões");
+			new TelaListaReunioes(Constantes.TITULO_LISTAR_REUNIOES);
 
 		}
 
@@ -171,7 +172,7 @@ public class TelaListaReunioes extends JanelaPadrao {
 		
 		public void actionPerformed(ActionEvent e) {
 			dispose();
-			new TelaVisualizarAta("Ata da reunião",reuniao);
+			new TelaVisualizarAta(Constantes.TITULO_ATA_REUNIOES,reuniao);
 			
 		}
 

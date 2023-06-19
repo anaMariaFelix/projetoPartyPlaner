@@ -22,6 +22,7 @@ import model.ClienteFisico;
 import model.ClienteJuridico;
 import model.Pessoa;
 import util.ComponentesDeJFrame;
+import util.Constantes;
 import util.ValidaEmail;
 import util.ValidadorCPF;
 import util.ValidarCNPJ;
@@ -148,7 +149,7 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 
 		public void actionPerformed(ActionEvent e) {
 			dispose();
-			new TelaMenu("Tela Menu");
+			new TelaMenu(Constantes.TITULO_MENU);
 
 		}
 
@@ -188,7 +189,7 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 					if (ClienteController.getInstance().adicionarCliente(cliente)) {
 						JOptionPane.showMessageDialog(janela, "Cliente cadastrado com sucesso!");
 						janela.dispose();
-						TelaMenu telaMenu = new TelaMenu("Tela de Menu");
+						TelaMenu telaMenu = new TelaMenu(Constantes.TITULO_MENU);
 
 					} else {
 						JOptionPane.showMessageDialog(janela, "Já existe cliente com esse email, informe novamente");
@@ -215,7 +216,7 @@ public class TelaCadastrarCliente extends JanelaPadrao {
 						JOptionPane.showMessageDialog(janela, "Cliente cadastrado com sucesso!");
 
 						janela.dispose();
-						TelaMenu telaMenu = new TelaMenu("Tela de Menu");
+						TelaMenu telaMenu = new TelaMenu(Constantes.TITULO_MENU);
 
 					} else {
 						JOptionPane.showMessageDialog(janela, "Já existe cliente com esse email, informe novamente");

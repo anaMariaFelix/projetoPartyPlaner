@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import util.ComponentesDeJFrame;
+import util.Constantes;
 
 public class TelaMenu extends JanelaPadrao{
 	private JButton botaoCadastrarCliente;
@@ -64,7 +65,7 @@ public class TelaMenu extends JanelaPadrao{
 	private void adicionarTitulo() {
 		
 		JLabel lbTitulo = ComponentesDeJFrame.criaJLabel("MENU",340, 40, 280, 80, 30);
-		lbTitulo.setForeground(Color.BLACK); // cor do texto);
+		lbTitulo.setForeground(Color.BLACK);
 		add(lbTitulo);
 	}
 
@@ -112,35 +113,35 @@ public class TelaMenu extends JanelaPadrao{
 			
 			if(e.getSource() == botaoCadastrarCliente) {
 				dispose();
-				new TelaCadastrarCliente("Cadastro do Cliente");
+				new TelaCadastrarCliente(Constantes.TITULO_CADASTRAR_CLIENTE);
 		
 			}else if(e.getSource() == botaoCadastrarFornecedor) {
 				dispose();
-				new TelaCadastrarFornecedor("Cadastrar Fornecedor");
+				new TelaCadastrarFornecedor(Constantes.TITULO_CADASTRAR_FORNECEDOR);
 				
 			}else if(e.getSource() == botaoServicos) {
 				dispose();
-				new TelaDeServicos("Serviços");
+				new TelaDeServicos(Constantes.TITULO_LISTA_SERVICOS);
 				
 			}else if(e.getSource() == botaoListarFornecedores) {
 				dispose();
-				new TelaListaFornecedor("Fornecedores");
+				new TelaListaFornecedor(Constantes.TITULO_LISTAR_FORNECEDORES);
 				
 			}else if(e.getSource() == botaoCadastrarPacotesDeFornecedores) {
 				dispose();
-				new TelaCadastrarPacotes("Cadastrar Pacotes");
+				new TelaCadastrarPacotes(Constantes.TITULO_CADASTRAR_PACOTE);
 				
 			}else if(e.getSource() == botaoListarPacotesDeFornecedores) {
 				dispose();
-				new TelaListarPacotesFornecedores("Lista de Pacotes");
+				new TelaListarPacotesFornecedores(Constantes.TITULO_LISTA_PACOTES);
 				
 			}else if(e.getSource() == botaoCadastrarOrcamento) {
 				dispose();
-				new TelaCadastrarOrcamento("Cadastrar Orçamento");
+				new TelaCadastrarOrcamento(Constantes.TITULO_CADASTRAR_ORCAMENTO);
 				
 			}else if(e.getSource() == botaoListarOrcamento) {
 				dispose();
-				new TelaListarOrcamentosContratos("Lista de Oçamentos/Contratos");
+				new TelaListarOrcamentosContratos(Constantes.TITULO_LISTAR_ORCAMENTO_CONTRATO);
 			}
 		}
 		

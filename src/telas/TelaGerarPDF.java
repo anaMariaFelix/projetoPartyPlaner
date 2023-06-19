@@ -7,15 +7,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import model.OrcamentoOuContrato;
 import relatorios.GeradorDeRelatorio;
 import util.ComponentesDeJFrame;
+import util.Constantes;
 
 public class TelaGerarPDF extends JanelaPadrao {
 
@@ -185,7 +184,7 @@ public class TelaGerarPDF extends JanelaPadrao {
 			JOptionPane.showMessageDialog(null, "Relatório gerado com sucesso!");
 			
 			Desktop desktop = Desktop.getDesktop();
-			File file = new File("Orcamento.pdf");
+			File file = new File(Constantes.NOME_PDF);
 			try {
 				desktop.open(file);
 			} catch (IOException e1) {

@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import controller.PacotesController;
 import model.Pacote;
 import util.ComponentesDeJFrame;
+import util.Constantes;
 
 public class TelaListaServicoDoPacote extends JanelaPadrao{
 	private Pacote pacote;
@@ -37,7 +38,7 @@ public class TelaListaServicoDoPacote extends JanelaPadrao{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			dispose();
-			new TelaListarPacotesFornecedores("Lista De Pacotes");
+			new TelaListarPacotesFornecedores(Constantes.TITULO_LISTA_PACOTES);
 		}
 
 	}
@@ -65,14 +66,11 @@ public class TelaListaServicoDoPacote extends JanelaPadrao{
 	
 		JTable tabela = new JTable(modelo);
 		
-		
 		JScrollPane painel = new JScrollPane(tabela);
 		painel.setBounds(30, 135, 730, 350);
 		
 		add(painel);
-
-		
-	}
 	
+	}
 
 }

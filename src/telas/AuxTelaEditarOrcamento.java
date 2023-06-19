@@ -22,6 +22,8 @@ import model.OrcamentoOuContrato;
 import model.Pacote;
 import model.Pessoa;
 import util.ComponentesDeJFrame;
+import util.Constantes;
+import util.ConversorData;
 
 public class AuxTelaEditarOrcamento {
 
@@ -29,14 +31,16 @@ public class AuxTelaEditarOrcamento {
 	private TelaCadastrarOrcamento telaCadastrarOrcamento;
 
 	private String titulo;
-
+	
+	private int tamanhoVetor;
+	
 	private DefaultTableModel modelo;
 	private JTable tabela;
 
 	private Object[] todosOsFornecedoresDoOrcamento = null;
-	private int tamanhoVetor;
-
+	
 	private JCheckBox contrato;
+	
 	private JButton incluirFornecedor;
 	private JButton botaoExcluir;
 
@@ -142,11 +146,10 @@ public class AuxTelaEditarOrcamento {
 
 		telaCadastrarOrcamento.getBotaoAdicionarFornecedores().setVisible(false);
 
-		adicionarJButton(); // adiciono o botao e o check e depois verifico se é um contrato concluido(16)
+		adicionarJButton(); 
 		adicionarJCheckBox(); 
 
-		if (orcamentoContrato.isFoiConcluido()) {// Se nao for concluido deixa tudo como esta(podendo alterar), se nao
-													// deixo os campos inacessiveis (16)
+		if (orcamentoContrato.isFoiConcluido()) {
 
 			telaCadastrarOrcamento.getCampoNomeEvento().setEnabled(false);
 			telaCadastrarOrcamento.getCampoDataEHoraEvento().setEnabled(false);
@@ -154,8 +157,8 @@ public class AuxTelaEditarOrcamento {
 			telaCadastrarOrcamento.getCampoTamanhoEvento().setEnabled(false);
 			telaCadastrarOrcamento.getCampoValor().setEnabled(false);
 
-			incluirFornecedor.setVisible(false);// deixei o botao falso para nao podermos colocar fornecedores se for um
-			contrato.setVisible(false); // contrato concluido
+			incluirFornecedor.setVisible(false);
+			contrato.setVisible(false);
 			telaCadastrarOrcamento.getBotaoSalvar().setVisible(false);
 			botaoExcluir.setVisible(false);
 		}
@@ -232,7 +235,7 @@ public class AuxTelaEditarOrcamento {
 
 		public void actionPerformed(ActionEvent e) {
 			janela.dispose();
-			new TelaListarOrcamentosContratos("Lista de Orçamentos/Contratos");
+			new TelaListarOrcamentosContratos(Constantes.TITULO_DADOS_FORNECEDOR);
 		}
 
 	}
@@ -284,7 +287,7 @@ public class AuxTelaEditarOrcamento {
 		public void actionPerformed(ActionEvent e) {
 
 			telaListaFornecedoresParaOrcamento = new TelaListaFornecedoresParaOrcamento(true,
-					guardaDadosDosCamposCopia(), telaCadastrarOrcamento, "Lista de Fornecedores");
+					guardaDadosDosCamposCopia(), telaCadastrarOrcamento, Constantes.TITULO_LISTAR_FORNECEDORES);
 
 			telaCadastrarOrcamento.dispose();
 
@@ -296,7 +299,7 @@ public class AuxTelaEditarOrcamento {
 
 		OrcamentoOuContrato copiaOrcamento = new OrcamentoOuContrato(
 				telaCadastrarOrcamento.getCampoNomeEvento().getText(),
-				quebraDataEConverteEmLocalDateTime(telaCadastrarOrcamento.getCampoDataEHoraEvento().getText()),
+				ConversorData.quebraDataEConverteEmLocalDateTime(telaCadastrarOrcamento.getCampoDataEHoraEvento().getText()),
 				telaCadastrarOrcamento.getCampoLocalEvento().getText(),
 				telaCadastrarOrcamento.getCampoTamanhoEvento().getText(), orcamentoContrato.getClienteAssociado(),
 				orcamentoContrato.isFoiContradoOuNao(), telaCadastrarOrcamento.getCampoValor().getText(),
@@ -307,27 +310,6 @@ public class AuxTelaEditarOrcamento {
 		return copiaOrcamento;
 	}
 
-	public LocalDateTime quebraDataEConverteEmLocalDateTime(String data) {
-		String dataSemEspaco = data.replaceAll(" ", "");
-		char[] novaData = new char[10];
-		char[] hora = new char[5];
-		int cont = 0;
-		for (int i = 0; i < dataSemEspaco.length(); i++) {
-			if (i < 10) {
-				novaData[i] = dataSemEspaco.charAt(i);
-			} else {
-				hora[cont] = dataSemEspaco.charAt(i);
-				cont++;
-			}
-
-		}
-		String dataFinal = String.valueOf(novaData);
-		String horaFinal = String.valueOf(hora);
-
-		DateTimeFormatter forma = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-		LocalDateTime dateTime = LocalDateTime.parse(dataFinal + " " + horaFinal, forma);
-		return dateTime;
-	}
 
 	public class OuvinteBotaoSalvar implements ActionListener {
 
@@ -355,7 +337,7 @@ public class AuxTelaEditarOrcamento {
 			if (telaOrcamento.validaTodosOsCampos(telaOrcamento, email, nome, local, tamanho, dataEHora, valor)) {
 				Pessoa clienteAssocidado = ClienteController.getInstance().recuperarClientePorEmail(email);
 
-				LocalDateTime dataEHoraDoEvento = telaOrcamento.quebraDataEConverteEmLocalDateTime(dataEHora);
+				LocalDateTime dataEHoraDoEvento = ConversorData.quebraDataEConverteEmLocalDateTime(dataEHora);
 
 				ArrayList<String> comentariosFornecedores = new ArrayList();// criado para fazer os comentario dos
 																			// fornecedores
@@ -435,7 +417,7 @@ public class AuxTelaEditarOrcamento {
 					if (OrcamentoController.getInstance().adicionarOrcamento(orcamento)) {
 						JOptionPane.showMessageDialog(telaOrcamento, "Orçamento editado com sucesso");
 						telaOrcamento.dispose();
-						new TelaMenu("Menu");
+						new TelaMenu(Constantes.TITULO_MENU);
 
 					}
 

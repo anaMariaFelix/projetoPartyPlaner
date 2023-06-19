@@ -14,6 +14,7 @@ import model.FornecedorFisico;
 import model.FornecedorJuridico;
 import model.Pessoa;
 import util.ComponentesDeJFrame;
+import util.Constantes;
 import util.ValidaEmail;
 import util.ValidadorCPF;
 import util.ValidarCNPJ;
@@ -117,7 +118,7 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 							JOptionPane.showMessageDialog(janela, "Fornecedor cadastrado com sucesso!");
 							listaDeServicos = new ArrayList<String>();
 							janela.dispose();
-							TelaMenu telaMenu = new TelaMenu("Tela de Menu");
+							TelaMenu telaMenu = new TelaMenu(Constantes.TITULO_MENU);
 
 						}else {
 							JOptionPane.showMessageDialog(janela,
@@ -151,7 +152,7 @@ public class TelaCadastrarFornecedor extends TelaCadastrarCliente {
 							JOptionPane.showMessageDialog(janela, "Fornecedor cadastrado com sucesso!");
 							listaDeServicos = new ArrayList<String>();
 							janela.dispose();
-							TelaMenu telaMenu = new TelaMenu("Tela de Menu");
+							TelaMenu telaMenu = new TelaMenu(Constantes.TITULO_MENU);
 
 						} else {
 							JOptionPane.showMessageDialog(janela,

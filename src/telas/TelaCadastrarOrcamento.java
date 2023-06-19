@@ -6,26 +6,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.ResolverStyle;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
-
 import controller.ClienteController;
 import controller.OrcamentoController;
 import model.OrcamentoOuContrato;
 import model.Pacote;
 import model.Pessoa;
 import util.ComponentesDeJFrame;
+import util.Constantes;
 import util.ValidaEmail;
+import util.ConversorData;
 
 public class TelaCadastrarOrcamento extends JanelaPadrao {
 
@@ -52,8 +49,6 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 	
 	private OuvinteBotaoSalvar salvar;
 	private OuvinteBotaoVoltar ouvinteVoltar;
-
-	private char[] novaData;
 
 	private TelaListaFornecedoresParaOrcamento telaListaFornecedoresParaOrcamento;
 	private TelaListarPacotesParaOrcamento telaListarPacotesParaOrcamento;
@@ -88,10 +83,6 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 
 	public JLabel getEmailClienteAssociado() {
 		return emailClienteAssociado;
-	}
-
-	public char[] getNovaData() {
-		return novaData;
 	}
 
 	public JButton getBotaoVoltar() {
@@ -241,7 +232,7 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 			OrcamentoController.getInstance().getFornecedores().clear();
 			OrcamentoController.getInstance().getPacoteFornecedores().clear();
 			dispose();
-			new TelaMenu("Tela Menu");
+			new TelaMenu(Constantes.TITULO_MENU);
 		}
 	}
 
@@ -283,7 +274,7 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 				if (OrcamentoController.getInstance().getPacoteFornecedores().isEmpty()) {
 					janela.setVisible(false);
 					telaListaFornecedoresParaOrcamento = new TelaListaFornecedoresParaOrcamento(false,null,janela,
-							"Lista de Fornecedores");
+							Constantes.TITULO_LISTAR_FORNECEDORES);
 
 				} else {
 					JOptionPane.showMessageDialog(janela,
@@ -293,7 +284,7 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 			} else if (opcaoEscolhida == 1) {
 				if (OrcamentoController.getInstance().getFornecedores().isEmpty()) {
 					janela.setVisible(false);
-					telaListarPacotesParaOrcamento = new TelaListarPacotesParaOrcamento(janela, "Lista de Pacotes");
+					telaListarPacotesParaOrcamento = new TelaListarPacotesParaOrcamento(janela, Constantes.TITULO_LISTA_PACOTES);
 
 				} else {
 					JOptionPane.showMessageDialog(janela,
@@ -329,7 +320,7 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 			if (validaTodosOsCampos(janela, email, nome, local, tamanho, dataEHora, valor)) {
 				Pessoa clienteAssocidado = ClienteController.getInstance().recuperarClientePorEmail(email);
 
-				LocalDateTime dataEHoraDoEvento = quebraDataEConverteEmLocalDateTime(dataEHora);
+				LocalDateTime dataEHoraDoEvento = ConversorData.quebraDataEConverteEmLocalDateTime(dataEHora);
 
 				orcamento = new OrcamentoOuContrato(nome, dataEHoraDoEvento, local, tamanho, clienteAssocidado, false,
 						valor,false);
@@ -351,7 +342,7 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 						dispose();
 						OrcamentoController.getInstance().getFornecedores().clear();
 						OrcamentoController.getInstance().getPacoteFornecedores().clear();
-						new TelaMenu("Menu");
+						new TelaMenu(Constantes.TITULO_MENU);
 					} else {
 						JOptionPane.showMessageDialog(janela, "Orçamento já existente ou Data indisponivel");
 					}
@@ -375,16 +366,16 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 		} else if (!ValidaEmail.emailValidator(email)) {
 			JOptionPane.showMessageDialog(janela, "Email inválido");
 
-		} else if (!verificarSeDataEValida(data[0])) {
+		} else if (!ConversorData.verificarSeDataEValida(data[0])) {
 			JOptionPane.showMessageDialog(janela, "Data inválida\nInforme uma data válida");
 
-		} else if (!verificarSeHoraEValida(data[1])) {
+		} else if (!ConversorData.verificarSeHoraEValida(data[1])) {
 			JOptionPane.showMessageDialog(janela, "Hora inválida\nInforme uma data/Hora válida");
 
-		} else if (!verificaSeStringContemApenasNumeros(tamanho)) {
+		} else if (!ConversorData.verificaSeStringContemApenasNumeros(tamanho)) {
 			JOptionPane.showMessageDialog(janela, "Tamanho inválido\nInforme apenas números");
 
-		} else if (!verificaSeStringContemApenasNumeros(valor)) {
+		} else if (!ConversorData.verificaSeStringContemApenasNumeros(valor)) {
 			JOptionPane.showMessageDialog(janela, "Valor inválido\nInforme apenas números");
 
 		} else if (!ClienteController.getInstance().existeCliente(email)) {
@@ -392,78 +383,6 @@ public class TelaCadastrarOrcamento extends JanelaPadrao {
 		} else {
 			return true;
 		}
-		return false;
-	}
-	public LocalDateTime quebraDataEConverteEmLocalDateTime(String data) {
-		String dataSemEspaco = data.replaceAll(" ", "");
-		novaData = new char[10];
-		char[] hora = new char[5];
-		int cont = 0;
-		for (int i = 0; i < dataSemEspaco.length(); i++) {
-			if (i < 10) {
-				novaData[i] = dataSemEspaco.charAt(i);
-			} else {
-				hora[cont] = dataSemEspaco.charAt(i);
-				cont++;
-			}
-
-		}
-		String dataFinal = String.valueOf(novaData);
-		String horaFinal = String.valueOf(hora);
-
-		DateTimeFormatter forma = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-		LocalDateTime dateTime = LocalDateTime.parse(dataFinal + " " + horaFinal, forma);
-		return dateTime;
-	}
-
-	public boolean verificarSeDataEValida(String data) {
-		try {
-			LocalDate dataNew = LocalDate.parse(data,
-					DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT));
-
-			if (dataNew.isBefore(LocalDate.now())) {
-				return false;
-			}
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public boolean verificaSeStringContemApenasNumeros(String tamanho) {
-		try {
-			float tamanhoF = Float.parseFloat(tamanho);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public boolean verificarSeHoraEValida(String hora) {
-		String[] vetor;
-		vetor = hora.split(":");
-		int[] vetorInt = new int[2];
-
-		if (VerificaFormatoDaHora(hora)) {
-			for (int i = 0; i < 2; i++) {
-				vetorInt[i] = Integer.parseInt(vetor[i]);
-			}
-
-			if (vetorInt[0] >= 0 && vetorInt[0] <= 24) {
-				if (vetorInt[1] >= 0 && vetorInt[1] <= 60) {
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	public boolean VerificaFormatoDaHora(String hora) {
-		if (hora.charAt(2) == ':') {
-			return true;
-		}
-
 		return false;
 	}
 	

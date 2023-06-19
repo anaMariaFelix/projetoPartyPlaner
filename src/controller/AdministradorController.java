@@ -23,5 +23,4 @@ public class AdministradorController {
 		return CentralDeInformacoes.getInstance().getAdministrador();
 	}
 	
-	
 }

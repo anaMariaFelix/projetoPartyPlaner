@@ -14,7 +14,10 @@ import javax.swing.JTextField;
 
 import baseDedados.CentralDeInformacoes;
 import baseDedados.Persistencia;
+import controller.AdministradorController;
+import model.Administrador;
 import util.ComponentesDeJFrame;
+import util.Constantes;
 
 
 public class TelaLogin extends JanelaPadrao {
@@ -24,7 +27,7 @@ public class TelaLogin extends JanelaPadrao {
 	private JButton botaoEntrar;
 
 	public TelaLogin(String titulo) {
-		super("Tela de Login");
+		super(Constantes.TITULO_LOGIN);
 		adicionarJLabel();
 		adicionarCampoJTextField();
 		adicionarJButton();
@@ -45,17 +48,16 @@ public class TelaLogin extends JanelaPadrao {
 	}
 
 	
-	// tudo para um unico titulo JLabel
 	private void adicionarJLabel() {
-		ImageIcon icone = new ImageIcon("icones/login.png"); //coloca um icone
+		ImageIcon icone = new ImageIcon("icones/login.png");
 		JLabel lbIcone = new JLabel(icone);
-		lbIcone.setBounds(180,50, 150, 50); // local e tamanho do texto
+		lbIcone.setBounds(180,50, 150, 50); 
 		add(lbIcone);
 		
 		
 		JLabel lbTitulo = ComponentesDeJFrame.criaJLabel("Login Administrador",280, 50, 280, 50,30);
-		lbTitulo.setHorizontalAlignment(JLabel.CENTER); // alinha o texto no centro
-		lbTitulo.setForeground(Color.BLACK); // cor do texto
+		lbTitulo.setHorizontalAlignment(JLabel.CENTER);
+		lbTitulo.setForeground(Color.BLACK);
 		lbTitulo.setFont(new Font("Arial", Font.ITALIC, 30));
 		add(lbTitulo);
 	
@@ -87,21 +89,19 @@ public class TelaLogin extends JanelaPadrao {
 	
 	public class OuvinteBotaoEntrar implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			
-			CentralDeInformacoes  centralDeInformacao = Persistencia.getInstance().recupearCentral("bancoDeDados");
 			String campoEmail = getCampoEmail().getText();
 			String campoSenha = new String(getCampoSenha().getPassword());
-			
+			Administrador adiministrador = (Administrador) AdministradorController.getInstance().obterAdministrador();
 			if(campoEmail.isEmpty() || campoSenha.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos","ERRO", JOptionPane.ERROR_MESSAGE);
 				
-			}else if(!campoEmail.equals(centralDeInformacao.getAdministrador().getEmail()) || !campoSenha.equals(centralDeInformacao.getAdministrador().getSenha())) {
+			}else if(!campoEmail.equals(adiministrador.getEmail()) || !campoSenha.equals(adiministrador.getSenha())) {
 				JOptionPane.showMessageDialog(null, "Email ou senha inválidos","ERRO", JOptionPane.ERROR_MESSAGE);
 			}else {
 				dispose();
-				TelaMenu telaMenu = new TelaMenu("Tela Menu");
+				TelaMenu telaMenu = new TelaMenu(Constantes.TITULO_MENU);
 			}
 		}
 		

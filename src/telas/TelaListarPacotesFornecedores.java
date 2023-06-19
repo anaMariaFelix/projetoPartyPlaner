@@ -17,11 +17,13 @@ import model.Pacote;
 import util.ButtonEditor;
 import util.ButtonRenderer;
 import util.ComponentesDeJFrame;
+import util.Constantes;
 import util.JLabelRenderer;
 
 public class TelaListarPacotesFornecedores extends JanelaPadrao {
 	private DefaultTableModel modelo;
 	private JTable tabela;
+	
 	private JButton voltar;
 
 	public TelaListarPacotesFornecedores(String titulo) {
@@ -130,7 +132,7 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 			btExcluir.addActionListener(new OuvinteBotaoExcluir(this, pacote));
 			
 			
-			modelo.addRow(linha);// adiciona alinha
+			modelo.addRow(linha);
 
 		}
 
@@ -148,7 +150,7 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new TelaCadastrarPacotes("Cadastrar Pacote");
+				new TelaCadastrarPacotes(Constantes.TITULO_CADASTRAR_PACOTE);
 			}
 		});
 		
@@ -167,7 +169,6 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 			AuxDetalharPacote auxDetalharPacote = new AuxDetalharPacote(pacote);
 			
 		}
-		
 	}
 	
 	
@@ -180,11 +181,10 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 		
 		public void actionPerformed(ActionEvent e) {
 			dispose();
-			new TelaListaServicoDoPacote("Serviços Do Pacote",pacote);
+			new TelaListaServicoDoPacote(Constantes.TITULO_SERVICOS_PACOTE,pacote);
 			
 			
 		}
-		
 	}
 	
 
@@ -194,10 +194,9 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == voltar) {
 				dispose();
-				TelaMenu telaMenu = new TelaMenu("Tela Menu");
+				TelaMenu telaMenu = new TelaMenu(Constantes.TITULO_MENU);
 			}
 		}
-
 	}
 
 	private class OuvinteBotaoExcluir implements ActionListener {
@@ -215,7 +214,7 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 			if (PacotesController.getInstance().removerPacote(pacote)) {
 				JOptionPane.showMessageDialog(janela, "Pacote excluido");
 				dispose();
-				new TelaListarPacotesFornecedores("Lista De Pacotes");
+				new TelaListarPacotesFornecedores(Constantes.TITULO_LISTA_PACOTES);
 			} else {
 				JOptionPane.showMessageDialog(janela, "Não foi possivel excluir o pacote");
 			}

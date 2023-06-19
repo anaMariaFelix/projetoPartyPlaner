@@ -117,7 +117,7 @@ public class TelaListarPacotesParaOrcamento extends JanelaPadrao{
 			adicionar.addActionListener(new OuvinteBotaoAdicionar(this,pacote));
 			linha[3] = adicionar;
 			
-			modelo.addRow(linha);// adiciona alinha
+			modelo.addRow(linha);
 
 		}
 

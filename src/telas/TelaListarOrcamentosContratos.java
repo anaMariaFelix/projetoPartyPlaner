@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -13,12 +12,12 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import controller.OrcamentoController;
 import model.OrcamentoOuContrato;
 import util.ButtonEditor;
 import util.ButtonRenderer;
 import util.ComponentesDeJFrame;
+import util.Constantes;
 
 public class TelaListarOrcamentosContratos extends JanelaPadrao{
 	private JLabel titulo;
@@ -202,7 +201,7 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == voltar) {
 				dispose();
-				TelaMenu telaMenu = new TelaMenu("Tela Menu");
+				TelaMenu telaMenu = new TelaMenu(Constantes.TITULO_MENU);
 			}
 		}
 
@@ -234,7 +233,7 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 		
 		public void actionPerformed(ActionEvent e) {
 			dispose();
-			new AuxTelaEditarOrcamento(orcamentoContrato,"Editar Orçamento/Contrato");
+			new AuxTelaEditarOrcamento(orcamentoContrato,Constantes.TITULO_EDITAR_ORCAMENTO_CONTRATO);
 			
 		}
 		
@@ -242,11 +241,9 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 	
 	public class OuvinteReunioes implements ActionListener{
 
-		
-		
 		public void actionPerformed(ActionEvent e) {
 			dispose();
-			new TelaListaReunioes("Reuniões");
+			new TelaListaReunioes(Constantes.TITULO_LISTAR_REUNIOES);
 			
 		}
 		

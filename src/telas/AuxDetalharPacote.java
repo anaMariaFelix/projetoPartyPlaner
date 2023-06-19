@@ -4,14 +4,12 @@ package telas;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import model.FornecedorFisico;
 import model.FornecedorJuridico;
 import model.Pacote;
@@ -56,7 +54,7 @@ public class AuxDetalharPacote {
 		// Modificando os JLabel
 		telaCadastrarPacotes.getLbTitulo().setBounds(0, 40, 800, 50);
 		telaCadastrarPacotes.getLbTitulo().setHorizontalAlignment(JLabel.CENTER);
-		;
+		
 		telaCadastrarPacotes.getNomeDoPacote().setBounds(100, 160, 200, 30);
 		telaCadastrarPacotes.getValorPacote().setBounds(100, 230, 200, 30);
 		telaCadastrarPacotes.getCaracteristicas().setBounds(100, 300, 200, 30);

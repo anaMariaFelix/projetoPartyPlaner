@@ -13,10 +13,11 @@ import org.apache.poi.ss.usermodel.Row;
 import model.OrcamentoOuContrato;
 import model.Pacote;
 import model.Pessoa;
+import util.Constantes;
 
 public class GeradorDePlanilha {
 
-	private static final String fileName = "Orcamento.xls";
+	private static final String fileName = Constantes.NOME_PLANILHA;
 
 	public static void criarPlanilha(OrcamentoOuContrato orcamentoOuContrato) {
 

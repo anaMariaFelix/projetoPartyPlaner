@@ -4,8 +4,10 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import baseDedados.CentralDeInformacoes;
-import baseDedados.Persistencia;
+import controller.AdministradorController;
+import telas.CadastamentoAdministrador;
+import telas.JanelaPadrao;
+import telas.TelaLogin;
 import telas.TelaMenu;
 import util.Constantes;
 
@@ -31,16 +33,14 @@ public class Programa {
 			// handle exception
 		}
 
-		CentralDeInformacoes centralDeInformacoes = Persistencia.getInstance().recupearCentral(Constantes.NOME_ARQUIVO);
-//
-//		if (CentralDeInformacoes.getInstance().getAdministrador() != null) {
-//			TelaLogin telaLogin = new TelaLogin("Tela de Login");
-//
-//		} else {
-//			JanelaPadrao janela = new CadastamentoAdministrador();
-//		}
+		if (AdministradorController.getInstance().obterAdministrador() != null) {
+			TelaLogin telaLogin = new TelaLogin(Constantes.TITULO_MENU);
+
+		} else {
+			JanelaPadrao janela = new CadastamentoAdministrador();
+		}
 		
-		new TelaMenu("Menu");
+		//new TelaMenu("Menu");
 		//new TelaListarOrcamentosContratos("titulo");
 
 	}

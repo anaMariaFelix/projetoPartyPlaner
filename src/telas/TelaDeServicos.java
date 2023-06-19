@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 import controller.ServicoController;
 import util.ComponentesDeJFrame;
+import util.Constantes;
 
 public class TelaDeServicos extends JanelaPadrao {
 	private JTable tabela;
@@ -31,13 +32,9 @@ public class TelaDeServicos extends JanelaPadrao {
 
 	}
 	
-	
-
 	public DefaultTableModel getModelo() {
 		return modelo;
 	}
-
-
 
 	public JTable getTabela() {
 		return tabela;
@@ -91,21 +88,19 @@ public class TelaDeServicos extends JanelaPadrao {
 	}
 
 	private void adicionarTabela() {
-		// definir as linhas
 		modelo = new DefaultTableModel();
-		modelo.addColumn("Serviços");// adiciona colunas
+		modelo.addColumn("Serviços");
 
 		Object[] todosOsServicos = ServicoController.getInstance().pegaServicos().toArray();
 
 		for (Object t : todosOsServicos) {
 			Object[] linha = { t };
-			modelo.addRow(linha);// adiciona alinha
+			modelo.addRow(linha);
 
 		}
 		tabela = new JTable(modelo);
-		JScrollPane painelTabela = new JScrollPane(tabela);// esse JScrollPane serve para criar uma barra de rolagem na
-															// tabela, mas se n quiser so n usar ele e no lugar que tem
-															// a sua variavel de controle coloca a da tabela
+		JScrollPane painelTabela = new JScrollPane(tabela);
+															
 		painelTabela.setBounds(30, 90, 730, 350);
 		add(painelTabela);
 	}
@@ -116,7 +111,7 @@ public class TelaDeServicos extends JanelaPadrao {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == jbVolta) {
 				dispose();
-				TelaMenu telaMenu = new TelaMenu("Tela Menu");
+				TelaMenu telaMenu = new TelaMenu(Constantes.TITULO_MENU);
 			}
 		}
 
@@ -131,10 +126,10 @@ public class TelaDeServicos extends JanelaPadrao {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			int linhaSelecionada = tabela.getSelectedRow();// esse metodo retorna o indice da linha selecionada na
-			// tabela
-			if (linhaSelecionada == -1) {// verifica se tem alguma linha selecionada
-				JOptionPane.showMessageDialog(janela, "Selecione uma linha");// se n tiver exibe essa mensagem
+			int linhaSelecionada = tabela.getSelectedRow();
+			
+			if (linhaSelecionada == -1) {
+				JOptionPane.showMessageDialog(janela, "Selecione uma linha");
 			}else {
 				String servicoEditado = JOptionPane.showInputDialog(janela, "Informe como deseja editar ");
 				if(servicoEditado != null) {
@@ -142,7 +137,7 @@ public class TelaDeServicos extends JanelaPadrao {
 					JOptionPane.showMessageDialog(janela, "Serviço editado");
 					getTabela().repaint();
 					dispose();
-					new TelaDeServicos("Serviços"); 
+					new TelaDeServicos(Constantes.TITULO_LISTA_SERVICOS); 
 				}
 		
 			}
@@ -174,8 +169,6 @@ public class TelaDeServicos extends JanelaPadrao {
 				
 				JOptionPane.showMessageDialog(janela, "Removido");
 			}
-		
-			
 		}
 		
 	}
@@ -200,7 +193,6 @@ public class TelaDeServicos extends JanelaPadrao {
 			
 		}
 		
-			
 	}
 	
 

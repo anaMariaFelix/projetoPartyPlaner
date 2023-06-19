@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -24,6 +22,7 @@ import model.FornecedorJuridico;
 import model.Pacote;
 import model.Pessoa;
 import util.ComponentesDeJFrame;
+import util.Constantes;
 
 public class TelaCadastrarPacotes extends JanelaPadrao {
 	private String titulo;
@@ -60,8 +59,6 @@ public class TelaCadastrarPacotes extends JanelaPadrao {
 	public String getTitulo() {
 		return titulo;
 	}
-	
-	
 
 	public JScrollPane getPainel() {
 		return painel;
@@ -186,7 +183,7 @@ public class TelaCadastrarPacotes extends JanelaPadrao {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == botaoVoltar) {
 				dispose();
-				TelaMenu telaMenu = new TelaMenu("Tela Menu");
+				TelaMenu telaMenu = new TelaMenu(Constantes.TITULO_MENU);
 			}
 		}
 
@@ -276,7 +273,7 @@ public class TelaCadastrarPacotes extends JanelaPadrao {
 					JOptionPane.showMessageDialog(janela, "Pacote cadastrado com sucesso!");
 					listaDeFornecedores = new ArrayList<Pessoa>();
 					janela.dispose();
-					TelaMenu telaMenu = new TelaMenu("Tela de Menu");
+					TelaMenu telaMenu = new TelaMenu(Constantes.TITULO_MENU);
 
 				} else {
 					JOptionPane.showMessageDialog(janela, "Já existe Pacote com esse nome, informe novamente");

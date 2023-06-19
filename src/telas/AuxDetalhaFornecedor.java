@@ -5,19 +5,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
 import controller.FornecedorController;
 import model.FornecedorFisico;
 import model.FornecedorJuridico;
 import model.Pessoa;
 import util.ComponentesDeJFrame;
+import util.Constantes;
 
 public class AuxDetalhaFornecedor {
 	
 	private DefaultTableModel modelo;
-	private JTable tabela;
-	
 	private DefaultTableModel modeloComentario;
+	
+	private JTable tabela;
 	private JTable tabelaComentario;
 	
 	
@@ -25,7 +25,7 @@ public class AuxDetalhaFornecedor {
 		
 		JScrollPane tabelaServicos;
 		JScrollPane tabelaComentario;
-		TelaCadastrarFornecedor telaCadastrarFornecedor = new TelaCadastrarFornecedor("Dados Fornecedor");
+		TelaCadastrarFornecedor telaCadastrarFornecedor = new TelaCadastrarFornecedor(Constantes.TITULO_DADOS_FORNECEDOR);
 		
 		telaCadastrarFornecedor.getLbTitulo().setBounds(250, 35, 300, 50);
 		telaCadastrarFornecedor.getJlNomeCompleto().setBounds(100, 100, 150, 30);

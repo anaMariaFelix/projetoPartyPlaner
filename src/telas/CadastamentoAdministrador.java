@@ -3,20 +3,20 @@ package telas;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 import ouvintes.OuvinteBotaoSalvar;
 import util.ComponentesDeJFrame;
 
 public class CadastamentoAdministrador extends JanelaPadrao {
 	private JButton botaoSalvar;
+	
 	private JTextField campoNome;
 	private JTextField campoSobrenome;
 	private JTextField campoEmail;
+	
 	private JPasswordField campoSenha;
 	private JPasswordField campoConfirmaSenha;
 
@@ -68,31 +68,21 @@ public class CadastamentoAdministrador extends JanelaPadrao {
 
 	private class OuvinteDosCampos implements KeyListener {
 
-		// esse metodo é chamado quando componente que o objeto tiver ouvindo dentro
-		// dele o botao dentro do campo
-		@Override
 		public void keyPressed(KeyEvent e) {
 			char c = e.getKeyChar();
 			if (!Character.isLetter(c) && c != ' ') {
-				// e.consume();//ignora a letra digitada
 			}
 		}
 
-		// é chamado quando o botao que esta sento apertado for soltado
 		public void keyReleased(KeyEvent e) {
 
 		}
 
-		// chamado quando o botao ja foi apertado e soltado, quando as coisas sao
-		// digitadas
 		public void keyTyped(KeyEvent e) {
-			char c = e.getKeyChar(); // retorna o caracter da tecla que foi precionada
+			char c = e.getKeyChar();
 
-			if (!Character.isLetter(c) && c != ' ') {// Character.isLetter verifica se oq foi digitado é uma letra
-				e.consume();// ignora a letra digitada
-				// esse if é para que so seja posivel digitar letras dentro do campo
-				// se o usuario digitar qualquer coisa que n seja letra ele n é aceito e nem
-				// visivel no campo
+			if (!Character.isLetter(c) && c != ' ') {
+				e.consume();
 			}
 		}
 	}

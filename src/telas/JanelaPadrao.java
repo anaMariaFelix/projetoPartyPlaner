@@ -9,7 +9,7 @@ public class JanelaPadrao extends JFrame{
 	public JanelaPadrao(String titulo) {
 		setTitle(titulo);
 		setSize(800,650);
-		setLocationRelativeTo(null);//centro
+		setLocationRelativeTo(null);
 		setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setBackground(new Color(230, 230, 230));

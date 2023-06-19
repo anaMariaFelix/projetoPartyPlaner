@@ -17,6 +17,7 @@ import model.Pacote;
 import model.Pessoa;
 import relatorios.GeradorDePlanilha;
 import util.ComponentesDeJFrame;
+import util.Constantes;
 
 public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 	
@@ -57,7 +58,7 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 	}
 
 	private void configurarTela() {
-		telaCadastrarOrcamento = new TelaCadastrarOrcamento("Dados");
+		telaCadastrarOrcamento = new TelaCadastrarOrcamento(Constantes.TITULO_DETALHAR_ORCAMENTO);
 		
 		telaCadastrarOrcamento.getTitulo().setText("Dados do Orçamento/Contrato");
 		
@@ -161,7 +162,7 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 
 		public void actionPerformed(ActionEvent e) {
 			janela.dispose();
-			new TelaListarOrcamentosContratos("Lista de Orçamentos/Contratos");
+			new TelaListarOrcamentosContratos(Constantes.TITULO_LISTAR_ORCAMENTO_CONTRATO);
 		}
 
 	}
@@ -174,8 +175,7 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 		
 		public void actionPerformed(ActionEvent e) {
 			janela.dispose();
-			
-			
+				
 		}
 		
 	}
@@ -192,11 +192,10 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 
 		public void actionPerformed(ActionEvent e) {
 			janelaEditar.dispose();
-			new TelaGerarPDF("Dados do Relatorio", orcamento);
+			new TelaGerarPDF(Constantes.TITULO_GERAR_PDF, orcamento);
 			
 			
 		}
-		
 		
 	}
 	
@@ -214,7 +213,7 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 			JOptionPane.showMessageDialog(null, "Planilha criada com sucesso");
 			
 			Desktop desktop = Desktop.getDesktop();
-			File file = new File("Orcamento.xls");
+			File file = new File(Constantes.NOME_PLANILHA);
 			try {
 				desktop.open(file);
 			} catch (IOException e1) {
@@ -237,7 +236,7 @@ public class AuxDetalharOrcamentoContrato extends JanelaPadrao{
 		
 		public void actionPerformed(ActionEvent e) {
 			telaCadastrarOrcamento.dispose();
-			new TelaCadastrarReuniao("Cadastrar Reuniões",orcamentoOuContrato);
+			new TelaCadastrarReuniao(Constantes.TITULO_CADASTRAR_REUNIAO,orcamentoOuContrato);
 			
 		}
 		

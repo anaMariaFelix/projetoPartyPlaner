@@ -25,23 +25,26 @@ import model.Pessoa;
 import util.ButtonEditor;
 import util.ButtonRenderer;
 import util.ComponentesDeJFrame;
+import util.Constantes;
 import util.ValidaEmail;
 import util.ValidadorCPF;
 import util.ValidarCNPJ;
 
 public class TelaListaFornecedor extends JanelaPadrao {
-
+	private DefaultTableModel modelo;
 	private JTable tabela;
+	
 	private JButton voltar;
 	private JButton novo;
-	private DefaultTableModel modelo;
+	private JButton editar;
+	
 	private JRadioButton jrFisico;
 	private JRadioButton jrJuridico;
 	private JRadioButton jrTodos;
-	private JButton editar;
-	private TelaCadastrarFornecedor editarDados;
 	private JRadioButton disponivel;
 	private JRadioButton indisponivel;
+	
+	private TelaCadastrarFornecedor editarDados;
 	private String motivoIndisponibilidade;
 	private OuvinteBotaoRadioButton ouvinteBotaoRadioButton;
 
@@ -101,7 +104,7 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		
 		tabela = new JTable(modelo);
 		tabela.getColumn("Editar").setCellRenderer(new ButtonRenderer()); // Mostra um botao dentro da célula
-																			// (linha/coluna)
+																			
 		tabela.getColumn("Editar").setCellEditor(new ButtonEditor(new JCheckBox()));// Para quando clica no botão, o
 																					// sistema entender que ele ta
 																					// clicando no botão que está na
@@ -144,7 +147,7 @@ public class TelaListaFornecedor extends JanelaPadrao {
 				btDetalhar.addActionListener(new OuvinteBotaoDetalhar(this, fj.getCnpj()));
 			}
 
-			modelo.addRow(linha);// adiciona alinha
+			modelo.addRow(linha);
 
 		}
 
@@ -195,7 +198,7 @@ public class TelaListaFornecedor extends JanelaPadrao {
 
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new TelaCadastrarFornecedor("Cadastrar Fornecedor");
+				new TelaCadastrarFornecedor(Constantes.TITULO_CADASTRAR_FORNECEDOR);
 			}
 		});
 		add(novo);
@@ -208,7 +211,7 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == voltar) {
 				dispose();
-				TelaMenu telaMenu = new TelaMenu("Tela Menu");
+				TelaMenu telaMenu = new TelaMenu(Constantes.TITULO_MENU);
 			}
 		}
 
@@ -251,7 +254,7 @@ public class TelaListaFornecedor extends JanelaPadrao {
 
 		public void actionPerformed(ActionEvent e) {
 			janela.dispose();
-			editarDados = new TelaCadastrarFornecedor("Dados do fornecedor");
+			editarDados = new TelaCadastrarFornecedor(Constantes.TITULO_DADOS_FORNECEDOR);
 			editarDados.getBotaoSalvar().removeActionListener(editarDados.getOuvinteSalvarFornecedor());
 			editarDados.getBotaoVoltar().removeActionListener(editarDados.ouvinteVoltar);
 
@@ -387,7 +390,7 @@ public class TelaListaFornecedor extends JanelaPadrao {
 							JOptionPane.showMessageDialog(janela, "Fornecedor editado com sucesso!");
 							motivoIndisponibilidade = null;
 							janela.dispose();
-							new TelaListaFornecedor("Lista de Fornecedores");
+							new TelaListaFornecedor(Constantes.TITULO_LISTAR_FORNECEDORES);
 						}
 					}
 
@@ -428,7 +431,7 @@ public class TelaListaFornecedor extends JanelaPadrao {
 							JOptionPane.showMessageDialog(janela, "Fornecedor editado com sucesso!");
 							motivoIndisponibilidade = null;
 							janela.dispose();
-							new TelaListaFornecedor("Lista de Fornecedores");
+							new TelaListaFornecedor(Constantes.TITULO_LISTAR_FORNECEDORES);
 
 						}
 					}
@@ -444,7 +447,7 @@ public class TelaListaFornecedor extends JanelaPadrao {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == editarDados.getBotaoVoltar()) {
 				dispose();
-				new TelaListaFornecedor("Lista de Fornecedores");
+				new TelaListaFornecedor(Constantes.TITULO_LISTAR_FORNECEDORES);
 			}
 		}
 

@@ -2,15 +2,14 @@ package telas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
-
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.Reuniao;
 import util.ComponentesDeJFrame;
+import util.Constantes;
 
 public class TelaVisualizarAta extends JanelaPadrao {
 
@@ -86,7 +85,7 @@ public class TelaVisualizarAta extends JanelaPadrao {
 
 		public void actionPerformed(ActionEvent e) {
 			dispose();
-			new TelaListaReunioes("Lista de Reuniões");
+			new TelaListaReunioes(Constantes.TITULO_LISTAR_REUNIOES);
 
 		}
 
