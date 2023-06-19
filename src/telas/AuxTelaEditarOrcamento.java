@@ -24,6 +24,7 @@ import model.Pessoa;
 import util.ComponentesDeJFrame;
 import util.Constantes;
 import util.ConversorData;
+import util.LimparTabela;
 
 public class AuxTelaEditarOrcamento {
 
@@ -189,7 +190,7 @@ public class AuxTelaEditarOrcamento {
 	}
 
 	public void preencherTabela(Object[] fornecedoresOrcamento) {
-		limparTabela();
+		LimparTabela.limparTabela(modelo, tabela);
 		for (Object t : fornecedoresOrcamento) {
 			Object[] linha = new Object[1];
 
@@ -207,15 +208,7 @@ public class AuxTelaEditarOrcamento {
 		tabela.repaint();
 
 	}
-
-	public void limparTabela() {
-		int cont = modelo.getRowCount();
-		for (int i = 0; i < cont; i++) {
-			modelo.removeRow(0);
-		}
-		tabela.repaint();
-	}
-
+	
 	public static String mudarDeLocalDateTimeParaString(LocalDateTime dataEHora) {
 
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");

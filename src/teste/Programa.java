@@ -39,9 +39,6 @@ public class Programa {
 		} else {
 			JanelaPadrao janela = new CadastamentoAdministrador();
 		}
-		
-		//new TelaMenu("Menu");
-		//new TelaListarOrcamentosContratos("titulo");
 
 	}
 

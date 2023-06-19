@@ -21,6 +21,7 @@ import util.Constantes;
 import util.JLabelRenderer;
 
 public class TelaListarPacotesFornecedores extends JanelaPadrao {
+	
 	private DefaultTableModel modelo;
 	private JTable tabela;
 	
@@ -88,6 +89,7 @@ public class TelaListarPacotesFornecedores extends JanelaPadrao {
 
 
 	public void preencherTabela(Object[] pacotes) {
+		
 		for (Object p : pacotes) {
 			Pacote pacote = (Pacote) p;
 			Object[] linha = new Object[6];

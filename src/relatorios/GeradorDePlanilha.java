@@ -24,13 +24,13 @@ public class GeradorDePlanilha {
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		HSSFSheet sheetUsers = workbook.createSheet("Usuarios");
 
-		int rownum = 0;
+		int numLinha = 0;
 		int cellnum = 0;
 		if (!orcamentoOuContrato.getFornecedores().isEmpty()) {
 			for (Pessoa fornecedor : orcamentoOuContrato.getFornecedores()) {
 				
 
-				Row row = sheetUsers.createRow(rownum++);
+				Row row = sheetUsers.createRow(numLinha++);
 				cellnum = 0;
 				Cell cellId = row.createCell(cellnum++);
 				cellId.setCellValue(fornecedor.getNome());
@@ -40,7 +40,7 @@ public class GeradorDePlanilha {
 		}else {
 			Row row = null;
 			for (Pacote pacote : orcamentoOuContrato.getPacotesDeFornecedores()) {
-				row = sheetUsers.createRow(rownum++);
+				row = sheetUsers.createRow(numLinha++);
 				cellnum = 0;
 				Cell cellId = row.createCell(cellnum++);
 				cellId.setCellValue(pacote.getNomeDoPacote());
@@ -51,7 +51,7 @@ public class GeradorDePlanilha {
 				
 				
 			}
-			row = sheetUsers.createRow(rownum++);
+			row = sheetUsers.createRow(numLinha++);
 			cellnum = 0;
 			Cell cellTitulo = row.createCell(cellnum++);
 			cellTitulo.setCellValue("Valor Final: ");
@@ -64,14 +64,12 @@ public class GeradorDePlanilha {
 			FileOutputStream out = new FileOutputStream(new File(GeradorDePlanilha.fileName));
 			workbook.write(out);
 			out.close();
-			System.out.println("Arquivo Excel criado com sucesso!");
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			System.out.println("Arquivo n�o encontrado!");
+			
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("Erro na edi��o do arquivo!");
 		}
 
 	}

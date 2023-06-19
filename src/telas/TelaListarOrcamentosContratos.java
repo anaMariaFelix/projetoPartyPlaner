@@ -18,6 +18,7 @@ import util.ButtonEditor;
 import util.ButtonRenderer;
 import util.ComponentesDeJFrame;
 import util.Constantes;
+import util.LimparTabela;
 
 public class TelaListarOrcamentosContratos extends JanelaPadrao{
 	private JLabel titulo;
@@ -108,7 +109,7 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 	}
 	
 	public void preencherTabela(Object[] orcamentosEContratos) {
-		limparTabela();
+		LimparTabela.limparTabela(modelo, tabela);
 		for (Object o : orcamentosEContratos) {
 			OrcamentoOuContrato orcamentoOuContrato = (OrcamentoOuContrato) o;
 			Object[] linha = new Object[6];
@@ -187,13 +188,6 @@ public class TelaListarOrcamentosContratos extends JanelaPadrao{
 
 	}
 	
-	public void limparTabela() {
-		int cont = modelo.getRowCount();
-		for (int i = 0; i < cont; i++) {
-			modelo.removeRow(0);
-		}
-		tabela.repaint();
-	}
 	
 	private class OuvinteBotaoVoltar implements ActionListener {
 

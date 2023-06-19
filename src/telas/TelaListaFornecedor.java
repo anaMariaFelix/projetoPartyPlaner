@@ -26,11 +26,13 @@ import util.ButtonEditor;
 import util.ButtonRenderer;
 import util.ComponentesDeJFrame;
 import util.Constantes;
+import util.LimparTabela;
 import util.ValidaEmail;
 import util.ValidadorCPF;
 import util.ValidarCNPJ;
 
 public class TelaListaFornecedor extends JanelaPadrao {
+	
 	private DefaultTableModel modelo;
 	private JTable tabela;
 	
@@ -119,7 +121,7 @@ public class TelaListaFornecedor extends JanelaPadrao {
 	}
 
 	public void preencherTabela(Object[] fornecedores) {
-		limparTabela();
+		LimparTabela.limparTabela(modelo, tabela);
 		for (Object t : fornecedores) {
 			Object[] linha = new Object[5];
 
@@ -151,14 +153,6 @@ public class TelaListaFornecedor extends JanelaPadrao {
 
 		}
 
-	}
-
-	public void limparTabela() {
-		int cont = modelo.getRowCount();
-		for (int i = 0; i < cont; i++) {
-			modelo.removeRow(0);
-		}
-		tabela.repaint();
 	}
 
 	private void adicionarRadioButton() {

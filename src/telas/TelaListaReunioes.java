@@ -19,6 +19,7 @@ import util.ButtonEditor;
 import util.ButtonRenderer;
 import util.ComponentesDeJFrame;
 import util.Constantes;
+import util.LimparTabela;
 
 public class TelaListaReunioes extends JanelaPadrao {
 	private JButton voltar;
@@ -74,7 +75,7 @@ public class TelaListaReunioes extends JanelaPadrao {
 	}
 
 	public void preencherTabela(Object[] reunioes) {
-		limparTabela();
+		LimparTabela.limparTabela(modelo, tabela);
 		for (Object r : reunioes) {
 			Reuniao reuniao = (Reuniao) r;
 			Object[] linha = new Object[5];
@@ -104,14 +105,6 @@ public class TelaListaReunioes extends JanelaPadrao {
 
 		}
 
-	}
-
-	public void limparTabela() {
-		int cont = modelo.getRowCount();
-		for (int i = 0; i < cont; i++) {
-			modelo.removeRow(0);
-		}
-		tabela.repaint();
 	}
 
 	private class OuvinteBotaoVoltar implements ActionListener {

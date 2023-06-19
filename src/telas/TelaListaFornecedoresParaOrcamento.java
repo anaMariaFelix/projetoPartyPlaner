@@ -25,8 +25,10 @@ import util.ComponentesDeJFrame;
 import util.Constantes;
 
 public class TelaListaFornecedoresParaOrcamento extends JanelaPadrao{
+	
 	private DefaultTableModel modelo;
 	private JTable tabela;
+	
 	private JLabel titulo;
 	private JButton voltar;
 	private JButton botaoNovo;

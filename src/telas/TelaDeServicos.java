@@ -15,12 +15,14 @@ import util.ComponentesDeJFrame;
 import util.Constantes;
 
 public class TelaDeServicos extends JanelaPadrao {
+	
+	private DefaultTableModel modelo;
 	private JTable tabela;
+	
 	private JButton jbVolta;
 	private JButton jbEditar;
 	private JButton jbRemover;
 	private JButton jbNovo;
-	private DefaultTableModel modelo;
 
 
 	public TelaDeServicos(String titulo) {
@@ -185,8 +187,10 @@ public class TelaDeServicos extends JanelaPadrao {
 			String novoServico = JOptionPane.showInputDialog(janela, "Informe o novo Serviço");
 			Object[] novoServico2 = {novoServico};
 			if(novoServico != null) {
+				
 				ServicoController.getInstance().adicionarServico(novoServico);
 				JOptionPane.showMessageDialog(janela, "Adicionado");
+				
 				janela.getModelo().addRow(novoServico2);
 				janela.getTabela().repaint();
 			}

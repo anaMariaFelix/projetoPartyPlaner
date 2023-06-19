@@ -223,9 +223,14 @@ public class TelaCadastrarPacotes extends JanelaPadrao {
 		}
 
 		public void actionPerformed(ActionEvent e) {
+			Pessoa fornecedorEscolhido = null;
 			Object[] todosFonecedores = FornecedorController.getInstance().obterTodosOsFornecedores().toArray();
-			Pessoa fornecedorEscolhido = (Pessoa) JOptionPane.showInputDialog(janela, "Escolha um Fornecedor por vez",
-					"fornecedores", JOptionPane.QUESTION_MESSAGE, null, todosFonecedores, todosFonecedores[0]);
+			if (todosFonecedores.length == 0) {
+				JOptionPane.showMessageDialog(janela, "Não ha fornecedores para adicionar");
+			}else {
+				fornecedorEscolhido = (Pessoa) JOptionPane.showInputDialog(janela, "Escolha um Fornecedor por vez","fornecedores", JOptionPane.QUESTION_MESSAGE, null, todosFonecedores, todosFonecedores[0]);
+			}
+			
 
 			if (fornecedorEscolhido != null) {
 				if (!getListaDeFornecedores().contains(fornecedorEscolhido)) {

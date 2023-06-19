@@ -11,6 +11,7 @@ import util.ComponentesDeJFrame;
 import util.Constantes;
 
 public class TelaMenu extends JanelaPadrao{
+	
 	private JButton botaoCadastrarCliente;
 	private JButton botaoCadastrarFornecedor;
 	private JButton botaoServicos;

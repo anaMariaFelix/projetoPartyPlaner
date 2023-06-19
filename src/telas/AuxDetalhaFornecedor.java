@@ -102,6 +102,7 @@ public class AuxDetalhaFornecedor {
 	
 	
 	private JTextField exibeDisponibilidade(Pessoa pessoa) {
+		
 		JTextField disponibilidade = ComponentesDeJFrame.criaJTextField(100,408, 225, 30);
 		if(pessoa instanceof FornecedorFisico) {
 			FornecedorFisico fisico = (FornecedorFisico) pessoa;
