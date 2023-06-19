@@ -9,7 +9,6 @@ import org.apache.commons.mail.SimpleEmail;
 import controller.AdministradorController;
 import model.OrcamentoOuContrato;
 import model.Reuniao;
-import telas.SplashScreen;
 
 public class Mensageiro {
 	
@@ -29,7 +28,6 @@ public class Mensageiro {
 					+ AdministradorController.getInstance().obterAdministrador().getSobrenome() + "\n" + "\n"
 					+ "Data da reuniao: " + reuniao.getDataHora() + "\n" + msg);
 			email.send();
-			SplashScreen.getInstance().showSplashAndExit();	
 			JOptionPane.showMessageDialog(null, "Email enviado com sucesso");
 
 		} catch (EmailException e) {
